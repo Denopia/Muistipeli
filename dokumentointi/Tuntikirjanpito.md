@@ -1,0 +1,1 @@
+29.7.2015 = 1h = Tehtiin repositorio githubiin ja projekti netbeansiin.
