@@ -1,7 +1,7 @@
 package UserInterface;
 
 import Controller.TileController;
-import Elements.Tile;
+import Tile.Tile;
 import Game.SinglePlayerGame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

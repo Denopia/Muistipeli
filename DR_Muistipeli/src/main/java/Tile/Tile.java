@@ -1,4 +1,4 @@
-package Elements;
+package Tile;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -67,6 +67,9 @@ public class Tile {
     }
 
     public void unTurn() {
+        if(paired){
+            return;
+        }
         this.turned = false;
         this.currentImg = createImage(blankPath);
     }

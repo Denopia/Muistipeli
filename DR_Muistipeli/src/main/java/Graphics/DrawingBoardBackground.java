@@ -1,6 +1,6 @@
 package Graphics;
 
-import Elements.Tile;
+import Tile.Tile;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;

@@ -1,7 +1,7 @@
 package Game;
 
 import Controller.TileController;
-import Elements.Tile;
+import Tile.Tile;
 import Graphics.DrawingBoardBackground;
 import UserInterface.MouseMovementListenerSinglePlayerGame;
 import java.awt.event.ActionEvent;
