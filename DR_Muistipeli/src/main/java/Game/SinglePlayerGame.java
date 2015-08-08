@@ -3,6 +3,7 @@ package Game;
 import Controller.TileController;
 import Tile.Tile;
 import Graphics.DrawingBoardBackground;
+import Player.Player;
 import UserInterface.MouseMovementListenerSinglePlayerGame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,13 +18,15 @@ public class SinglePlayerGame {
     private DrawingBoardBackground dbbg;
     private TileController tc;
     private MouseMovementListenerSinglePlayerGame mouseListener;
+    private Player player;
 
     public SinglePlayerGame(int pairs, JFrame frame, GameScreen gs) {
+        this.player = new Player();
         this.frame = frame;
         this.gameScreen = gs;
         this.tc = new TileController(pairs);
         this.tc.shuffleTiles();
-        this.dbbg = new DrawingBoardBackground(getTiles());
+        this.dbbg = new DrawingBoardBackground(getTiles(), player);
         this.mouseListener = new MouseMovementListenerSinglePlayerGame(this);
         this.frame.add(dbbg);
         this.frame.addMouseListener(mouseListener);
@@ -51,6 +54,7 @@ public class SinglePlayerGame {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     tc.pairTiles();
+                    player.setNeutral();
                     refresh();
                 }
             });
@@ -59,9 +63,15 @@ public class SinglePlayerGame {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     tc.unTurnUnpairedTiles();
+                    player.setNeutral();
                     refresh();
                 }
             });
+        }
+        if (tc.checkPair()) {
+            player.scorePair();
+        } else {
+            player.failPair();
         }
         timer.setRepeats(false);
         timer.start();

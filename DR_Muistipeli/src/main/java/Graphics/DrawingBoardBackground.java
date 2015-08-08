@@ -1,5 +1,6 @@
 package Graphics;
 
+import Player.Player;
 import Tile.Tile;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,9 +12,11 @@ import javax.swing.JPanel;
 public class DrawingBoardBackground extends JPanel {
 
     private ArrayList<Tile> tiles;
+    private Player player;
 
-    public DrawingBoardBackground(ArrayList<Tile> tiles) {
+    public DrawingBoardBackground(ArrayList<Tile> tiles, Player player) {
         this.tiles = tiles;
+        this.player = player;
         setOpaque(false);
     }
 
@@ -25,6 +28,7 @@ public class DrawingBoardBackground extends JPanel {
         for (Tile tile : tiles) {
             g2d.drawImage(tile.getImage(), tile.getX(), tile.getY(), null);
         }
+        g2d.drawImage(player.getPortrait(), 15, 133, null);
     }
 
     public Image makeImage(String path) {
