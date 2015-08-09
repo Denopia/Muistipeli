@@ -9,15 +9,19 @@ import java.util.ArrayList;
 public class Player {
 
     private GameCharacter gc;
-    private ArrayList<Tile> tiles;
+    private ArrayList<Tile> scoredTiles;
 
     public Player() {
         this.gc = new PBot();
-        this.tiles = new ArrayList<Tile>();
+        this.scoredTiles = new ArrayList<Tile>();
     }
 
-    public void addPair(Tile tile) {
-        this.tiles.add(tile);
+    public int getNumberOfPairsScored() {
+        return this.scoredTiles.size();
+    }
+
+    public void addScoredPair(Tile tile) {
+        this.scoredTiles.add(tile);
     }
 
     public Image getPortrait() {
@@ -29,18 +33,18 @@ public class Player {
     }
 
     public void failPair() {
-       setUnhappy();
+        setUnhappy();
     }
-    
-    public void setHappy(){
+
+    public void setHappy() {
         this.gc.setCurrentImage(this.gc.getYes());
     }
-    
-    public void setUnhappy(){
+
+    public void setUnhappy() {
         this.gc.setCurrentImage(this.gc.getNo());
     }
-    
-    public void setNeutral(){
+
+    public void setNeutral() {
         this.gc.setCurrentImage(this.gc.getBasic());
     }
 

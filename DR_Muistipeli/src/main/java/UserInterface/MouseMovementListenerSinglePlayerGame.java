@@ -23,22 +23,24 @@ public class MouseMovementListenerSinglePlayerGame extends MouseAdapter {
 
     @Override
     public void mouseMoved(MouseEvent me) {
-        boolean hili = false;
-        for (Tile tile : tileController.getTiles()) {
-            if ((me.getX() - 9) >= (tile.getX() + 4)
-                    && (me.getX() - 9) <= (tile.getX() + 80 - 4)
-                    && (me.getY() - 38) >= (tile.getY() + 6)
-                    && (me.getY() - 38) <= (tile.getY() + 80 - 6)) {
-                tileController.unHighlightAll();
-                tile.highlight();
-                hili = true;
-                break;
+        if (game.isPlayersTurn()) {
+            boolean hili = false;
+            for (Tile tile : tileController.getTiles()) {
+                if ((me.getX() - 9) >= (tile.getX() + 4)
+                        && (me.getX() - 9) <= (tile.getX() + 80 - 4)
+                        && (me.getY() - 38) >= (tile.getY() + 6)
+                        && (me.getY() - 38) <= (tile.getY() + 80 - 6)) {
+                    tileController.unHighlightAll();
+                    tile.highlight();
+                    hili = true;
+                    break;
+                }
             }
+            if (!hili) {
+                tileController.unHighlightAll();
+            }
+            game.refresh();
         }
-        if (!hili) {
-            tileController.unHighlightAll();
-        }
-        game.refresh();
     }
 
     @Override
@@ -48,24 +50,26 @@ public class MouseMovementListenerSinglePlayerGame extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent me) {
-        if (tileController.getTilesTurned() == 2) {
-            return;
-        }
-        if (me.getButton() == 1) {
-            for (Tile tile : tileController.getTiles()) {
-                if ((me.getX() - 9) >= (tile.getX() + 4)
-                        && (me.getX() - 9) <= (tile.getX() + 80 - 4)
-                        && (me.getY() - 38) >= (tile.getY() + 6)
-                        && (me.getY() - 38) <= (tile.getY() + 80 - 6)) {
-                    tile.turn();
-                    break;
+        if (game.isPlayersTurn()) {
+            if (tileController.getTilesTurned() == 2) {
+                return;
+            }
+            if (me.getButton() == 1) {
+                for (Tile tile : tileController.getTiles()) {
+                    if ((me.getX() - 9) >= (tile.getX() + 4)
+                            && (me.getX() - 9) <= (tile.getX() + 80 - 4)
+                            && (me.getY() - 38) >= (tile.getY() + 6)
+                            && (me.getY() - 38) <= (tile.getY() + 80 - 6)) {
+                        tile.turn();
+                        break;
+                    }
+                }
+                if (tileController.getTilesTurned() == 2) {
+                    game.twoTilesTurned();
                 }
             }
-            if (tileController.getTilesTurned() == 2) {
-                game.twoTilesTurned();
-            }
+            game.refresh();
         }
-        game.refresh();
     }
 
     @Override

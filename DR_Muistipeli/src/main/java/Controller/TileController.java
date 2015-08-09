@@ -1,5 +1,7 @@
 package Controller;
 
+import Player.OpponentAI;
+import Player.Player;
 import Tile.Tile;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,8 +37,11 @@ public class TileController {
         int x = 251;
         int y = 148;
         int z = 0;
+        int p = 0;
         for (Tile tile : this.tiles) {
             tile.setCoordinates(x, y);
+            tile.setPlacement(p);
+            p++;
             x += 85;
             z += 1;
             if (z == 6) {
@@ -90,6 +95,24 @@ public class TileController {
         }
     }
 
+    public void pairTiles(Player player) {
+        for (Tile tile : tiles) {
+            if (tile.getTurned()) {
+                tile.pair();
+                player.addScoredPair(tile);
+            }
+        }
+    }
+
+    public void pairTiles(OpponentAI opponent) {
+        for (Tile tile : tiles) {
+            if (tile.getTurned()) {
+                tile.pair();
+                opponent.addScoredPair(tile);
+            }
+        }
+    }
+
     public void unTurnTiles() {
         for (Tile tile : tiles) {
             tile.unTurn();
@@ -113,4 +136,35 @@ public class TileController {
         }
         return pt;
     }
+
+    public ArrayList<Tile> getPairedTiles() {
+        ArrayList<Tile> t = new ArrayList<>();
+        for (Tile tile : tiles) {
+            if (tile.getPaired()) {
+                t.add(tile);
+            }
+        }
+        return t;
+    }
+
+    public ArrayList<Tile> getFlippedTiles() {
+        ArrayList<Tile> t = new ArrayList<>();
+        for (Tile tile : tiles) {
+            if (tile.getTurned()) {
+                t.add(tile);
+            }
+        }
+        return t;
+    }
+
+    public ArrayList<Tile> getHiddenTiles() {
+        ArrayList<Tile> t = new ArrayList<>();
+        for (Tile tile : tiles) {
+            if (!tile.getPaired()) {
+                t.add(tile);
+            }
+        }
+        return t;
+    }
+
 }

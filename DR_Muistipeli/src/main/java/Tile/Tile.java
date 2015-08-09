@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 public class Tile {
 
     private int id;
+    private int placement;
     private int x;
     private int y;
     private boolean turned;
@@ -47,6 +48,14 @@ public class Tile {
         return this.id;
     }
 
+    public int getPlacement() {
+        return this.placement;
+    }
+
+    public void setPlacement(int i) {
+        this.placement = i;
+    }
+
     public void setCoordinates(int x, int y) {
         this.x = x;
         this.y = y;
@@ -67,7 +76,7 @@ public class Tile {
     }
 
     public void unTurn() {
-        if(paired){
+        if (paired) {
             return;
         }
         this.turned = false;
