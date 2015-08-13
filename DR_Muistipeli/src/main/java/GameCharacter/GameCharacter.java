@@ -5,6 +5,10 @@ import javax.swing.ImageIcon;
 
 public class GameCharacter {
 
+    private int hp;
+    private int energy;
+    private int attack;
+    private int armor;
     private Image currentImage;
     private String basicImage;
     private String yesImage;
@@ -19,6 +23,38 @@ public class GameCharacter {
         this.noImage = noImage;
     }
 
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int i) {
+        this.attack = i;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int i) {
+        this.armor = i;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int i) {
+        this.hp = i;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int i) {
+        this.energy = i;
+    }
+
     public String getBasic() {
         return this.basicImage;
     }
@@ -26,10 +62,10 @@ public class GameCharacter {
     public String getYes() {
         return this.yesImage;
     }
+
     public String getNo() {
         return this.noImage;
     }
-    
 
     public Image getCurrentImage() {
         return this.currentImage;

@@ -91,7 +91,11 @@ public class MainMenu {
     }
 
     public void startNormalSinglePlayerGame() {
-        gameScreen.buildSinglePlayerGame();
+        gameScreen.buildNormalSinglePlayerGame();
+    }
+    
+    public void startBattleSinglePlayerGame() {
+        gameScreen.buildBattleSinglePlayerGame();
     }
 
     public void showInstructions() {

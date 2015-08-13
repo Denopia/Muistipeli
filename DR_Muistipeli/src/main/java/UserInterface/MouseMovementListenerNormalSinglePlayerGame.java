@@ -1,17 +1,17 @@
 package UserInterface;
 
-import Controller.TileController;
-import Tile.Tile;
-import Game.SinglePlayerGame;
+import Controller.NormalTileController;
+import Tile.NormalTile;
+import Game.NormalSinglePlayerGame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MouseMovementListenerSinglePlayerGame extends MouseAdapter {
+public class MouseMovementListenerNormalSinglePlayerGame extends MouseAdapter {
 
-    private SinglePlayerGame game;
-    private TileController tileController;
+    private NormalSinglePlayerGame game;
+    private NormalTileController tileController;
 
-    public MouseMovementListenerSinglePlayerGame(SinglePlayerGame game) {
+    public MouseMovementListenerNormalSinglePlayerGame(NormalSinglePlayerGame game) {
         this.tileController = game.getController();
         this.game = game;
     }
@@ -25,7 +25,7 @@ public class MouseMovementListenerSinglePlayerGame extends MouseAdapter {
     public void mouseMoved(MouseEvent me) {
         if (game.isPlayersTurn()) {
             boolean hili = false;
-            for (Tile tile : tileController.getTiles()) {
+            for (NormalTile tile : tileController.getTiles()) {
                 if ((me.getX() - 9) >= (tile.getX() + 4)
                         && (me.getX() - 9) <= (tile.getX() + 80 - 4)
                         && (me.getY() - 38) >= (tile.getY() + 6)
@@ -55,7 +55,7 @@ public class MouseMovementListenerSinglePlayerGame extends MouseAdapter {
                 return;
             }
             if (me.getButton() == 1) {
-                for (Tile tile : tileController.getTiles()) {
+                for (NormalTile tile : tileController.getTiles()) {
                     if ((me.getX() - 9) >= (tile.getX() + 4)
                             && (me.getX() - 9) <= (tile.getX() + 80 - 4)
                             && (me.getY() - 38) >= (tile.getY() + 6)

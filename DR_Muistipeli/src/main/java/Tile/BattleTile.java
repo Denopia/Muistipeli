@@ -3,7 +3,7 @@ package Tile;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Tile {
+public class BattleTile {
 
     private int id;
     private int placement;
@@ -17,7 +17,7 @@ public class Tile {
     private String turnedPath;
     private Image currentImg;
 
-    public Tile(int p, String blankPath, String highlightPath, String turnedPath) {
+    public BattleTile(int p, String blankPath, String highlightPath, String turnedPath) {
         this.id = p;
         this.blankPath = blankPath;
         this.highlightPath = highlightPath;

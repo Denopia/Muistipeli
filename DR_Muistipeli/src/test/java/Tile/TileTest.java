@@ -6,11 +6,11 @@ import org.junit.Test;
 
 public class TileTest {
 
-    Tile tile;
+    NormalTile tile;
 
     @Before
     public void setup() {
-        tile = new Tile(1, "watchBlank2x.png", "watchhighlight2x.png", "watch2x0.png");
+        tile = new NormalTile(1, "watchBlank2x.png", "watchhighlight2x.png", "watch2x0.png");
     }
 
     @Test

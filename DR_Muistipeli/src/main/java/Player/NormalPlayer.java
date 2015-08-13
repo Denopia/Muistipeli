@@ -2,25 +2,25 @@ package Player;
 
 import GameCharacter.GameCharacter;
 import GameCharacter.PBot;
-import Tile.Tile;
+import Tile.NormalTile;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public class Player {
+public class NormalPlayer {
 
     private GameCharacter gc;
-    private ArrayList<Tile> scoredTiles;
+    private ArrayList<NormalTile> scoredTiles;
 
-    public Player() {
+    public NormalPlayer() {
         this.gc = new PBot();
-        this.scoredTiles = new ArrayList<Tile>();
+        this.scoredTiles = new ArrayList<NormalTile>();
     }
 
     public int getNumberOfPairsScored() {
         return this.scoredTiles.size();
     }
 
-    public void addScoredPair(Tile tile) {
+    public void addScoredPair(NormalTile tile) {
         this.scoredTiles.add(tile);
     }
 

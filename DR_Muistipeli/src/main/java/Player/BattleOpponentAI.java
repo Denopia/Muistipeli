@@ -1,9 +1,9 @@
 package Player;
 
-import Game.SinglePlayerGame;
+import Game.BattleSinglePlayerGame;
 import GameCharacter.GameCharacter;
 import GameCharacter.PBot;
-import Tile.Tile;
+import Tile.BattleTile;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,31 +11,36 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.Timer;
 
-public class OpponentAI {
+public class BattleOpponentAI {
 
     private GameCharacter gc;
-    private ArrayList<Tile> scoredTiles;
-    private ArrayList<Tile> flippedTiles;
-    private SinglePlayerGame game;
+    private ArrayList<BattleTile> scoredTiles;
+    private ArrayList<BattleTile> flippedTiles;
+    private BattleSinglePlayerGame game;
 
-    public OpponentAI(SinglePlayerGame game) {
+    public BattleOpponentAI(BattleSinglePlayerGame game) {
         this.gc = new PBot("");
         this.game = game;
-        this.scoredTiles = new ArrayList<Tile>();
-        this.flippedTiles = new ArrayList<Tile>();
+        this.scoredTiles = new ArrayList<>();
+        this.flippedTiles = new ArrayList<>();
     }
 
-    public void addScoredPair(Tile tile) {
+    public GameCharacter getCharacter() {
+        return this.gc;
+    }
+
+    public void addScoredPair(BattleTile tile) {
+        this.gc.setEnergy(this.gc.getEnergy() + 3);
         this.scoredTiles.add(tile);
     }
-    
+
     public int getNumberOfPairsScored() {
         return this.scoredTiles.size();
     }
 
-    public void addSeenTile(Tile tile) {
+    public void addSeenTile(BattleTile tile) {
         boolean alreadyHere = false;
-        for (Tile tile2 : flippedTiles) {
+        for (BattleTile tile2 : flippedTiles) {
             if (tile2.getPlacement() == tile.getPlacement()) {
                 alreadyHere = true;
             }
@@ -45,7 +50,7 @@ public class OpponentAI {
         }
     }
 
-    public void removeSeenTile(Tile tile) {
+    public void removeSeenTile(BattleTile tile) {
         flippedTiles.remove(tile);
     }
 
@@ -82,7 +87,7 @@ public class OpponentAI {
     }
 
     public void cleanSeenTiles() {
-        for (Tile til : game.getController().getPairedTiles()) {
+        for (BattleTile til : game.getController().getPairedTiles()) {
             this.flippedTiles.remove(til);
         }
     }
@@ -94,7 +99,7 @@ public class OpponentAI {
 //            System.out.println(t.getPlacement());
 //        }
         Timer timer;
-        final ArrayList<Tile> seenPair = checkForPair();
+        final ArrayList<BattleTile> seenPair = checkForPair();
         if (!seenPair.isEmpty()) {
             timer = new Timer(1555, new ActionListener() {
                 @Override
@@ -112,14 +117,14 @@ public class OpponentAI {
                 public void actionPerformed(ActionEvent ae) {
                     System.out.println("I AM GUESSING ONE TILE RANDOMLY\n");
                     int random1 = randomNumber(getUnseenTiles().size());
-                    Tile turnedThisTurn = getUnseenTiles().get(random1);
+                    BattleTile turnedThisTurn = getUnseenTiles().get(random1);
                     flippedTiles.add(turnedThisTurn);
                     boolean luckyPair = false;
                     turnedThisTurn.turn();
-                    for (Tile tt : flippedTiles) {
+                    for (BattleTile tt : flippedTiles) {
                         if ((tt.getId() == turnedThisTurn.getId()) && (tt.getPlacement() != turnedThisTurn.getPlacement())) {
                             System.out.println("YES! I KNOW A PAIR FOR THIS ONE\n");
-                            Tile secondTile = tt;
+                            BattleTile secondTile = tt;
                             luckyPair = true;
                             secondTile.turn();
                         }
@@ -130,7 +135,7 @@ public class OpponentAI {
                         while (random1 == random2) {
                             random2 = randomNumber(getUnseenTiles().size());
                         }
-                        Tile secondTile = getUnseenTiles().get(random2);
+                        BattleTile secondTile = getUnseenTiles().get(random2);
                         flippedTiles.add(secondTile);
                         secondTile.turn();
 
@@ -149,12 +154,12 @@ public class OpponentAI {
         return r.nextInt(i);
     }
 
-    public ArrayList<Tile> getUnseenTiles() {
-        ArrayList<Tile> unturned = game.getController().getHiddenTiles();
-        ArrayList<Tile> unseen = new ArrayList<>();
-        for (Tile ut : unturned) {
+    public ArrayList<BattleTile> getUnseenTiles() {
+        ArrayList<BattleTile> unturned = game.getController().getHiddenTiles();
+        ArrayList<BattleTile> unseen = new ArrayList<>();
+        for (BattleTile ut : unturned) {
             boolean notSeen = true;
-            for (Tile ft : flippedTiles) {
+            for (BattleTile ft : flippedTiles) {
                 if (ut.getPlacement() == ft.getPlacement()) {
                     notSeen = false;
                 }
@@ -166,10 +171,10 @@ public class OpponentAI {
         return unseen;
     }
 
-    public ArrayList<Tile> checkForPair() {
-        ArrayList<Tile> tp = new ArrayList<>();
-        for (Tile tile : flippedTiles) {
-            for (Tile tile2 : flippedTiles) {
+    public ArrayList<BattleTile> checkForPair() {
+        ArrayList<BattleTile> tp = new ArrayList<>();
+        for (BattleTile tile : flippedTiles) {
+            for (BattleTile tile2 : flippedTiles) {
                 if ((tile.getPlacement() != tile2.getPlacement()) && (tile.getId() == tile2.getId())) {
                     tp.add(tile);
                     tp.add(tile2);
@@ -178,6 +183,10 @@ public class OpponentAI {
             }
         }
         return tp;
+    }
+
+    public void forgetAll() {
+        this.flippedTiles = new ArrayList<>();
     }
 
 }

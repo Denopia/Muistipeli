@@ -1,49 +1,49 @@
 package Game;
 
-import Controller.TileController;
-import Tile.Tile;
+import Controller.NormalTileController;
+import Tile.NormalTile;
 import Graphics.DrawingBoardNormalSingle;
-import Player.OpponentAI;
-import Player.Player;
-import UserInterface.MouseMovementListenerSinglePlayerGame;
+import Player.NormalOpponentAI;
+import Player.NormalPlayer;
+import UserInterface.MouseMovementListenerNormalSinglePlayerGame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class SinglePlayerGame {
+public class NormalSinglePlayerGame {
 
     private GameScreen gameScreen;
     private JFrame frame;
     private DrawingBoardNormalSingle dbbg;
-    private TileController tc;
-    private MouseMovementListenerSinglePlayerGame mouseListener;
-    private Player player;
-    private OpponentAI opponent;
+    private NormalTileController tc;
+    private MouseMovementListenerNormalSinglePlayerGame mouseListener;
+    private NormalPlayer player;
+    private NormalOpponentAI opponent;
     private boolean playersTurn;
 
-    public SinglePlayerGame(int pairs, JFrame frame, GameScreen gs) {
-        this.player = new Player();
-        this.opponent = new OpponentAI(this);
+    public NormalSinglePlayerGame(int pairs, JFrame frame, GameScreen gs) {
+        this.player = new NormalPlayer();
+        this.opponent = new NormalOpponentAI(this);
         playersTurn = true;
         this.frame = frame;
         this.gameScreen = gs;
-        this.tc = new TileController(pairs);
+        this.tc = new NormalTileController(pairs);
         this.tc.shuffleTiles();
         this.dbbg = new DrawingBoardNormalSingle(this.tc.getTiles(), player, opponent);
-        this.mouseListener = new MouseMovementListenerSinglePlayerGame(this);
+        this.mouseListener = new MouseMovementListenerNormalSinglePlayerGame(this);
         this.frame.add(dbbg);
         this.frame.addMouseListener(mouseListener);
         this.frame.addMouseMotionListener(mouseListener);
         dbbg.repaint();
     }
 
-    public ArrayList<Tile> getTiles() {
+    public ArrayList<NormalTile> getTiles() {
         return tc.getTiles();
     }
 
-    public TileController getController() {
+    public NormalTileController getController() {
         return tc;
     }
 

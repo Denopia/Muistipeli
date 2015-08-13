@@ -8,19 +8,20 @@ public class GameScreen {
 
     private final JFrame frame;
     private MainMenu mainMenu;
-    private SinglePlayerGame singlePlayerGame;
+    private NormalSinglePlayerGame normalSinglePlayerGame;
+    private BattleSinglePlayerGame battleSinglePlayerGame;
     private TwoPlayerGame twoPlayerGame;
 
     public GameScreen(JFrame frame) {
         this.frame = frame;
     }
-    
-    public void clearFrame(){
+
+    public void clearFrame() {
         this.frame.getContentPane().removeAll();
-        for(MouseListener m : frame.getMouseListeners()){
+        for (MouseListener m : frame.getMouseListeners()) {
             frame.removeMouseListener(m);
         }
-        for(MouseMotionListener m : frame.getMouseMotionListeners()){
+        for (MouseMotionListener m : frame.getMouseMotionListeners()) {
             frame.removeMouseMotionListener(m);
         }
     }
@@ -32,9 +33,9 @@ public class GameScreen {
         this.frame.repaint();
     }
 
-    public void buildSinglePlayerGame() {
+    public void buildNormalSinglePlayerGame() {
         clearFrame();
-        this.singlePlayerGame = new SinglePlayerGame(18, this.frame, this);
+        this.normalSinglePlayerGame = new NormalSinglePlayerGame(18, this.frame, this);
         this.frame.revalidate();
         this.frame.repaint();
     }
@@ -42,9 +43,16 @@ public class GameScreen {
     public void buildTwoPlayerGame() {
         this.twoPlayerGame = new TwoPlayerGame();
     }
-    
-    public void closeScreen(){
+
+    public void closeScreen() {
         this.frame.dispose();
+    }
+
+    void buildBattleSinglePlayerGame() {
+        clearFrame();
+        this.battleSinglePlayerGame = new BattleSinglePlayerGame(18, this.frame, this);
+        this.frame.revalidate();
+        this.frame.repaint();
     }
 
 }

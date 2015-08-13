@@ -1,8 +1,8 @@
 package Graphics;
 
-import Player.OpponentAI;
-import Player.Player;
-import Tile.Tile;
+import Player.NormalOpponentAI;
+import Player.NormalPlayer;
+import Tile.NormalTile;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -15,11 +15,11 @@ import javax.swing.JPanel;
 
 public class DrawingBoardNormalSingle extends JPanel {
 
-    private ArrayList<Tile> tiles;
-    private Player player;
-    private OpponentAI opponent;
+    private ArrayList<NormalTile> tiles;
+    private NormalPlayer player;
+    private NormalOpponentAI opponent;
 
-    public DrawingBoardNormalSingle(ArrayList<Tile> tiles, Player player, OpponentAI opponent) {
+    public DrawingBoardNormalSingle(ArrayList<NormalTile> tiles, NormalPlayer player, NormalOpponentAI opponent) {
         this.tiles = tiles;
         this.player = player;
         this.opponent = opponent;
@@ -31,7 +31,7 @@ public class DrawingBoardNormalSingle extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(makeImage("background.png"), 0, 0, null);
-        for (Tile tile : tiles) {
+        for (NormalTile tile : tiles) {
             g2d.drawImage(tile.getImage(), tile.getX(), tile.getY(), null);
         }
         g2d.drawImage(player.getPortrait(), 15, 133, null);

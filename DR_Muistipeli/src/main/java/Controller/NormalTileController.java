@@ -1,30 +1,30 @@
 package Controller;
 
-import Player.OpponentAI;
-import Player.Player;
-import Tile.Tile;
+import Player.NormalOpponentAI;
+import Player.NormalPlayer;
+import Tile.NormalTile;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class TileController {
+public class NormalTileController {
 
-    private ArrayList<Tile> tiles;
+    private ArrayList<NormalTile> tiles;
 
-    public TileController(int pairs) {
+    public NormalTileController(int pairs) {
         this.tiles = new ArrayList<>();
-        int i = 0;
+        int i = 1;
         for (int j = 0; j < pairs; j++) {
             String pname = "watch2x" + i + ".png";
-            tiles.add(new Tile(i, "watchBlank2x.png", "watchHighlight2x.png", pname));
-            tiles.add(new Tile(i, "watchBlank2x.png", "watchHighlight2x.png", pname));
+            tiles.add(new NormalTile(i, "watchBlank2x.png", "watchHighlight2x.png", pname));
+            tiles.add(new NormalTile(i, "watchBlank2x.png", "watchHighlight2x.png", pname));
             i++;
             if (i == 10) {
-                i = 0;
+                i = 1;
             }
         }
     }
 
-    public ArrayList<Tile> getTiles() {
+    public ArrayList<NormalTile> getTiles() {
         return this.tiles;
     }
 
@@ -38,7 +38,7 @@ public class TileController {
         int y = 148;
         int z = 0;
         int p = 0;
-        for (Tile tile : this.tiles) {
+        for (NormalTile tile : this.tiles) {
             tile.setCoordinates(x, y);
             tile.setPlacement(p);
             p++;
@@ -57,7 +57,7 @@ public class TileController {
         int secondTileId = 987654321;
         boolean f = false;
         if (getTilesTurned() == 2) {
-            for (Tile tile : tiles) {
+            for (NormalTile tile : tiles) {
                 if (tile.getTurned()) {
                     if (!f) {
                         firstTileId = tile.getId();
@@ -73,7 +73,7 @@ public class TileController {
 
     public int getTilesTurned() {
         int tilesTurned = 0;
-        for (Tile tile : tiles) {
+        for (NormalTile tile : tiles) {
             if (tile.getTurned()) {
                 tilesTurned++;
             }
@@ -82,21 +82,21 @@ public class TileController {
     }
 
     public void unHighlightAll() {
-        for (Tile tile : tiles) {
+        for (NormalTile tile : tiles) {
             tile.unHighlight();
         }
     }
 
     public void pairTiles() {
-        for (Tile tile : tiles) {
+        for (NormalTile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();
             }
         }
     }
 
-    public void pairTiles(Player player) {
-        for (Tile tile : tiles) {
+    public void pairTiles(NormalPlayer player) {
+        for (NormalTile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();
                 player.addScoredPair(tile);
@@ -104,8 +104,8 @@ public class TileController {
         }
     }
 
-    public void pairTiles(OpponentAI opponent) {
-        for (Tile tile : tiles) {
+    public void pairTiles(NormalOpponentAI opponent) {
+        for (NormalTile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();
                 opponent.addScoredPair(tile);
@@ -114,13 +114,13 @@ public class TileController {
     }
 
     public void unTurnTiles() {
-        for (Tile tile : tiles) {
+        for (NormalTile tile : tiles) {
             tile.unTurn();
         }
     }
 
     public void unTurnUnpairedTiles() {
-        for (Tile tile : tiles) {
+        for (NormalTile tile : tiles) {
             if (!tile.getPaired()) {
                 tile.unTurn();
             }
@@ -129,7 +129,7 @@ public class TileController {
 
     public int pairedTiles() {
         int pt = 0;
-        for (Tile tile : tiles) {
+        for (NormalTile tile : tiles) {
             if (tile.getPaired()) {
                 pt++;
             }
@@ -137,9 +137,9 @@ public class TileController {
         return pt;
     }
 
-    public ArrayList<Tile> getPairedTiles() {
-        ArrayList<Tile> t = new ArrayList<>();
-        for (Tile tile : tiles) {
+    public ArrayList<NormalTile> getPairedTiles() {
+        ArrayList<NormalTile> t = new ArrayList<>();
+        for (NormalTile tile : tiles) {
             if (tile.getPaired()) {
                 t.add(tile);
             }
@@ -147,9 +147,9 @@ public class TileController {
         return t;
     }
 
-    public ArrayList<Tile> getFlippedTiles() {
-        ArrayList<Tile> t = new ArrayList<>();
-        for (Tile tile : tiles) {
+    public ArrayList<NormalTile> getFlippedTiles() {
+        ArrayList<NormalTile> t = new ArrayList<>();
+        for (NormalTile tile : tiles) {
             if (tile.getTurned()) {
                 t.add(tile);
             }
@@ -157,9 +157,9 @@ public class TileController {
         return t;
     }
 
-    public ArrayList<Tile> getHiddenTiles() {
-        ArrayList<Tile> t = new ArrayList<>();
-        for (Tile tile : tiles) {
+    public ArrayList<NormalTile> getHiddenTiles() {
+        ArrayList<NormalTile> t = new ArrayList<>();
+        for (NormalTile tile : tiles) {
             if (!tile.getPaired()) {
                 t.add(tile);
             }

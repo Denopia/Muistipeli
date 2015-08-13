@@ -1,6 +1,6 @@
 package Controller;
 
-import Tile.Tile;
+import Tile.NormalTile;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,11 +8,11 @@ import static org.junit.Assert.*;
 
 public class TileControllerTest {
 
-    TileController tc;
+    NormalTileController tc;
 
     @Before
     public void setup() {
-        tc = new TileController(18);
+        tc = new NormalTileController(18);
     }
 
     @Test
@@ -22,7 +22,7 @@ public class TileControllerTest {
 
     @Test
     public void canShuffle() {
-        ArrayList<Tile> tiles = tc.getTiles();
+        ArrayList<NormalTile> tiles = tc.getTiles();
         tc.shuffleTiles();
         //:]
     }
