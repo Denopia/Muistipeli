@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class DrawingBoardBackground extends JPanel {
+public class DrawingBoardNormalSingle extends JPanel {
 
     private ArrayList<Tile> tiles;
     private Player player;
     private OpponentAI opponent;
 
-    public DrawingBoardBackground(ArrayList<Tile> tiles, Player player, OpponentAI opponent) {
+    public DrawingBoardNormalSingle(ArrayList<Tile> tiles, Player player, OpponentAI opponent) {
         this.tiles = tiles;
         this.player = player;
         this.opponent = opponent;

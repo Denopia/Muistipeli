@@ -11,8 +11,10 @@ public class MainMenu {
     private GameScreen gameScreen;
     private MouseMovementListenerMainMenu mouseListener;
     private boolean mouseOnIns;
-    private boolean mouseOnSPG;
-    private boolean mouseOnTPG;
+    private boolean mouseOnNSPG;
+    private boolean mouseOnNMPG;
+    private boolean mouseOnBSPG;
+    private boolean mouseOnBMPG;
     private boolean mouseOnExit;
 
     public MainMenu(JFrame frame, GameScreen gs) {
@@ -23,59 +25,76 @@ public class MainMenu {
         this.frame.addMouseListener(mouseListener);
         this.frame.addMouseMotionListener(mouseListener);
         this.frame.add(dbm);
-        this.mouseOnIns = false;
-        this.mouseOnSPG = false;
-        this.mouseOnTPG = false;
-        this.mouseOnExit = false;
+        unHighlightAll();
     }
 
-    public void highlightSPG() {
-        if (!mouseOnSPG) {
-            mouseOnExit = false;
-            mouseOnIns = false;
-            mouseOnTPG = false;
-            mouseOnSPG = true;
-            dbm.setImage(1);
-            refresh();
+    public void highlightNSPG() {
+        if (!mouseOnNSPG) {
+            unHighlightAll();
+            mouseOnNSPG = true;
+            refresh(1);
+        }
+    }
+    
+    public void highlightNMPG() {
+        if (!mouseOnNMPG) {
+            unHighlightAll();
+            mouseOnNMPG = true;
+            refresh(2);
+        }
+    }
+    
+    public void highlightBSPG() {
+        if (!mouseOnBSPG) {
+            unHighlightAll();
+            mouseOnBSPG = true;
+            refresh(3);
+        }
+    }
+    
+    public void highlightBMPG() {
+        if (!mouseOnBMPG) {
+            unHighlightAll();
+            mouseOnBMPG = true;
+            refresh(4);
         }
     }
 
     public void highlightIns() {
         if (!mouseOnIns) {
-            mouseOnExit = false;
+            unHighlightAll();
             mouseOnIns = true;
-            mouseOnTPG = false;
-            mouseOnSPG = false;
-            dbm.setImage(2);
-            refresh();
+            refresh(5);
         }
     }
 
     public void highlightExit() {
         if (!mouseOnExit) {
+            unHighlightAll();
             mouseOnExit = true;
-            mouseOnIns = false;
-            mouseOnTPG = false;
-            mouseOnSPG = false;
-            dbm.setImage(3);
-            refresh();
+            refresh(6);
         }
     }
 
     public void unHighlightAll() {
         mouseOnExit = false;
         mouseOnIns = false;
-        mouseOnSPG = false;
-        mouseOnTPG = false;
-        dbm.setImage(0);
-        refresh();
+        mouseOnNSPG = false;
+        mouseOnNMPG = false;
+        mouseOnBSPG = false;
+        mouseOnBMPG = false;
     }
 
-    public void startSinglePlayerGame() {
+    public void unHighlightAllAndDraw() {
+        unHighlightAll();
+        refresh(0);
+    }
+
+    public void startNormalSinglePlayerGame() {
         gameScreen.buildSinglePlayerGame();
     }
-    
-    public void showInstructions(){
+
+    public void showInstructions() {
         System.out.println("Näytä ohjeet!");
     }
 
@@ -83,7 +102,8 @@ public class MainMenu {
         gameScreen.closeScreen();
     }
 
-    public void refresh() {
+    public void refresh(int state) {
+        dbm.setImage(state);
         this.dbm.repaint();
     }
 

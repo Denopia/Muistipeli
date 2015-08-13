@@ -2,7 +2,7 @@ package Game;
 
 import Controller.TileController;
 import Tile.Tile;
-import Graphics.DrawingBoardBackground;
+import Graphics.DrawingBoardNormalSingle;
 import Player.OpponentAI;
 import Player.Player;
 import UserInterface.MouseMovementListenerSinglePlayerGame;
@@ -16,7 +16,7 @@ public class SinglePlayerGame {
 
     private GameScreen gameScreen;
     private JFrame frame;
-    private DrawingBoardBackground dbbg;
+    private DrawingBoardNormalSingle dbbg;
     private TileController tc;
     private MouseMovementListenerSinglePlayerGame mouseListener;
     private Player player;
@@ -31,7 +31,7 @@ public class SinglePlayerGame {
         this.gameScreen = gs;
         this.tc = new TileController(pairs);
         this.tc.shuffleTiles();
-        this.dbbg = new DrawingBoardBackground(this.tc.getTiles(), player, opponent);
+        this.dbbg = new DrawingBoardNormalSingle(this.tc.getTiles(), player, opponent);
         this.mouseListener = new MouseMovementListenerSinglePlayerGame(this);
         this.frame.add(dbbg);
         this.frame.addMouseListener(mouseListener);

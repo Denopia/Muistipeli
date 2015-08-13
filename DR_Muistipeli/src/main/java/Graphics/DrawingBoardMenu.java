@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 
 public class DrawingBoardMenu extends JPanel {
 
-    private final String[] pictures = {"mainmenublank.png", "mainmenuspg.png", "mainmenuins.png", "mainmenuexit.png"};
+    private final String[] pictures = {"main_menu_blank.png", "main_menu_normal_single.png",
+        "main_menu_normal_multi.png", "main_menu_battle_single.png", "main_menu_battle_multi.png",
+        "main_menu_instructions.png"};
     private String currentPicture;
 
     public DrawingBoardMenu() {
