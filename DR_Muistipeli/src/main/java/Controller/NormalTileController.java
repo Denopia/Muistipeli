@@ -1,7 +1,7 @@
 package Controller;
 
-import Player.NormalOpponentAI;
-import Player.NormalPlayer;
+import Player.AIOpponent.AINormalOpponent;
+import Player.Human.NormalPlayer;
 import Tile.NormalTile;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -104,7 +104,7 @@ public class NormalTileController {
         }
     }
 
-    public void pairTiles(NormalOpponentAI opponent) {
+    public void pairTiles(AINormalOpponent opponent) {
         for (NormalTile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();

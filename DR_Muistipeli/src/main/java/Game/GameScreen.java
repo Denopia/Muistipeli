@@ -1,5 +1,8 @@
 package Game;
 
+import Game.GameModes.NormalSinglePlayerGame;
+import Game.GameModes.BattleSinglePlayerGame;
+import Game.GameModes.BattleMultiPlayerGame;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
@@ -10,7 +13,7 @@ public class GameScreen {
     private MainMenu mainMenu;
     private NormalSinglePlayerGame normalSinglePlayerGame;
     private BattleSinglePlayerGame battleSinglePlayerGame;
-    private TwoPlayerGame twoPlayerGame;
+    private BattleMultiPlayerGame twoPlayerGame;
 
     public GameScreen(JFrame frame) {
         this.frame = frame;
@@ -41,7 +44,7 @@ public class GameScreen {
     }
 
     public void buildTwoPlayerGame() {
-        this.twoPlayerGame = new TwoPlayerGame();
+        this.twoPlayerGame = new BattleMultiPlayerGame();
     }
 
     public void closeScreen() {

@@ -1,7 +1,7 @@
 package Graphics;
 
-import Player.NormalOpponentAI;
-import Player.NormalPlayer;
+import Player.AIOpponent.AINormalOpponent;
+import Player.Human.NormalPlayer;
 import Tile.NormalTile;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,9 +17,9 @@ public class DrawingBoardNormalSingle extends JPanel {
 
     private ArrayList<NormalTile> tiles;
     private NormalPlayer player;
-    private NormalOpponentAI opponent;
+    private AINormalOpponent opponent;
 
-    public DrawingBoardNormalSingle(ArrayList<NormalTile> tiles, NormalPlayer player, NormalOpponentAI opponent) {
+    public DrawingBoardNormalSingle(ArrayList<NormalTile> tiles, NormalPlayer player, AINormalOpponent opponent) {
         this.tiles = tiles;
         this.player = player;
         this.opponent = opponent;

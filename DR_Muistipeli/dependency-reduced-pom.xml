@@ -28,11 +28,13 @@
             <param>Tile*</param>
             <param>Controller*</param>
             <param>Game*</param>
+            <param>Player*</param>
           </targetClasses>
           <targetTests>
             <param>Tile*</param>
             <param>Controller*</param>
             <param>Game*</param>
+            <param>Player*</param>
           </targetTests>
         </configuration>
       </plugin>

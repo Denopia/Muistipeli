@@ -1,7 +1,7 @@
 package Controller;
 
-import Player.BattleOpponentAI;
-import Player.BattlePlayer;
+import Player.AIOpponent.AIBattleOpponent;
+import Player.Human.BattlePlayer;
 import Tile.BattleTile;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -97,7 +97,7 @@ public class BattleTileController {
         }
     }
 
-    public void pairTiles(BattleOpponentAI opponent) {
+    public void pairTiles(AIBattleOpponent opponent) {
         for (BattleTile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();

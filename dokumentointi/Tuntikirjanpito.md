@@ -9,3 +9,4 @@
 8.8.2015|2h|Paranneltiin yksinpeliä.
 9.8.2015|3h|Saatiin valmiiksi yksinkertainen muistipeli tekoälyä vastaan joka muistaa kaikki käännetyt laatat.
 10.8.2015|2h|Piirrettiin vähän grafiikkoja, laitettiin yksinpeliin näkyviin pistelaskuri ja paranneltiin vielä hieman tekoälyä.
+10.8.2015|4h|Tehtiin uusi pelimoodi joka on kopioversio tavallisesta pienillä muutoksilla. (Tulee joko yhdistää ne myöhemmin tai muuten siistiä)

@@ -1,6 +1,6 @@
 package Graphics;
 
-import Game.BattleSinglePlayerGame;
+import Game.GameModes.BattleSinglePlayerGame;
 import Tile.BattleTile;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

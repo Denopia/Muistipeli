@@ -1,7 +1,7 @@
 package UserInterface;
 
 import Controller.BattleTileController;
-import Game.BattleSinglePlayerGame;
+import Game.GameModes.BattleSinglePlayerGame;
 import Tile.BattleTile;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
