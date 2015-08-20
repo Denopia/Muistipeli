@@ -8,6 +8,10 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+/**
+ * Piirtää peliruudun
+ * 
+ */
 public class DrawingBoardBattleSingle extends JPanel {
 
     private BattleSinglePlayerGame BSPG;
@@ -25,8 +29,10 @@ public class DrawingBoardBattleSingle extends JPanel {
         for (BattleTile tile : BSPG.getTiles()) {
             g2d.drawImage(tile.getImage(), tile.getX(), tile.getY(), null);
         }
-        g2d.drawImage(BSPG.getPlayer().getPortrait(), 15, 133, null);
-        g2d.drawImage(BSPG.getOpponent().getPortrait(), 786 + 206, 133, -206, 306, null);
+        g2d.drawImage(makeImage("character_frame.png"), 12, 133, null);
+        g2d.drawImage(makeImage("character_frame.png"), 783, 133, null);
+        g2d.drawImage(BSPG.getPlayer().getPortrait(), 18, 139, null);
+        g2d.drawImage(BSPG.getOpponent().getPortrait(), 789 + 200, 139, -200, 300, null);
 
         paintStats(g2d);
     }

@@ -1,4 +1,4 @@
-package Controller;
+package TileController;
 
 import Player.AIOpponent.AIBattleOpponent;
 import Player.Human.BattlePlayer;
@@ -6,6 +6,10 @@ import Tile.BattleTile;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Kontrolloi pelin pelilaattoja
+ * 
+ */
 public class BattleTileController {
 
     private ArrayList<BattleTile> tiles;
@@ -165,8 +169,8 @@ public class BattleTileController {
         int i = 1;
         for (int j = 0; j < pairs; j++) {
             String pname = "watch2x" + i + ".png";
-            tiles.add(new BattleTile(i, "watchBlank2x.png", "watchHighlight2x.png", pname));
-            tiles.add(new BattleTile(i, "watchBlank2x.png", "watchHighlight2x.png", pname));
+            tiles.add(new BattleTile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
+            tiles.add(new BattleTile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
             i++;
             if (i == 10) {
                 i = 1;

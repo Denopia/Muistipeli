@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.Timer;
 
+/**
+ * Yksinpelin vastustaja. Pitää sisällään tietokonevastuksen
+ * tiedot ja suorittaa vastuksen vuoron.
+ * 
+ */
 public class AINormalOpponent {
 
     private GameCharacter gc;
@@ -19,10 +24,13 @@ public class AINormalOpponent {
     private NormalSinglePlayerGame game;
 
     public AINormalOpponent(NormalSinglePlayerGame game) {
-        this.gc = new PBot("");
         this.game = game;
         this.scoredTiles = new ArrayList<NormalTile>();
         this.flippedTiles = new ArrayList<NormalTile>();
+    }
+    
+    public void setCharacter(GameCharacter gc) {
+        this.gc = gc;
     }
 
     public void addScoredPair(NormalTile tile) {

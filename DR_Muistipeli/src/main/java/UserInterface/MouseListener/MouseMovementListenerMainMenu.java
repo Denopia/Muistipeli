@@ -1,9 +1,14 @@
-package UserInterface;
+package UserInterface.MouseListener;
 
 import Game.MainMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Kuuntelee hiiren liikettä ja klikkauksia.
+ * Suorittaa metodeja niiden perusteella.
+ * 
+ */
 public class MouseMovementListenerMainMenu extends MouseAdapter {
 
     private final MainMenu menu;
@@ -50,7 +55,7 @@ public class MouseMovementListenerMainMenu extends MouseAdapter {
                 && (me.getX()) <= (421 + 188)
                 && (me.getY()) >= (224)
                 && (me.getY()) <= (224 + 59)) {
-            menu.startNormalSinglePlayerGame();
+            menu.startPreparationScreen(1);
         } else if ((me.getX()) >= (421)
                 && (me.getX()) <= (421 + 188)
                 && (me.getY()) >= (285)
@@ -60,7 +65,7 @@ public class MouseMovementListenerMainMenu extends MouseAdapter {
                 && (me.getX()) <= (421 + 188)
                 && (me.getY()) >= (416)
                 && (me.getY()) <= (416 + 59)) {
-            menu.startBattleSinglePlayerGame();
+            menu.startPreparationScreen(2);
         } else if ((me.getX()) >= (421)
                 && (me.getX()) <= (421 + 188)
                 && (me.getY()) >= (476)

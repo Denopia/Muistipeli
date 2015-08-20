@@ -5,6 +5,10 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+/**
+ * Tekee pelin framen
+ * 
+ */
 public class UI implements Runnable {
 
     private JFrame frame;

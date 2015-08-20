@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class NormalPlayerTest {
+    
+    //Suurin osa metodeista jalleen settereita ja gettereita
 
     NormalPlayer player;
 

@@ -1,19 +1,25 @@
 package Player.Human;
 
 import GameCharacter.GameCharacter;
-import GameCharacter.PBot;
 import Tile.BattleTile;
 import java.awt.Image;
 import java.util.ArrayList;
 
+/**
+ * Pitää sisällään ihmispelaajan tiedot.
+ * 
+ */
 public class BattlePlayer {
 
     private GameCharacter gc;
     private ArrayList<BattleTile> scoredTiles;
 
     public BattlePlayer() {
-        this.gc = new PBot();
         this.scoredTiles = new ArrayList<>();
+    }
+
+    public void setCharacter(GameCharacter gc) {
+        this.gc = gc;
     }
 
     public int getNumberOfPairsScored() {
@@ -50,7 +56,7 @@ public class BattlePlayer {
     }
 
     public GameCharacter getCharacter() {
-      return this.gc;
+        return this.gc;
     }
 
 }

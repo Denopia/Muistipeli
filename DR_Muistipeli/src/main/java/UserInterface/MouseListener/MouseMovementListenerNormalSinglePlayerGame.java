@@ -1,17 +1,22 @@
-package UserInterface;
+package UserInterface.MouseListener;
 
-import Controller.BattleTileController;
-import Game.GameModes.BattleSinglePlayerGame;
-import Tile.BattleTile;
+import TileController.NormalTileController;
+import Tile.NormalTile;
+import Game.GameModes.NormalSinglePlayerGame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class MouseMovementListenerBattleSinglePlayerGame extends MouseAdapter {
+/**
+ * Kuuntelee hiiren liikettä ja klikkauksia.
+ * Suorittaa metodeja niiden perusteella.
+ * 
+ */
+public class MouseMovementListenerNormalSinglePlayerGame extends MouseAdapter {
 
-    private BattleSinglePlayerGame game;
-    private BattleTileController tileController;
+    private NormalSinglePlayerGame game;
+    private NormalTileController tileController;
 
-    public MouseMovementListenerBattleSinglePlayerGame(BattleSinglePlayerGame game) {
+    public MouseMovementListenerNormalSinglePlayerGame(NormalSinglePlayerGame game) {
         this.tileController = game.getController();
         this.game = game;
     }
@@ -24,14 +29,8 @@ public class MouseMovementListenerBattleSinglePlayerGame extends MouseAdapter {
     @Override
     public void mouseMoved(MouseEvent me) {
         if (game.isPlayersTurn()) {
-            if (me.getX() >= 76 && me.getX() <= 177 && me.getY() >= 550 && me.getY() <= 591) {
-                game.highlightHit();
-            } else {
-                game.unHighlightHit();
-            }
-
             boolean hili = false;
-            for (BattleTile tile : tileController.getTiles()) {
+            for (NormalTile tile : tileController.getTiles()) {
                 if ((me.getX() - 9) >= (tile.getX() + 4)
                         && (me.getX() - 9) <= (tile.getX() + 80 - 4)
                         && (me.getY() - 38) >= (tile.getY() + 6)
@@ -60,11 +59,8 @@ public class MouseMovementListenerBattleSinglePlayerGame extends MouseAdapter {
             if (tileController.getTilesTurned() == 2) {
                 return;
             }
-            if (me.getX() >= 76 && me.getX() <= 177 && me.getY() >= 550 && me.getY() <= 591) {
-                game.hitOpponent();
-            }
             if (me.getButton() == 1) {
-                for (BattleTile tile : tileController.getTiles()) {
+                for (NormalTile tile : tileController.getTiles()) {
                     if ((me.getX() - 9) >= (tile.getX() + 4)
                             && (me.getX() - 9) <= (tile.getX() + 80 - 4)
                             && (me.getY() - 38) >= (tile.getY() + 6)

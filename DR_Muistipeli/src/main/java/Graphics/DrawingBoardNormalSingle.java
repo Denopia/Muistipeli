@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+/**
+ * Piirtää peliruudun
+ * 
+ */
 public class DrawingBoardNormalSingle extends JPanel {
 
     private ArrayList<NormalTile> tiles;

@@ -1,17 +1,24 @@
 package Game.GameModes;
 
-import Controller.NormalTileController;
+import TileController.NormalTileController;
 import Game.GameScreen;
 import Tile.NormalTile;
 import Graphics.DrawingBoardNormalSingle;
 import Player.AIOpponent.AINormalOpponent;
 import Player.Human.NormalPlayer;
-import UserInterface.MouseMovementListenerNormalSinglePlayerGame;
+import UserInterface.MouseListener.MouseMovementListenerNormalSinglePlayerGame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.Timer;
+
+/**
+ * Noraali yksinpeli. Tietää hiiren sijainnin nappuloiden päällä.
+ * Suorittaa pelin toimintoja kun hiirellä klikkaa nappeja ja
+ * pelilaattoja. Tietää myös pelaajat.
+ * 
+ */
 
 public class NormalSinglePlayerGame {
 
@@ -24,7 +31,7 @@ public class NormalSinglePlayerGame {
     private AINormalOpponent opponent;
     private boolean playersTurn;
 
-    public NormalSinglePlayerGame(int pairs, JFrame frame, GameScreen gs) {
+    public NormalSinglePlayerGame(int pairs, JFrame frame, GameScreen gs, int difficulty, int playerCharacter, int opponentCharacter) {
         this.player = new NormalPlayer();
         this.opponent = new AINormalOpponent(this);
         playersTurn = true;

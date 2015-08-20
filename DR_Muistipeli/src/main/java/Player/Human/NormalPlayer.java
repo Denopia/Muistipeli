@@ -1,19 +1,27 @@
 package Player.Human;
 
 import GameCharacter.GameCharacter;
+import GameCharacter.Gus;
 import GameCharacter.PBot;
 import Tile.NormalTile;
 import java.awt.Image;
 import java.util.ArrayList;
 
+/**
+ * Pitää sisällään ihmispelaajan tiedot.
+ * 
+ */
 public class NormalPlayer {
 
     private GameCharacter gc;
     private ArrayList<NormalTile> scoredTiles;
 
     public NormalPlayer() {
-        this.gc = new PBot();
         this.scoredTiles = new ArrayList<>();
+    }
+    
+    public void setCharacter(GameCharacter gc) {
+        this.gc = gc;
     }
 
     public int getNumberOfPairsScored() {

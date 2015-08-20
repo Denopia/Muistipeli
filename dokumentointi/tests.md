@@ -1,0 +1,36 @@
+Luokat:
+
+GamePreparation
+GameScreen
+Instructions
+MainMenu
+BattleMultiPlayerGame
+BattleSinglePlayerGame
+NormalMultiPlayerGame
+NormalSinglePlayerGame
+Apollo
+GameCharacter
+Gus
+PBot
+AIBattleOpponent
+AINormalOpponent
+BattlePlayer
+NormalPlayer
+BattleTile
+NormalTile
+BattleTileController
+NormalTileController
+
+
+
+
+UI  no tests
+MouseMovementListenerBattleSinglePlayerGame  no tests
+MouseMovementListenerMainMenu  no tests
+MouseMovementListenerNormalSinglePlayerGame  no tests
+MouseMovementListenerPreparation  no tests
+DrawingBoardBattleSingle  no tests
+DrawingBoardMenu  no tests
+DrawingBoardNormalSingle  no tests
+DrawingBoardPreparation  no tests
+MuistipeliMain  no tests

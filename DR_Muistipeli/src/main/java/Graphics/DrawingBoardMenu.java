@@ -6,6 +6,10 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+/**
+ * Piirtää valikkoruudun
+ * 
+ */
 public class DrawingBoardMenu extends JPanel {
 
     private final String[] pictures = {"main_menu_blank.png", "main_menu_normal_single.png",

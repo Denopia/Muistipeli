@@ -1,18 +1,24 @@
 package Game.GameModes;
 
-import Controller.BattleTileController;
+import TileController.BattleTileController;
 import Game.GameScreen;
 import Graphics.DrawingBoardBattleSingle;
 import Player.AIOpponent.AIBattleOpponent;
 import Player.Human.BattlePlayer;
 import Tile.BattleTile;
-import UserInterface.MouseMovementListenerBattleSinglePlayerGame;
+import UserInterface.MouseListener.MouseMovementListenerBattleSinglePlayerGame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+/**
+ * Tappeluyksinpeli. Tietää hiiren sijainnin nappuloiden päällä.
+ * Suorittaa pelin toimintoja kun hiirellä klikkaa nappeja ja
+ * pelilaattoja. Tietää myös pelaajat.
+ * 
+ */
 public class BattleSinglePlayerGame {
 
     private GameScreen gameScreen;
@@ -26,11 +32,12 @@ public class BattleSinglePlayerGame {
     private int pairs;
     private boolean mouseOnHit;
 
-    public BattleSinglePlayerGame(int pairs, JFrame frame, GameScreen gs) {
+    public BattleSinglePlayerGame(int pairs, JFrame frame, GameScreen gs, BattlePlayer bp, AIBattleOpponent bo) {
         mouseOnHit = false;
         this.pairs = pairs;
-        this.player = new BattlePlayer();
-        this.opponent = new AIBattleOpponent(this);
+        this.player = bp;
+        this.opponent = bo;
+        this.opponent.setGame(this);
         playersTurn = true;
         this.frame = frame;
         this.gameScreen = gs;

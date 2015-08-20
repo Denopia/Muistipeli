@@ -1,4 +1,4 @@
-package Controller;
+package TileController;
 
 import Player.AIOpponent.AINormalOpponent;
 import Player.Human.NormalPlayer;
@@ -6,6 +6,10 @@ import Tile.NormalTile;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Kontrolloi pelin pelilaattoja
+ * 
+ */
 public class NormalTileController {
 
     private ArrayList<NormalTile> tiles;
@@ -15,8 +19,8 @@ public class NormalTileController {
         int i = 1;
         for (int j = 0; j < pairs; j++) {
             String pname = "watch2x" + i + ".png";
-            tiles.add(new NormalTile(i, "watchBlank2x.png", "watchHighlight2x.png", pname));
-            tiles.add(new NormalTile(i, "watchBlank2x.png", "watchHighlight2x.png", pname));
+            tiles.add(new NormalTile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
+            tiles.add(new NormalTile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
             i++;
             if (i == 10) {
                 i = 1;

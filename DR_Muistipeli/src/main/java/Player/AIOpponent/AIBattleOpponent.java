@@ -2,7 +2,6 @@ package Player.AIOpponent;
 
 import Game.GameModes.BattleSinglePlayerGame;
 import GameCharacter.GameCharacter;
-import GameCharacter.PBot;
 import Tile.BattleTile;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -11,18 +10,30 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.Timer;
 
+/**
+ * Yksinpelin vastustaja. Pitää sisällään tietokonevastuksen
+ * tiedot ja suorittaa vastuksen vuoron.
+ * 
+ */
 public class AIBattleOpponent {
 
     private GameCharacter gc;
     private ArrayList<BattleTile> scoredTiles;
     private ArrayList<BattleTile> flippedTiles;
     private BattleSinglePlayerGame game;
+    private int difficulty;
 
-    public AIBattleOpponent(BattleSinglePlayerGame game) {
-        this.gc = new PBot("");
-        this.game = game;
+    public AIBattleOpponent() {
         this.scoredTiles = new ArrayList<>();
         this.flippedTiles = new ArrayList<>();
+    }
+
+    public void setDifficulty(int i) {
+        this.difficulty = i;
+    }
+
+    public void setCharacter(GameCharacter gc) {
+        this.gc = gc;
     }
 
     public GameCharacter getCharacter() {
@@ -94,10 +105,6 @@ public class AIBattleOpponent {
 
     public void spendTurn() {
         cleanSeenTiles();
-//        System.out.println("I KNOW WHAT IS BEHIND TILES: ");
-//        for (Tile t : flippedTiles) {
-//            System.out.println(t.getPlacement());
-//        }
         Timer timer;
         final ArrayList<BattleTile> seenPair = checkForPair();
         if (!seenPair.isEmpty()) {
@@ -187,6 +194,10 @@ public class AIBattleOpponent {
 
     public void forgetAll() {
         this.flippedTiles = new ArrayList<>();
+    }
+
+    public void setGame(BattleSinglePlayerGame game) {
+        this.game = game;
     }
 
 }

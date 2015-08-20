@@ -1,89 +1,49 @@
 package GameCharacter;
 
 import java.awt.Image;
-import javax.swing.ImageIcon;
 
-public class GameCharacter {
+/**
+ * Pelihahmorajapinta. Näyttää mitä kaikkea
+ * hahmoluokkien tulee tehdä.
+ * 
+ */
+public interface GameCharacter {
 
-    private int hp;
-    private int energy;
-    private int attack;
-    private int armor;
-    private Image currentImage;
-    private String basicImage;
-    private String yesImage;
-    private String noImage;
-    private String buffedImage;
-    private String damageImage;
-    private int stats;
+    public void setNeutral(String s);
 
-    public GameCharacter(String basicImage, String yesImage, String noImage) {
-        this.basicImage = basicImage;
-        this.yesImage = yesImage;
-        this.noImage = noImage;
-    }
+    public void setYes(String s);
 
-    public int getAttack() {
-        return attack;
-    }
+    public void setNo(String s);
 
-    public void setAttack(int i) {
-        this.attack = i;
-    }
+    public int getAttack();
 
-    public int getArmor() {
-        return armor;
-    }
+    public void setAttack(int i);
 
-    public void setArmor(int i) {
-        this.armor = i;
-    }
+    public int getArmor();
 
-    public int getHp() {
-        return hp;
-    }
+    public void setArmor(int i);
 
-    public void setHp(int i) {
-        this.hp = i;
-    }
+    public int getHp();
 
-    public int getEnergy() {
-        return energy;
-    }
+    public void setHp(int i);
 
-    public void setEnergy(int i) {
-        this.energy = i;
-    }
+    public int getEnergy();
 
-    public String getBasic() {
-        return this.basicImage;
-    }
+    public void setEnergy(int i);
 
-    public String getYes() {
-        return this.yesImage;
-    }
+    public String getBasic();
 
-    public String getNo() {
-        return this.noImage;
-    }
+    public String getYes();
 
-    public Image getCurrentImage() {
-        return this.currentImage;
-    }
+    public String getNo();
 
-    public void setCurrentImage(String string) {
-        this.currentImage = createImage(string);
-    }
+    public Image getCurrentImage();
 
-    private Image createImage(String path) {
-        ImageIcon icon = null;
-        java.net.URL imgURL = getClass().getClassLoader().getResource(path);
-        if (imgURL != null) {
-            icon = new ImageIcon(imgURL);
-        } else {
-            System.err.println("Picture " + path + " not found");
-        }
-        Image kuva = icon.getImage();
-        return kuva;
-    }
+    public void setCurrentImage(String string);
+
+    public Image createImage(String path);
+
+    public void setImages1();
+
+    public void setImages2();
 }

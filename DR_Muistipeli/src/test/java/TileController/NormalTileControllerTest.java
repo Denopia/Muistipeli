@@ -1,5 +1,6 @@
-package Controller;
+package TileController;
 
+import TileController.NormalTileController;
 import Tile.NormalTile;
 import java.util.ArrayList;
 import org.junit.Before;

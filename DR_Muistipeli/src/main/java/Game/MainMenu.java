@@ -1,9 +1,16 @@
 package Game;
 
 import Graphics.DrawingBoardMenu;
-import UserInterface.MouseMovementListenerMainMenu;
+import UserInterface.MouseListener.MouseMovementListenerMainMenu;
 import javax.swing.JFrame;
 
+/**
+ * Pelin päävalikko. Tietää missä hiiri sijaitsee
+ * ja käynnistää pelin valmistelun kun haluttua
+ * pelimoodia klikataan. Antaa myös mahdollisuuden katsoa
+ * ohjeet. Rakentaa näkymät GameScreenin kautta.
+ * 
+ */
 public class MainMenu {
 
     private JFrame frame;
@@ -35,7 +42,7 @@ public class MainMenu {
             refresh(1);
         }
     }
-    
+
     public void highlightNMPG() {
         if (!mouseOnNMPG) {
             unHighlightAll();
@@ -43,7 +50,7 @@ public class MainMenu {
             refresh(2);
         }
     }
-    
+
     public void highlightBSPG() {
         if (!mouseOnBSPG) {
             unHighlightAll();
@@ -51,7 +58,7 @@ public class MainMenu {
             refresh(3);
         }
     }
-    
+
     public void highlightBMPG() {
         if (!mouseOnBMPG) {
             unHighlightAll();
@@ -90,14 +97,6 @@ public class MainMenu {
         refresh(0);
     }
 
-    public void startNormalSinglePlayerGame() {
-        gameScreen.buildNormalSinglePlayerGame();
-    }
-    
-    public void startBattleSinglePlayerGame() {
-        gameScreen.buildBattleSinglePlayerGame();
-    }
-
     public void showInstructions() {
         System.out.println("Näytä ohjeet!");
     }
@@ -109,6 +108,10 @@ public class MainMenu {
     public void refresh(int state) {
         dbm.setImage(state);
         this.dbm.repaint();
+    }
+
+    public void startPreparationScreen(int i) {
+        gameScreen.buildPreparation(i);
     }
 
 }

@@ -3,6 +3,10 @@ package Tile;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
+/**
+ * Pelilaatta. Sillä on kuva ja sijainti
+ * 
+ */
 public class BattleTile {
 
     private int id;
