@@ -1,6 +1,7 @@
 package Player.Human;
 
 import GameCharacter.GameCharacter;
+import Player.AIOpponent.AIBattleOpponent;
 import Tile.BattleTile;
 import TileController.BattleTileController;
 import java.awt.Image;
@@ -97,10 +98,11 @@ public class BattlePlayer {
         return skill1Selected;
     }
 
-    public void useSkill1(BattleTileController tc, int row) {
+    public void useSkill1(BattleTileController tc, int row, AIBattleOpponent bo) {
         int r = row * 6;
         for (int i = 0; i < 6; i++) {
             tc.getTiles().get(r).turn();
+            bo.addSeenTile( tc.getTiles().get(r));
             r++;
         }
         deselectSkil1();

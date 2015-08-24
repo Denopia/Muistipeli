@@ -110,7 +110,7 @@ public class BattleSinglePlayerGame {
     public void playerUseSkill1(int row) {
         if (player.getCharacter().getEnergy() >= 5) {
             player.getCharacter().setEnergy(player.getCharacter().getEnergy() - 5);
-            this.player.useSkill1(this.tc, row);
+            this.player.useSkill1(this.tc, row, opponent);
             pairTiles();
         }
 
