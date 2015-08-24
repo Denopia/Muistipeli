@@ -8,7 +8,7 @@ import java.util.Collections;
 
 /**
  * Kontrolloi pelin pelilaattoja
- * 
+ *
  */
 public class BattleTileController {
 
@@ -49,25 +49,6 @@ public class BattleTileController {
         }
     }
 
-    public boolean checkPair() {
-        int firstTileId = 123456789;
-        int secondTileId = 987654321;
-        boolean f = false;
-        if (getTilesTurned() == 2) {
-            for (BattleTile tile : tiles) {
-                if (tile.getTurned()) {
-                    if (!f) {
-                        firstTileId = tile.getId();
-                        f = true;
-                    } else {
-                        secondTileId = tile.getId();
-                    }
-                }
-            }
-        }
-        return firstTileId == secondTileId;
-    }
-
     public int getTilesTurned() {
         int tilesTurned = 0;
         for (BattleTile tile : tiles) {
@@ -93,19 +74,27 @@ public class BattleTileController {
     }
 
     public void pairTiles(BattlePlayer player) {
+        boolean addOne = true;
         for (BattleTile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();
-                player.addScoredPair(tile);
+                if (addOne) {
+                    player.addScoredPair(tile);
+                    addOne = false;
+                }
             }
         }
     }
 
     public void pairTiles(AIBattleOpponent opponent) {
+        boolean addOne = true;
         for (BattleTile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();
-                opponent.addScoredPair(tile);
+                if (addOne) {
+                    opponent.addScoredPair(tile);
+                    addOne = false;
+                }
             }
         }
     }
@@ -176,6 +165,49 @@ public class BattleTileController {
                 i = 1;
             }
         }
+    }
+
+    public boolean checkPairs(BattlePlayer player) {
+        boolean gotPair = false;
+        for (BattleTile tile1 : tiles) {
+            for (BattleTile tile2 : tiles) {
+                if (tile1.getPlacement() != tile2.getPlacement()
+                        && tile1.getId() == tile2.getId()
+                        && tile1.getTurned() && tile2.getTurned()
+                        && !tile1.getPaired()
+                        && !tile2.getPaired()) {
+                    tile1.pair();
+                    tile2.pair();
+                    player.addScoredPair(tile1);
+                    gotPair = true;
+                }
+            }
+        }
+        return gotPair;
+    }
+
+    public boolean checkPairs(AIBattleOpponent opponent) {
+        boolean gotPair = false;
+        for (BattleTile tile1 : tiles) {
+            for (BattleTile tile2 : tiles) {
+                if (tile1.getPlacement() != tile2.getPlacement()
+                        && tile1.getId() == tile2.getId()
+                        && tile1.getTurned() && tile2.getTurned()
+                        && !tile1.getPaired()
+                        && !tile2.getPaired()) {
+                    tile1.pair();
+                    tile2.pair();
+                    opponent.addScoredPair(tile1);
+                    gotPair = true;
+                }
+            }
+        }
+        return gotPair;
+    }
+
+    public void cleanTiles(AIBattleOpponent opponent) {
+        unTurnUnpairedTiles();
+
     }
 
 }

@@ -1,6 +1,5 @@
 package Game;
 
-import Game.GameModes.NormalSinglePlayerGame;
 import Game.GameModes.BattleSinglePlayerGame;
 import Game.GameModes.BattleMultiPlayerGame;
 import Player.AIOpponent.AIBattleOpponent;
@@ -19,7 +18,7 @@ public class GameScreen {
 
     private final JFrame frame;
     private MainMenu mainMenu;
-    private NormalSinglePlayerGame normalSinglePlayerGame;
+   
     private BattleSinglePlayerGame battleSinglePlayerGame;
     private BattleMultiPlayerGame twoPlayerGame;
     private GamePreparation gamePrep;
@@ -63,20 +62,6 @@ public class GameScreen {
         this.frame.repaint();
     }
 
-    /**
-     * Tekee normaalin yksinpeli ja laittaa sen ruutuun Vaati muokkausta
-     * samanlaiseksi kuin alempi metodi!
-     *
-     * @param d Haluttu vaikeustaso
-     * @param p Haluttu pelaajan pelihahmo
-     * @param o Haluttu vastustajan pelihahmo
-     */
-    public void buildNormalSinglePlayerGame(int d, int p, int o) {
-        clearFrame();
-        this.normalSinglePlayerGame = new NormalSinglePlayerGame(18, this.frame, this, d, p, o);
-        this.frame.revalidate();
-        this.frame.repaint();
-    }
 
     /**
      * Tekee tappeluyksinpeli ja laittaa sen ruutuun

@@ -82,9 +82,7 @@ public class GamePreparation {
      *
      */
     public void startGame() {
-        if (gameMode == 1) {
-            gs.buildNormalSinglePlayerGame(difficulty, playerCharacter, opponentCharacter);
-        } else if (gameMode == 2) {
+        if (gameMode == 2) {
             gs.buildBattleSinglePlayerGame(makeBattlePlayer(playerCharacter, playerColor), makeBattleAI(opponentCharacter, opponentColor, difficulty));
         }
     }

@@ -4,9 +4,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
- * Pelihahmo. Pitää sisällään juuri tämän
- * hahmon tiedot.
- * 
+ * Pelihahmo. Pitää sisällään juuri tämän hahmon tiedot.
+ *
  */
 public class PBot implements GameCharacter {
 
@@ -15,10 +14,12 @@ public class PBot implements GameCharacter {
     private int attack;
     private int armor;
     private Image currentImage;
-    private String neutralImage;
-    private String yesImage;
-    private String noImage;
-    private String damageImage;
+    private String neutral;
+    private String happy;
+    private String unhappy;
+    private String damaged;
+    private String giveDamage;
+    private String takeDamage;
     private int stats;
 
     public PBot() {
@@ -26,104 +27,98 @@ public class PBot implements GameCharacter {
     }
 
     private void setDefault() {
-        setHp(90);
-        setEnergy(30);
-        setAttack(15);
-        setArmor(10);
+        setHp(30);
+        setEnergy(15);
+        setAttack(1);
+        setArmor(1);
     }
 
     @Override
     public void setImages1() {
-        setNeutral("ROBO.png");
-        setYes("ROBOYES.png");
-        setNo("ROBOFUG.png");
-        setCurrentImage(neutralImage);
+        neutral = "gus_neutral.png";
+        happy = "gus_yes.png";
+        unhappy = "gus_no.png";
+        damaged = "gus_damaged.png";
+        takeDamage = "gus_take_damage.png";
+        giveDamage = "gus_give_damage.png";
+        setCurrentImage(neutral);
     }
 
     @Override
     public void setImages2() {
-        setNeutral("ROBOALT.png");
-        setYes("ROBOYESALT.png");
-        setNo("ROBOFUGALT.png");
-        setCurrentImage(neutralImage);
+        neutral = "gus_neutral.png";
+        happy = "gus_yes.png";
+        unhappy = "gus_no.png";
+        damaged = "gus_damaged.png";
+        takeDamage = "gus_take_damage.png";
+        giveDamage = "gus_give_damage.png";
+        setCurrentImage(neutral);
     }
 
-    @Override
-    public void setNeutral(String s) {
-        this.neutralImage = s;
+    public void setNeutral() {
+        setCurrentImage(neutral);
     }
 
-    @Override
-    public void setYes(String s) {
-        this.yesImage = s;
+    public void setHappy() {
+        setCurrentImage(happy);
     }
 
-    @Override
-    public void setNo(String s) {
-        this.noImage = s;
+    public void setUnhappy() {
+        setCurrentImage(unhappy);
     }
 
-    @Override
+    public void setTakeDamage() {
+        setCurrentImage(takeDamage);
+    }
+
+    public void setGiveDamage() {
+        setCurrentImage(giveDamage);
+    }
+
+    public void setDamaged() {
+        setCurrentImage(damaged);
+    }
+
     public int getAttack() {
         return attack;
     }
 
-    @Override
     public void setAttack(int i) {
         this.attack = i;
     }
 
-    @Override
     public int getArmor() {
         return armor;
     }
 
-    @Override
     public void setArmor(int i) {
         this.armor = i;
     }
 
-    @Override
     public int getHp() {
         return hp;
     }
 
-    @Override
     public void setHp(int i) {
         this.hp = i;
     }
 
-    @Override
     public int getEnergy() {
         return energy;
     }
 
-    @Override
     public void setEnergy(int i) {
         this.energy = i;
     }
 
-    @Override
     public String getBasic() {
-        return this.neutralImage;
+        return this.neutral;
     }
 
-    @Override
-    public String getYes() {
-        return this.yesImage;
-    }
-
-    @Override
-    public String getNo() {
-        return this.noImage;
-    }
-
-    @Override
     public Image getCurrentImage() {
         return this.currentImage;
     }
 
-    @Override
     public void setCurrentImage(String string) {
         this.currentImage = createImage(string);
     }

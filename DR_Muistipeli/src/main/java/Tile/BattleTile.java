@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 
 /**
  * Pelilaatta. Sillä on kuva ja sijainti
- * 
+ *
  */
 public class BattleTile {
 
@@ -15,6 +15,7 @@ public class BattleTile {
     private int y;
     private boolean turned;
     private boolean highlight;
+    private boolean readyToBepaired;
     private boolean paired;
     private String blankPath;
     private String highlightPath;
@@ -22,6 +23,7 @@ public class BattleTile {
     private Image currentImg;
 
     public BattleTile(int p, String blankPath, String highlightPath, String turnedPath) {
+        this.readyToBepaired = false;
         this.id = p;
         this.blankPath = blankPath;
         this.highlightPath = highlightPath;
@@ -66,15 +68,29 @@ public class BattleTile {
     }
 
     public void pair() {
+        this.readyToBepaired = false;
         this.turned = false;
         this.paired = true;
         this.currentImg = createImage(turnedPath);
+    }
+
+    public boolean getReadyToBePaired() {
+        return this.readyToBepaired;
+    }
+
+    public void setReadyToBePaired() {
+        this.readyToBepaired = true;
+    }
+
+    public void setNotReadyToBePaired() {
+        this.readyToBepaired = false;
     }
 
     public void turn() {
         if (paired || turned) {
             return;
         }
+        unHighlight();
         this.turned = true;
         this.currentImg = createImage(turnedPath);
     }
@@ -83,6 +99,8 @@ public class BattleTile {
         if (paired) {
             return;
         }
+        unHighlight();
+        this.readyToBepaired = false;
         this.turned = false;
         this.currentImg = createImage(blankPath);
     }
@@ -92,7 +110,6 @@ public class BattleTile {
             return;
         }
         this.highlight = true;
-        this.currentImg = createImage(highlightPath);
     }
 
     public void unHighlight() {
@@ -100,7 +117,6 @@ public class BattleTile {
             return;
         }
         this.highlight = false;
-        this.currentImg = createImage(blankPath);
     }
 
     public Image getImage() {
@@ -121,6 +137,14 @@ public class BattleTile {
 
     public boolean getPaired() {
         return this.paired;
+    }
+
+    public String getHighlightPath() {
+        return this.blankPath;
+    }
+
+    public Image getHighlightImage() {
+        return createImage(highlightPath);
     }
 
 }

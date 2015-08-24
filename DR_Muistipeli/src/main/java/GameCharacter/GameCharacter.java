@@ -3,17 +3,16 @@ package GameCharacter;
 import java.awt.Image;
 
 /**
- * Pelihahmorajapinta. Näyttää mitä kaikkea
- * hahmoluokkien tulee tehdä.
- * 
+ * Pelihahmorajapinta. Näyttää mitä kaikkea hahmoluokkien tulee tehdä.
+ *
  */
 public interface GameCharacter {
 
-    public void setNeutral(String s);
+    public void setNeutral();
 
-    public void setYes(String s);
+    public void setHappy();
 
-    public void setNo(String s);
+    public void setUnhappy();
 
     public int getAttack();
 
@@ -31,19 +30,20 @@ public interface GameCharacter {
 
     public void setEnergy(int i);
 
-    public String getBasic();
-
-    public String getYes();
-
-    public String getNo();
+    public void setDamaged();
 
     public Image getCurrentImage();
 
     public void setCurrentImage(String string);
 
-    public Image createImage(String path);
+    public Image createImage(String string);
 
     public void setImages1();
 
     public void setImages2();
+
+    public void setTakeDamage();
+
+    public void setGiveDamage();
+
 }

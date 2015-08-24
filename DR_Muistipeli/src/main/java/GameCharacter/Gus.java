@@ -4,9 +4,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
- * Pelihahmo. Pitää sisällään juuri tämän
- * hahmon tiedot.
- * 
+ * Pelihahmo. Pitää sisällään juuri tämän hahmon tiedot.
+ *
  */
 public class Gus implements GameCharacter {
 
@@ -15,10 +14,12 @@ public class Gus implements GameCharacter {
     private int attack;
     private int armor;
     private Image currentImage;
-    private String neutralImage;
-    private String yesImage;
-    private String noImage;
-    private String damageImage;
+    private String neutral;
+    private String happy;
+    private String unhappy;
+    private String damaged;
+    private String giveDamage;
+    private String takeDamage;
     private int stats;
 
     public Gus() {
@@ -26,36 +27,60 @@ public class Gus implements GameCharacter {
     }
 
     private void setDefault() {
-        setHp(90);
-        setEnergy(30);
-        setAttack(15);
-        setArmor(10);
+        setHp(30);
+        setEnergy(15);
+        setAttack(1);
+        setArmor(1);
     }
 
+    @Override
     public void setImages1() {
-        setNeutral("gus_neutral.png");
-        setYes("gus_yes.png");
-        setNo("gus_no.png");
-        setCurrentImage(neutralImage);
+        neutral = "gus_neutral.png";
+        happy = "gus_yes.png";
+        unhappy = "gus_no.png";
+        damaged = "gus_damaged.png";
+        takeDamage = "gus_take_damage.png";
+        giveDamage = "gus_give_damage.png";
+        setNeutral();
     }
 
+    @Override
     public void setImages2() {
-        setNeutral("ROBOALT.png");
-        setYes("ROBOYESALT.png");
-        setNo("ROBOFUGALT.png");
-        setCurrentImage(neutralImage);
+        neutral = "gus_neutral.png";
+        happy = "gus_yes.png";
+        unhappy = "gus_no.png";
+        damaged = "gus_damaged.png";
+        takeDamage = "gus_take_damage.png";
+        giveDamage = "gus_give_damage.png";
+        setNeutral();
     }
 
-    public void setNeutral(String s) {
-        this.neutralImage = s;
+    public void setNeutral() {
+        if (getHp() > 15) {
+            setCurrentImage(neutral);
+        } else {
+            setCurrentImage(damaged);
+        }
     }
 
-    public void setYes(String s) {
-        this.yesImage = s;
+    public void setHappy() {
+        setCurrentImage(happy);
     }
 
-    public void setNo(String s) {
-        this.noImage = s;
+    public void setUnhappy() {
+        setCurrentImage(unhappy);
+    }
+
+    public void setTakeDamage() {
+        setCurrentImage(takeDamage);
+    }
+
+    public void setGiveDamage() {
+        setCurrentImage(giveDamage);
+    }
+
+    public void setDamaged() {
+        setCurrentImage(damaged);
     }
 
     public int getAttack() {
@@ -91,15 +116,7 @@ public class Gus implements GameCharacter {
     }
 
     public String getBasic() {
-        return this.neutralImage;
-    }
-
-    public String getYes() {
-        return this.yesImage;
-    }
-
-    public String getNo() {
-        return this.noImage;
+        return this.neutral;
     }
 
     public Image getCurrentImage() {
@@ -110,6 +127,7 @@ public class Gus implements GameCharacter {
         this.currentImage = createImage(string);
     }
 
+    @Override
     public Image createImage(String path) {
         ImageIcon icon = null;
         java.net.URL imgURL = getClass().getClassLoader().getResource(path);
@@ -121,4 +139,5 @@ public class Gus implements GameCharacter {
         Image kuva = icon.getImage();
         return kuva;
     }
+
 }
