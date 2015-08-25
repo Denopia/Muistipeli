@@ -14,14 +14,6 @@ public interface GameCharacter {
 
     public void setUnhappy();
 
-    public int getAttack();
-
-    public void setAttack(int i);
-
-    public int getArmor();
-
-    public void setArmor(int i);
-
     public int getHp();
 
     public void setHp(int i);

@@ -1,9 +1,9 @@
 package Game;
 
-import Game.GameModes.BattleSinglePlayerGame;
-import Game.GameModes.BattleMultiPlayerGame;
-import Player.AIOpponent.AIBattleOpponent;
-import Player.Human.BattlePlayer;
+import Game.GameModes.SinglePlayerGame;
+import Game.GameModes.MultiPlayerGame;
+import Player.Computer.Opponent;
+import Player.Human.Player;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
@@ -19,8 +19,8 @@ public class GameScreen {
     private final JFrame frame;
     private MainMenu mainMenu;
    
-    private BattleSinglePlayerGame battleSinglePlayerGame;
-    private BattleMultiPlayerGame twoPlayerGame;
+    private SinglePlayerGame battleSinglePlayerGame;
+    private MultiPlayerGame twoPlayerGame;
     private GamePreparation gamePrep;
 
     public GameScreen(JFrame frame) {
@@ -69,9 +69,9 @@ public class GameScreen {
      * @param p Pelaaja
      * @param o Vastustaja
      */
-    void buildBattleSinglePlayerGame(BattlePlayer p, AIBattleOpponent o) {
+    void buildBattleSinglePlayerGame(Player p, Opponent o) {
         clearFrame();
-        this.battleSinglePlayerGame = new BattleSinglePlayerGame(18, this.frame, this, p, o);
+        this.battleSinglePlayerGame = new SinglePlayerGame(18, this.frame, this, p, o);
         this.frame.revalidate();
         this.frame.repaint();
     }
@@ -81,7 +81,7 @@ public class GameScreen {
      * mitään
      */
     public void buildTwoPlayerGame() {
-        this.twoPlayerGame = new BattleMultiPlayerGame();
+        this.twoPlayerGame = new MultiPlayerGame();
     }
 
     /**

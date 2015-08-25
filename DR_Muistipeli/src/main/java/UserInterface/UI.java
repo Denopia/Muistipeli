@@ -15,10 +15,11 @@ public class UI implements Runnable {
 
     @Override
     public void run() {
-        frame = new JFrame("Muistipeli :]");
+        frame = new JFrame("( ͡° ͜ʖ ͡°) Muistipeli ( ͡° ͜ʖ ͡°)");
         frame.setPreferredSize(new Dimension(1024, 768));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         GameScreen gs = new GameScreen(frame);
         gs.buildMainMenu();

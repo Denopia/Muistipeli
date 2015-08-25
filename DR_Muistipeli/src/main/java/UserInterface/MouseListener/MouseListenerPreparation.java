@@ -9,11 +9,11 @@ import java.awt.event.MouseEvent;
  * Suorittaa metodeja niiden perusteella.
  * 
  */
-public class MouseMovementListenerPreparation extends MouseAdapter {
+public class MouseListenerPreparation extends MouseAdapter {
 
     private GamePreparation gp;
 
-    public MouseMovementListenerPreparation(GamePreparation gp) {
+    public MouseListenerPreparation(GamePreparation gp) {
         this.gp = gp;
     }
 

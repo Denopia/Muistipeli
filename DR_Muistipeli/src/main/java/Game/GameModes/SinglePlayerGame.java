@@ -1,12 +1,12 @@
 package Game.GameModes;
 
-import TileController.BattleTileController;
+import TileController.TileController;
 import Game.GameScreen;
-import Graphics.DrawingBoardBattleSingle;
-import Player.AIOpponent.AIBattleOpponent;
-import Player.Human.BattlePlayer;
-import Tile.BattleTile;
-import UserInterface.MouseListener.MouseMovementListenerBattleSinglePlayerGame;
+import Graphics.DrawingBoardSingle;
+import Player.Computer.Opponent;
+import Player.Human.Player;
+import Tile.Tile;
+import UserInterface.MouseListener.MouseListenerSinglePlayerGame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,20 +14,20 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
- * Tappeluyksinpeli. TietÃƒÂ¤ÃƒÂ¤ hiiren sijainnin nappuloiden pÃƒÂ¤ÃƒÂ¤llÃƒÂ¤.
- * Suorittaa pelin toimintoja kun hiirellÃƒÂ¤ klikkaa nappeja ja pelilaattoja.
- * TietÃƒÂ¤ÃƒÂ¤ myÃƒÂ¶s pelaajat.
+ * Tappeluyksinpeli. TietÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤ hiiren sijainnin nappuloiden
+ * pÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤llÃƒÆ’Ã‚Â¤. Suorittaa pelin toimintoja kun hiirellÃƒÆ’Ã‚Â¤
+ * klikkaa nappeja ja pelilaattoja. TietÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤ myÃƒÆ’Ã‚Â¶s pelaajat.
  *
  */
-public class BattleSinglePlayerGame {
+public class SinglePlayerGame {
 
     private GameScreen gameScreen;
     private JFrame frame;
-    private DrawingBoardBattleSingle dbbs;
-    private BattleTileController tc;
-    private MouseMovementListenerBattleSinglePlayerGame mouseListener;
-    private BattlePlayer player;
-    private AIBattleOpponent opponent;
+    private DrawingBoardSingle dbbs;
+    private TileController tc;
+    private MouseListenerSinglePlayerGame mouseListener;
+    private Player player;
+    private Opponent opponent;
     private boolean playersTurn;
 
     private boolean horRow1;
@@ -43,7 +43,7 @@ public class BattleSinglePlayerGame {
     private boolean mouseOnHit;
     private boolean mouseOnSkill1;
 
-    public BattleSinglePlayerGame(int pairs, JFrame frame, GameScreen gs, BattlePlayer bp, AIBattleOpponent bo) {
+    public SinglePlayerGame(int pairs, JFrame frame, GameScreen gs, Player bp, Opponent bo) {
         mouseOnSkill1 = false;
         mouseOnHit = false;
         this.pairs = pairs;
@@ -53,10 +53,10 @@ public class BattleSinglePlayerGame {
         playersTurn = true;
         this.frame = frame;
         this.gameScreen = gs;
-        this.tc = new BattleTileController(pairs);
+        this.tc = new TileController(pairs);
         this.tc.shuffleTiles();
-        this.dbbs = new DrawingBoardBattleSingle(this);
-        this.mouseListener = new MouseMovementListenerBattleSinglePlayerGame(this);
+        this.dbbs = new DrawingBoardSingle(this);
+        this.mouseListener = new MouseListenerSinglePlayerGame(this);
         this.frame.add(dbbs);
         this.frame.addMouseListener(mouseListener);
         this.frame.addMouseMotionListener(mouseListener);
@@ -113,22 +113,21 @@ public class BattleSinglePlayerGame {
             this.player.useSkill1(this.tc, row, opponent);
             pairTiles();
         }
-
     }
 
-    public ArrayList<BattleTile> getTiles() {
+    public ArrayList<Tile> getTiles() {
         return tc.getTiles();
     }
 
-    public BattleTileController getController() {
+    public TileController getController() {
         return tc;
     }
 
-    public BattlePlayer getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public AIBattleOpponent getOpponent() {
+    public Opponent getOpponent() {
         return opponent;
     }
 
@@ -175,7 +174,7 @@ public class BattleSinglePlayerGame {
     public Timer turnEndTimer(boolean pair) {
         Timer timer;
         if (pair) {
-            timer = new Timer(1000, new ActionListener() {
+            timer = new Timer(1500, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     endTurnCheck();
@@ -186,7 +185,7 @@ public class BattleSinglePlayerGame {
 
             });
         } else {
-            timer = new Timer(1000, new ActionListener() {
+            timer = new Timer(1500, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     passTurn();
@@ -198,22 +197,6 @@ public class BattleSinglePlayerGame {
             });
         }
         return timer;
-    }
-
-    public void resolvePair(Boolean pair) {
-        if (playersTurn) {
-            if (pair) {
-                player.scorePair();
-            } else {
-                player.failPair();
-            }
-        } else {
-            if (pair) {
-                opponent.scorePair();
-            } else {
-                opponent.failPair();
-            }
-        }
     }
 
     public void gameOver() {
@@ -317,5 +300,9 @@ public class BattleSinglePlayerGame {
     public boolean getSkill1H() {
 
         return mouseOnSkill1;
+    }
+
+    public void backToMenu() {
+        this.gameScreen.buildMainMenu();
     }
 }

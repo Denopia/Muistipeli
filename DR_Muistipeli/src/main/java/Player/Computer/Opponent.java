@@ -1,8 +1,8 @@
-package Player.AIOpponent;
+package Player.Computer;
 
-import Game.GameModes.BattleSinglePlayerGame;
+import Game.GameModes.SinglePlayerGame;
 import GameCharacter.GameCharacter;
-import Tile.BattleTile;
+import Tile.Tile;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,16 +16,16 @@ import javax.swing.Timer;
  * suorittaa vastuksen vuoron.
  *
  */
-public class AIBattleOpponent {
+public class Opponent {
 
     private GameCharacter gc;
-    private ArrayList<BattleTile> scoredTiles;
-    private ArrayList<BattleTile> knownTiles;
-    private BattleSinglePlayerGame game;
+    private ArrayList<Tile> scoredTiles;
+    private ArrayList<Tile> knownTiles;
+    private SinglePlayerGame game;
     private int difficulty;
     private boolean hitThisTurn;
 
-    public AIBattleOpponent() {
+    public Opponent() {
         this.scoredTiles = new ArrayList<>();
         this.knownTiles = new ArrayList<>();
         hitThisTurn = false;
@@ -55,7 +55,7 @@ public class AIBattleOpponent {
         return this.hitThisTurn;
     }
 
-    public void addScoredPair(BattleTile tile) {
+    public void addScoredPair(Tile tile) {
         this.gc.setEnergy(this.gc.getEnergy() + 1);
         this.scoredTiles.add(tile);
     }
@@ -64,9 +64,9 @@ public class AIBattleOpponent {
         return this.scoredTiles.size();
     }
 
-    public void addSeenTile(BattleTile tile) {
+    public void addSeenTile(Tile tile) {
         boolean alreadyHere = false;
-        for (BattleTile tile2 : knownTiles) {
+        for (Tile tile2 : knownTiles) {
             if (tile2.getPlacement() == tile.getPlacement()) {
                 alreadyHere = true;
             }
@@ -76,7 +76,7 @@ public class AIBattleOpponent {
         }
     }
 
-    public void removeSeenTile(BattleTile tile) {
+    public void removeSeenTile(Tile tile) {
         knownTiles.remove(tile);
     }
 
@@ -113,7 +113,7 @@ public class AIBattleOpponent {
     }
 
     public void cleanSeenTiles() {
-        for (BattleTile til : game.getController().getPairedTiles()) {
+        for (Tile til : game.getController().getPairedTiles()) {
             this.knownTiles.remove(til);
         }
     }
@@ -297,7 +297,7 @@ public class AIBattleOpponent {
         Timer timer2;
         Timer timer2Mini;
 
-        final ArrayList<BattleTile> seenPair = checkForPair();
+        final ArrayList<Tile> seenPair = checkForPair();
         if (!seenPair.isEmpty()) {
             timer = new Timer(2000 + slowDown, new ActionListener() {
                 @Override
@@ -329,10 +329,10 @@ public class AIBattleOpponent {
                 }
             });
         } else {
-            final BattleTile firstTile;
-            final BattleTile secondTile;
-            final BattleTile thirdTile;
-            BattleTile ttt;
+            final Tile firstTile;
+            final Tile secondTile;
+            final Tile thirdTile;
+            Tile ttt;
             int random1 = randomNumber(getUnseenTiles().size());
             firstTile = getUnseenTiles().get(random1);
             knownTiles.add(firstTile);
@@ -360,7 +360,7 @@ public class AIBattleOpponent {
                 timer2 = new Timer(4000 + slowDown, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-                        for (BattleTile tt : knownTiles) {
+                        for (Tile tt : knownTiles) {
                             if ((tt.getId() == firstTile.getId())
                                     && (tt.getPlacement() != firstTile.getPlacement())) {
                                 tt.turn();
@@ -373,7 +373,7 @@ public class AIBattleOpponent {
                 timer2Mini = new Timer(3000 + slowDown, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-                        for (BattleTile tt : knownTiles) {
+                        for (Tile tt : knownTiles) {
                             if ((tt.getId() == firstTile.getId())
                                     && (tt.getPlacement() != firstTile.getPlacement())) {
                                 tt.highlight();
@@ -415,12 +415,12 @@ public class AIBattleOpponent {
         return r.nextInt(i);
     }
 
-    public ArrayList<BattleTile> getUnseenTiles() {
-        ArrayList<BattleTile> unturned = game.getController().getHiddenTiles();
-        ArrayList<BattleTile> unseen = new ArrayList<>();
-        for (BattleTile ut : unturned) {
+    public ArrayList<Tile> getUnseenTiles() {
+        ArrayList<Tile> unturned = game.getController().getHiddenTiles();
+        ArrayList<Tile> unseen = new ArrayList<>();
+        for (Tile ut : unturned) {
             boolean notSeen = true;
-            for (BattleTile ft : knownTiles) {
+            for (Tile ft : knownTiles) {
                 if (ut.getPlacement() == ft.getPlacement()) {
                     notSeen = false;
                 }
@@ -432,10 +432,10 @@ public class AIBattleOpponent {
         return unseen;
     }
 
-    public ArrayList<BattleTile> checkForPair() {
-        ArrayList<BattleTile> tp = new ArrayList<>();
-        for (BattleTile tile : knownTiles) {
-            for (BattleTile tile2 : knownTiles) {
+    public ArrayList<Tile> checkForPair() {
+        ArrayList<Tile> tp = new ArrayList<>();
+        for (Tile tile : knownTiles) {
+            for (Tile tile2 : knownTiles) {
                 if ((tile.getPlacement() != tile2.getPlacement()) && (tile.getId() == tile2.getId())) {
                     tp.add(tile);
                     tp.add(tile2);
@@ -450,7 +450,7 @@ public class AIBattleOpponent {
         this.knownTiles = new ArrayList<>();
     }
 
-    public void setGame(BattleSinglePlayerGame game) {
+    public void setGame(SinglePlayerGame game) {
         this.game = game;
     }
 

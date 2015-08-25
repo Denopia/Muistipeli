@@ -1,8 +1,8 @@
 package UserInterface.MouseListener;
 
-import TileController.BattleTileController;
-import Game.GameModes.BattleSinglePlayerGame;
-import Tile.BattleTile;
+import TileController.TileController;
+import Game.GameModes.SinglePlayerGame;
+import Tile.Tile;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,12 +11,12 @@ import java.awt.event.MouseEvent;
  * perusteella.
  *
  */
-public class MouseMovementListenerBattleSinglePlayerGame extends MouseAdapter {
+public class MouseListenerSinglePlayerGame extends MouseAdapter {
 
-    private BattleSinglePlayerGame game;
-    private BattleTileController tileController;
+    private SinglePlayerGame game;
+    private TileController tileController;
 
-    public MouseMovementListenerBattleSinglePlayerGame(BattleSinglePlayerGame game) {
+    public MouseListenerSinglePlayerGame(SinglePlayerGame game) {
         this.tileController = game.getController();
         this.game = game;
     }
@@ -67,7 +67,7 @@ public class MouseMovementListenerBattleSinglePlayerGame extends MouseAdapter {
         }
 
         //Jos hiiri laatan paalla, korostetaan se
-        for (BattleTile tile : tileController.getTiles()) {
+        for (Tile tile : tileController.getTiles()) {
             if ((me.getX() - 9) >= (tile.getX() + 4)
                     && (me.getX() - 9) <= (tile.getX() + 80 - 4)
                     && (me.getY() - 38) >= (tile.getY() + 6)
@@ -131,7 +131,7 @@ public class MouseMovementListenerBattleSinglePlayerGame extends MouseAdapter {
                 }
             }
             if (me.getButton() == 1) {
-                for (BattleTile tile : tileController.getTiles()) {
+                for (Tile tile : tileController.getTiles()) {
                     if ((me.getX() - 9) >= (tile.getX() + 4)
                             && (me.getX() - 9) <= (tile.getX() + 80 - 4)
                             && (me.getY() - 38) >= (tile.getY() + 6)

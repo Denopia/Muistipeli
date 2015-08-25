@@ -93,21 +93,21 @@ public class DrawingBoardPreparation extends JPanel {
 
     public void paintPlayer(Graphics2D g2d) {
         if (gp.getPlayerCharacter() == 1) {
-            g2d.drawImage(makeImage("gus_neutral.png"), 161, 162, null);
+            g2d.drawImage(makeImage("character/gus/gus_neutral.png"), 161, 162, null);
         } else if (gp.getPlayerCharacter() == 2) {
-            g2d.drawImage(makeImage("apollo_neutral.png"), 161, 162, null);
+            g2d.drawImage(makeImage("character/apollo/apollo_neutral.png"), 161, 162, null);
         } else if (gp.getPlayerCharacter() == 3) {
-            g2d.drawImage(makeImage("ROBO.png"), 161, 162, null);
+            g2d.drawImage(makeImage("character/pbot/ROBO.png"), 161, 162, null);
         }
     }
 
     public void paintOpponent(Graphics2D g2d) {
         if (gp.getOpponentCharacter() == 1) {
-            g2d.drawImage(makeImage("gus_neutral.png"), 645 + 200, 162, -200, 300, null);
+            g2d.drawImage(makeImage("character/gus/gus_neutral.png"), 645 + 200, 162, -200, 300, null);
         } else if (gp.getOpponentCharacter() == 2) {
-            g2d.drawImage(makeImage("apollo_neutral.png"), 645 + 200, 162, -200, 300, null);
+            g2d.drawImage(makeImage("character/apollo/apollo_neutral.png"), 645 + 200, 162, -200, 300, null);
         } else if (gp.getOpponentCharacter() == 3) {
-            g2d.drawImage(makeImage("ROBO.png"), 645 + 200, 162, -200, 300, null);
+            g2d.drawImage(makeImage("character/pbot/ROBO.png"), 645 + 200, 162, -200, 300, null);
         }
     }
 

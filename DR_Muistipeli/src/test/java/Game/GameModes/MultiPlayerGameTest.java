@@ -1,6 +1,6 @@
 package Game.GameModes;
 
-public class BattleMultiPlayerGameTest {
+public class MultiPlayerGameTest {
     
     //Ei ole viela olemassa, lisataan testit myohemmin
     

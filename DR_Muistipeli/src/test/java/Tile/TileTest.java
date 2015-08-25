@@ -1,6 +1,6 @@
 package Tile;
 
-public class BattleTileTest {
+public class TileTest {
     
     //Identtinen luokka NormalTilen kanssa, kunhan ne erotellaan lisataan testit
     

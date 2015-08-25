@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
  * Pelilaatta. Sillä on kuva ja sijainti
  *
  */
-public class BattleTile {
+public class Tile {
 
     private int id;
     private int placement;
@@ -22,7 +22,7 @@ public class BattleTile {
     private String turnedPath;
     private Image currentImg;
 
-    public BattleTile(int p, String blankPath, String highlightPath, String turnedPath) {
+    public Tile(int p, String blankPath, String highlightPath, String turnedPath) {
         this.readyToBepaired = false;
         this.id = p;
         this.blankPath = blankPath;

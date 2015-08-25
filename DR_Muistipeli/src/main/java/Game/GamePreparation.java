@@ -4,9 +4,9 @@ import GameCharacter.Apollo;
 import GameCharacter.Gus;
 import GameCharacter.PBot;
 import Graphics.DrawingBoardPreparation;
-import Player.AIOpponent.AIBattleOpponent;
-import Player.Human.BattlePlayer;
-import UserInterface.MouseListener.MouseMovementListenerPreparation;
+import Player.Computer.Opponent;
+import Player.Human.Player;
+import UserInterface.MouseListener.MouseListenerPreparation;
 import javax.swing.JFrame;
 
 /**
@@ -19,7 +19,7 @@ public class GamePreparation {
     private int gameMode;
     private GameScreen gs;
     private DrawingBoardPreparation dbp;
-    private MouseMovementListenerPreparation mmlp;
+    private MouseListenerPreparation mmlp;
     private int difficulty;
     private int playerCharacter;
     private int opponentCharacter;
@@ -46,7 +46,7 @@ public class GamePreparation {
         this.gameMode = gameMode;
         this.gs = gs;
         this.dbp = new DrawingBoardPreparation(this);
-        this.mmlp = new MouseMovementListenerPreparation(this);
+        this.mmlp = new MouseListenerPreparation(this);
         this.frame.addMouseListener(mmlp);
         this.frame.addMouseMotionListener(mmlp);
         this.frame.add(dbp);
@@ -82,7 +82,7 @@ public class GamePreparation {
      *
      */
     public void startGame() {
-        if (gameMode == 2) {
+        if (gameMode == 1) {
             gs.buildBattleSinglePlayerGame(makeBattlePlayer(playerCharacter, playerColor), makeBattleAI(opponentCharacter, opponentColor, difficulty));
         }
     }
@@ -94,8 +94,8 @@ public class GamePreparation {
      * @param color Pelihahmon väri
      * @return Luotu pelaaja
      */
-    public BattlePlayer makeBattlePlayer(int character, int color) {
-        BattlePlayer bp = new BattlePlayer();
+    public Player makeBattlePlayer(int character, int color) {
+        Player bp = new Player();
         if (character == 1) {
             bp.setCharacter(new Gus());
         } else if (character == 2) {
@@ -119,8 +119,8 @@ public class GamePreparation {
      * @param difficulty Vastustajan vaikeusaste
      * @return Luotu vastustaja
      */
-    public AIBattleOpponent makeBattleAI(int character, int color, int difficulty) {
-        AIBattleOpponent bo = new AIBattleOpponent();
+    public Opponent makeBattleAI(int character, int color, int difficulty) {
+        Opponent bo = new Opponent();
         if (character == 1) {
             bo.setCharacter(new Gus());
         } else if (character == 2) {

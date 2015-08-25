@@ -1,7 +1,7 @@
 package Graphics;
 
-import Game.GameModes.BattleSinglePlayerGame;
-import Tile.BattleTile;
+import Game.GameModes.SinglePlayerGame;
+import Tile.Tile;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,11 +12,11 @@ import javax.swing.JPanel;
  * Piirtää peliruudun
  *
  */
-public class DrawingBoardBattleSingle extends JPanel {
+public class DrawingBoardSingle extends JPanel {
 
-    private BattleSinglePlayerGame BSPG;
+    private SinglePlayerGame BSPG;
 
-    public DrawingBoardBattleSingle(BattleSinglePlayerGame BSPG) {
+    public DrawingBoardSingle(SinglePlayerGame BSPG) {
         this.BSPG = BSPG;
         setOpaque(false);
     }
@@ -36,7 +36,7 @@ public class DrawingBoardBattleSingle extends JPanel {
     }
 
     private void paintTiles(Graphics2D g2d) {
-        for (BattleTile tile : BSPG.getTiles()) {
+        for (Tile tile : BSPG.getTiles()) {
             g2d.drawImage(tile.getImage(), tile.getX(), tile.getY(), null);
             if (tile.getHighlight() && !BSPG.getPlayer().getSkill1Selected()) {
                 g2d.drawImage(tile.getHighlightImage(), tile.getX(), tile.getY(), null);

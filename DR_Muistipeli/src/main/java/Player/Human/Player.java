@@ -1,9 +1,9 @@
 package Player.Human;
 
 import GameCharacter.GameCharacter;
-import Player.AIOpponent.AIBattleOpponent;
-import Tile.BattleTile;
-import TileController.BattleTileController;
+import Player.Computer.Opponent;
+import Tile.Tile;
+import TileController.TileController;
 import java.awt.Image;
 import java.util.ArrayList;
 
@@ -11,14 +11,14 @@ import java.util.ArrayList;
  * Pitää sisällään ihmispelaajan tiedot.
  *
  */
-public class BattlePlayer {
+public class Player {
 
     private GameCharacter gc;
-    private ArrayList<BattleTile> scoredTiles;
+    private ArrayList<Tile> scoredTiles;
     private boolean hitThisTurn;
     private boolean skill1Selected;
 
-    public BattlePlayer() {
+    public Player() {
         this.scoredTiles = new ArrayList<>();
         hitThisTurn = false;
         skill1Selected = false;
@@ -45,7 +45,7 @@ public class BattlePlayer {
         return this.scoredTiles.size();
     }
 
-    public void addScoredPair(BattleTile tile) {
+    public void addScoredPair(Tile tile) {
         this.gc.setEnergy(this.gc.getEnergy() + 1);
         this.scoredTiles.add(tile);
     }
@@ -98,7 +98,7 @@ public class BattlePlayer {
         return skill1Selected;
     }
 
-    public void useSkill1(BattleTileController tc, int row, AIBattleOpponent bo) {
+    public void useSkill1(TileController tc, int row, Opponent bo) {
         int r = row * 6;
         for (int i = 0; i < 6; i++) {
             tc.getTiles().get(r).turn();

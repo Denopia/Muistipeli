@@ -2,22 +2,22 @@ package Game.GameModes;
 
 import Game.GameScreen;
 import GameCharacter.Gus;
-import Player.AIOpponent.AIBattleOpponent;
-import Player.Human.BattlePlayer;
+import Player.Computer.Opponent;
+import Player.Human.Player;
 import javax.swing.JFrame;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BattleSinglePlayerGameTest {
+public class SinglePlayerGameTest {
 
     //Taas on kasa gettereita ja settereita, framen repainttailua ja muuta, mita
     //ei viitsi testata.
-    BattleSinglePlayerGame bspg;
+    SinglePlayerGame bspg;
 
     @Before
     public void setUp() {
-        bspg = new BattleSinglePlayerGame(4, new JFrame(), new GameScreen(new JFrame()), new BattlePlayer(), new AIBattleOpponent());
+        bspg = new SinglePlayerGame(4, new JFrame(), new GameScreen(new JFrame()), new Player(), new Opponent());
     }
 
     @Test

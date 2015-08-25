@@ -1,8 +1,8 @@
 package TileController;
 
-import Player.AIOpponent.AIBattleOpponent;
-import Player.Human.BattlePlayer;
-import Tile.BattleTile;
+import Player.Computer.Opponent;
+import Player.Human.Player;
+import Tile.Tile;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,18 +10,18 @@ import java.util.Collections;
  * Kontrolloi pelin pelilaattoja
  *
  */
-public class BattleTileController {
+public class TileController {
 
-    private ArrayList<BattleTile> tiles;
+    private ArrayList<Tile> tiles;
     private int pairs;
 
-    public BattleTileController(int pairs) {
+    public TileController(int pairs) {
         this.pairs = pairs;
         this.tiles = new ArrayList<>();
         newTiles();
     }
 
-    public ArrayList<BattleTile> getTiles() {
+    public ArrayList<Tile> getTiles() {
         return this.tiles;
     }
 
@@ -35,7 +35,7 @@ public class BattleTileController {
         int y = 148;
         int z = 0;
         int p = 0;
-        for (BattleTile tile : this.tiles) {
+        for (Tile tile : this.tiles) {
             tile.setCoordinates(x, y);
             tile.setPlacement(p);
             p++;
@@ -51,7 +51,7 @@ public class BattleTileController {
 
     public int getTilesTurned() {
         int tilesTurned = 0;
-        for (BattleTile tile : tiles) {
+        for (Tile tile : tiles) {
             if (tile.getTurned()) {
                 tilesTurned++;
             }
@@ -60,22 +60,22 @@ public class BattleTileController {
     }
 
     public void unHighlightAll() {
-        for (BattleTile tile : tiles) {
+        for (Tile tile : tiles) {
             tile.unHighlight();
         }
     }
 
     public void pairTiles() {
-        for (BattleTile tile : tiles) {
+        for (Tile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();
             }
         }
     }
 
-    public void pairTiles(BattlePlayer player) {
+    public void pairTiles(Player player) {
         boolean addOne = true;
-        for (BattleTile tile : tiles) {
+        for (Tile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();
                 if (addOne) {
@@ -86,9 +86,9 @@ public class BattleTileController {
         }
     }
 
-    public void pairTiles(AIBattleOpponent opponent) {
+    public void pairTiles(Opponent opponent) {
         boolean addOne = true;
-        for (BattleTile tile : tiles) {
+        for (Tile tile : tiles) {
             if (tile.getTurned()) {
                 tile.pair();
                 if (addOne) {
@@ -100,13 +100,13 @@ public class BattleTileController {
     }
 
     public void unTurnTiles() {
-        for (BattleTile tile : tiles) {
+        for (Tile tile : tiles) {
             tile.unTurn();
         }
     }
 
     public void unTurnUnpairedTiles() {
-        for (BattleTile tile : tiles) {
+        for (Tile tile : tiles) {
             if (!tile.getPaired()) {
                 tile.unTurn();
             }
@@ -115,7 +115,7 @@ public class BattleTileController {
 
     public int pairedTiles() {
         int pt = 0;
-        for (BattleTile tile : tiles) {
+        for (Tile tile : tiles) {
             if (tile.getPaired()) {
                 pt++;
             }
@@ -123,9 +123,9 @@ public class BattleTileController {
         return pt;
     }
 
-    public ArrayList<BattleTile> getPairedTiles() {
-        ArrayList<BattleTile> t = new ArrayList<>();
-        for (BattleTile tile : tiles) {
+    public ArrayList<Tile> getPairedTiles() {
+        ArrayList<Tile> t = new ArrayList<>();
+        for (Tile tile : tiles) {
             if (tile.getPaired()) {
                 t.add(tile);
             }
@@ -133,9 +133,9 @@ public class BattleTileController {
         return t;
     }
 
-    public ArrayList<BattleTile> getFlippedTiles() {
-        ArrayList<BattleTile> t = new ArrayList<>();
-        for (BattleTile tile : tiles) {
+    public ArrayList<Tile> getFlippedTiles() {
+        ArrayList<Tile> t = new ArrayList<>();
+        for (Tile tile : tiles) {
             if (tile.getTurned()) {
                 t.add(tile);
             }
@@ -143,9 +143,9 @@ public class BattleTileController {
         return t;
     }
 
-    public ArrayList<BattleTile> getHiddenTiles() {
-        ArrayList<BattleTile> t = new ArrayList<>();
-        for (BattleTile tile : tiles) {
+    public ArrayList<Tile> getHiddenTiles() {
+        ArrayList<Tile> t = new ArrayList<>();
+        for (Tile tile : tiles) {
             if (!tile.getPaired()) {
                 t.add(tile);
             }
@@ -158,8 +158,8 @@ public class BattleTileController {
         int i = 1;
         for (int j = 0; j < pairs; j++) {
             String pname = "watch2x" + i + ".png";
-            tiles.add(new BattleTile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
-            tiles.add(new BattleTile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
+            tiles.add(new Tile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
+            tiles.add(new Tile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
             i++;
             if (i == 10) {
                 i = 1;
@@ -167,10 +167,10 @@ public class BattleTileController {
         }
     }
 
-    public boolean checkPairs(BattlePlayer player) {
+    public boolean checkPairs(Player player) {
         boolean gotPair = false;
-        for (BattleTile tile1 : tiles) {
-            for (BattleTile tile2 : tiles) {
+        for (Tile tile1 : tiles) {
+            for (Tile tile2 : tiles) {
                 if (tile1.getPlacement() != tile2.getPlacement()
                         && tile1.getId() == tile2.getId()
                         && tile1.getTurned() && tile2.getTurned()
@@ -186,10 +186,10 @@ public class BattleTileController {
         return gotPair;
     }
 
-    public boolean checkPairs(AIBattleOpponent opponent) {
+    public boolean checkPairs(Opponent opponent) {
         boolean gotPair = false;
-        for (BattleTile tile1 : tiles) {
-            for (BattleTile tile2 : tiles) {
+        for (Tile tile1 : tiles) {
+            for (Tile tile2 : tiles) {
                 if (tile1.getPlacement() != tile2.getPlacement()
                         && tile1.getId() == tile2.getId()
                         && tile1.getTurned() && tile2.getTurned()
@@ -205,7 +205,7 @@ public class BattleTileController {
         return gotPair;
     }
 
-    public void cleanTiles(AIBattleOpponent opponent) {
+    public void cleanTiles(Opponent opponent) {
         unTurnUnpairedTiles();
 
     }

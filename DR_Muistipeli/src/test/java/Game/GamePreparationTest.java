@@ -1,8 +1,8 @@
 package Game;
 
 import GameCharacter.Gus;
-import Player.AIOpponent.AIBattleOpponent;
-import Player.Human.BattlePlayer;
+import Player.Computer.Opponent;
+import Player.Human.Player;
 import javax.swing.JFrame;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -23,13 +23,13 @@ public class GamePreparationTest {
     
     @Test
     public void canMakePlayer(){
-        BattlePlayer bp = gp.makeBattlePlayer(1, 1);
+        Player bp = gp.makeBattlePlayer(1, 1);
         assertEquals(bp.getCharacter().getClass(), new Gus().getClass());
     }
     
     @Test
     public void canMakeOpponent(){
-        AIBattleOpponent bo = gp.makeBattleAI(1, 1, 1);
+        Opponent bo = gp.makeBattleAI(1, 1, 1);
         assertEquals(bo.getCharacter().getClass(), new Gus().getClass());
     }
     

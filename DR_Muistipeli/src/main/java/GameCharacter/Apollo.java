@@ -11,8 +11,6 @@ public class Apollo implements GameCharacter {
 
     private int hp;
     private int energy;
-    private int attack;
-    private int armor;
     private Image currentImage;
     private String neutral;
     private String happy;
@@ -29,8 +27,6 @@ public class Apollo implements GameCharacter {
     private void setDefault() {
         setHp(30);
         setEnergy(15);
-        setAttack(1);
-        setArmor(1);
     }
 
     @Override
@@ -77,22 +73,6 @@ public class Apollo implements GameCharacter {
 
     public void setDamaged() {
         setCurrentImage(damaged);
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int i) {
-        this.attack = i;
-    }
-
-    public int getArmor() {
-        return armor;
-    }
-
-    public void setArmor(int i) {
-        this.armor = i;
     }
 
     public int getHp() {

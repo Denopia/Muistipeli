@@ -11,8 +11,6 @@ public class Gus implements GameCharacter {
 
     private int hp;
     private int energy;
-    private int attack;
-    private int armor;
     private Image currentImage;
     private String neutral;
     private String happy;
@@ -29,29 +27,27 @@ public class Gus implements GameCharacter {
     private void setDefault() {
         setHp(30);
         setEnergy(15);
-        setAttack(1);
-        setArmor(1);
     }
 
     @Override
     public void setImages1() {
-        neutral = "gus_neutral.png";
-        happy = "gus_yes.png";
-        unhappy = "gus_no.png";
-        damaged = "gus_damaged.png";
-        takeDamage = "gus_take_damage.png";
-        giveDamage = "gus_give_damage.png";
+        neutral = "character/gus/gus_neutral.png";
+        happy = "character/gus/gus_yes.png";
+        unhappy = "character/gus/gus_no.png";
+        damaged = "character/gus/gus_damaged.png";
+        takeDamage = "character/gus/gus_take_damage.png";
+        giveDamage = "character/gus/gus_give_damage.png";
         setNeutral();
     }
 
     @Override
     public void setImages2() {
-        neutral = "gus_neutral.png";
-        happy = "gus_yes.png";
-        unhappy = "gus_no.png";
-        damaged = "gus_damaged.png";
-        takeDamage = "gus_take_damage.png";
-        giveDamage = "gus_give_damage.png";
+        neutral = "character/gus/gus_neutral.png";
+        happy = "character/gus/gus_yes.png";
+        unhappy = "character/gus/gus_no.png";
+        damaged = "character/gus/gus_damaged.png";
+        takeDamage = "character/gus/gus_take_damage.png";
+        giveDamage = "character/gus/gus_give_damage.png";
         setNeutral();
     }
 
@@ -83,21 +79,6 @@ public class Gus implements GameCharacter {
         setCurrentImage(damaged);
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int i) {
-        this.attack = i;
-    }
-
-    public int getArmor() {
-        return armor;
-    }
-
-    public void setArmor(int i) {
-        this.armor = i;
-    }
 
     public int getHp() {
         return hp;
