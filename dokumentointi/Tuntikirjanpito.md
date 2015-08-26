@@ -15,3 +15,6 @@
 18.8.2015|5h|Tehtiin pelin valmisteluruutu
 19.8.2015|4h|Paranneltiin valmisteluruutua ja tehtiin kuvia
 20.8.2015|5h|Deadline 4 juttuja
+23.8.2015|6h|Lisättiin pelaajalle mahdollisuus käyttää taitoa, lisää kuvia
+24.8.2015|5h|Tehtiin päävalikko uusiksi ja korjailtiin ohjelmaa sieltä täältä
+25.8.2015|4h|Korjattiin päävalikkoa ja siistittiin hieman koodia ja lisättiin kommentteja

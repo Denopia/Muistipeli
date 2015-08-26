@@ -1,15 +1,24 @@
 ﻿#Aihemäärittely
 
 ####Aihe:
-Aluksi tarkoituksena tehdä perinteinen muistipeli johon tarvitaan kaksi pelaajaa. Kun tämä on valmis laajennetaan peliä lisäämällä siihen jokin teema ja muutama lisätoiminnallisuus pelaajille laatojen kääntämisen lisäksi, esimerkiksi laattojen uudelleen sekoitus kun tietyt ehdot ovat täyttyneet. Voittoehdotkin todennäköisesti tulevat olemaan jotain muuta kuin se kummalla pelaajalla on enemmän laattapareja. Jos keksitään jotain jännää niin voidaan ehkä lisätä myös yksinpelimahdollisuus. EDIT. tehtiinkin ekaksi yksinpeli koska niin oli hauskempi testata ohjelmaa EDIT2. Voi olla että tiputetaan tavallisen muistipelin pelaaminen pois jotta saadaan pelistä hieman pienempi ja selkeämpi.
+Kahden pelaajan muistipeli. Pelaaja pelaa tässä versiossa vain tietokonetta vastaan. Pelissä kummallakin pelaajalla on oma hahmo ja hahmolla elämä- ja energiamittarit. Tavoitteena on saada astustaja elämä nollaan. Oman vuoron aikana pelaaja voi lyödä vastustajaa kerran käyttämällä energiaa. Kun vastustajaa lyö, tämän elämä laskee. Vuoron aikana voi käyttää myös taitoja, jotka vievät energiaa. Taito voi olla esimerkiksi sellainen, valitset rivin laattoja, ja ne kaikki kääntyvät.
+	Laatat tulevat antamaan energiaa, elämää, tai jotain muita efektejä, kuten poistamalla vastustajalta elämää. Voi olla että lisätään myös jokin ansalaatta joka vahingoittaa laatan kääntäjää. Lisäksi kun 9 paria on löytynyt, tulee kentälle uudet laatat kaikkien vanhojen tilalle, jottei toinen pelaajista saa liian suurta etua.
 
 ####Käyttäjät: 
-Pelaajat (1-2)
+Pelaaja
 
 ####Käyttäjän toiminnot:
 - Ohjeiden katselu
-- Pelin aloittaminen
+- Pelin sammuttaminen
+- Pelin valmistelu
+- Pelin valmistelussa:
+  - Oman hahmon vaihtaminen
+  - Vastustajan hahmon vaihtaminen
+  - Vaikeusasteen valitseminen
+  - Valikkoon palaaminen
+  - Pelin aloittaminen
 - Pelissä:  
   - Laattojen kääntäminen
-  - Muut lisätoiminnot jotka keksitään myöhemmin
-  - Pelin lopettaminen
+  - Vastustajan lyöminen
+  - Taidon käyttäminen
+  - Pelin lopettaminen (ei vielä käytössä)
