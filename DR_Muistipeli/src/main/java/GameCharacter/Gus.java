@@ -18,7 +18,6 @@ public class Gus implements GameCharacter {
     private String damaged;
     private String giveDamage;
     private String takeDamage;
-    private int stats;
 
     public Gus() {
         setDefault();

@@ -21,15 +21,15 @@ public class MainMenu {
     private boolean mouseOnExit;
 
     public MainMenu(JFrame frame, GameScreen gs) {
-        
         this.frame = frame;
-        this.gameScreen = gs;
         this.dbm = new DrawingBoardMenu(this);
+        this.gameScreen = gs;
         this.mouseListener = new MouseListenerMainMenu(this);
-        this.frame.addMouseListener(mouseListener);
-        this.frame.addMouseMotionListener(mouseListener);
-        this.frame.add(dbm);
         unHighlightAll();
+
+        this.frame.addMouseListener(this.mouseListener);
+        this.frame.addMouseMotionListener(this.mouseListener);
+        this.frame.add(dbm);
     }
 
     public void highlightSPG() {
@@ -79,6 +79,10 @@ public class MainMenu {
         refresh();
     }
 
+    public void startPreparationScreen(int i) {
+        gameScreen.buildPreparation(i);
+    }
+
     public void showInstructions() {
         System.out.println("Näytä ohjeet!");
     }
@@ -89,10 +93,6 @@ public class MainMenu {
 
     public void refresh() {
         dbm.repaint();
-    }
-
-    public void startPreparationScreen(int i) {
-        gameScreen.buildPreparation(i);
     }
 
 }

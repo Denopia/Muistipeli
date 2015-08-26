@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 /**
  * Pitää sisällään ihmispelaajan tiedot.
- *
  */
 public class Player {
 
@@ -20,8 +19,8 @@ public class Player {
 
     public Player() {
         this.scoredTiles = new ArrayList<>();
-        hitThisTurn = false;
-        skill1Selected = false;
+        this.hitThisTurn = false;
+        this.skill1Selected = false;
 
     }
 
@@ -30,28 +29,28 @@ public class Player {
     }
 
     public void setHitThisTurnTrue() {
-        this.hitThisTurn = true;
+        hitThisTurn = true;
     }
 
     public void setHitThisTurnFalse() {
-        this.hitThisTurn = false;
+        hitThisTurn = false;
     }
 
     public boolean getHitThisTurn() {
-        return this.hitThisTurn;
+        return hitThisTurn;
     }
 
     public int getNumberOfPairsScored() {
-        return this.scoredTiles.size();
+        return scoredTiles.size();
     }
 
     public void addScoredPair(Tile tile) {
-        this.gc.setEnergy(this.gc.getEnergy() + 1);
-        this.scoredTiles.add(tile);
+        gc.setEnergy(gc.getEnergy() + 1);
+        scoredTiles.add(tile);
     }
 
     public Image getPortrait() {
-        return this.gc.getCurrentImage();
+        return gc.getCurrentImage();
     }
 
     public void scorePair() {
@@ -63,46 +62,56 @@ public class Player {
     }
 
     public void setHappy() {
-        this.gc.setHappy();
+        gc.setHappy();
     }
 
     public void setUnhappy() {
-        this.gc.setUnhappy();
+        gc.setUnhappy();
     }
 
     public void setNeutral() {
-        this.gc.setNeutral();
+        gc.setNeutral();
     }
 
     public void setTakeDamage() {
-        this.gc.setTakeDamage();
+        gc.setTakeDamage();
     }
 
     public void setGiveDamage() {
-        this.gc.setGiveDamage();
+        gc.setGiveDamage();
     }
 
     public GameCharacter getCharacter() {
-        return this.gc;
+        return gc;
     }
 
     public void selectSkil1() {
-        this.skill1Selected = true;
+        skill1Selected = true;
     }
 
     public void deselectSkil1() {
-        this.skill1Selected = false;
+        skill1Selected = false;
     }
 
     public boolean getSkill1Selected() {
         return skill1Selected;
     }
 
+    /**
+     * Käyttää taidon, joka kääntää yhden rivin laattoja Tulisi olla oikeastaan
+     * pelihahmolla tämä metodi Lisäksi varmaan parempi vain laittaa
+     * palauttamaan lista käännettävistä laatoista pelille, joka voi sitten
+     * kontrollerin kautta ne kääntää
+     *
+     * @param tc Laattakontrolleri
+     * @param row Mille riville taito käytetään
+     * @param bo Vastustaja
+     */
     public void useSkill1(TileController tc, int row, Opponent bo) {
         int r = row * 6;
         for (int i = 0; i < 6; i++) {
             tc.getTiles().get(r).turn();
-            bo.addSeenTile( tc.getTiles().get(r));
+            bo.addSeenTile(tc.getTiles().get(r));
             r++;
         }
         deselectSkil1();

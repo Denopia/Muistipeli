@@ -83,7 +83,7 @@ public class GamePreparation {
      */
     public void startGame() {
         if (gameMode == 1) {
-            gs.buildBattleSinglePlayerGame(makeBattlePlayer(playerCharacter, playerColor), makeBattleAI(opponentCharacter, opponentColor, difficulty));
+            gs.buildBattleSinglePlayerGame(makePlayer(playerCharacter, playerColor), makeOpponent(opponentCharacter, opponentColor, difficulty));
         }
     }
 
@@ -94,7 +94,7 @@ public class GamePreparation {
      * @param color Pelihahmon väri
      * @return Luotu pelaaja
      */
-    public Player makeBattlePlayer(int character, int color) {
+    public Player makePlayer(int character, int color) {
         Player bp = new Player();
         if (character == 1) {
             bp.setCharacter(new Gus());
@@ -119,7 +119,7 @@ public class GamePreparation {
      * @param difficulty Vastustajan vaikeusaste
      * @return Luotu vastustaja
      */
-    public Opponent makeBattleAI(int character, int color, int difficulty) {
+    public Opponent makeOpponent(int character, int color, int difficulty) {
         Opponent bo = new Opponent();
         if (character == 1) {
             bo.setCharacter(new Gus());
@@ -144,7 +144,7 @@ public class GamePreparation {
     /**
      * Laittaa kaikkien nappuloiden korostusarvoksi false
      */
-    public void unHighlightAll() {
+    public final void unHighlightAll() {
         mouseOnArrow1 = false;
         mouseOnArrow2 = false;
         mouseOnArrow3 = false;

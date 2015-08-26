@@ -1,7 +1,6 @@
 package Game;
 
 import Game.GameModes.SinglePlayerGame;
-import Game.GameModes.MultiPlayerGame;
 import Player.Computer.Opponent;
 import Player.Human.Player;
 import java.awt.event.MouseListener;
@@ -17,11 +16,6 @@ import javax.swing.JFrame;
 public class GameScreen {
 
     private final JFrame frame;
-    private MainMenu mainMenu;
-   
-    private SinglePlayerGame battleSinglePlayerGame;
-    private MultiPlayerGame twoPlayerGame;
-    private GamePreparation gamePrep;
 
     public GameScreen(JFrame frame) {
         this.frame = frame;
@@ -41,51 +35,43 @@ public class GameScreen {
     }
 
     /**
-     * Tekee päävalikon ja laittaa sen ruutuun
+     * Tekee päävalikon
      */
     public void buildMainMenu() {
         clearFrame();
-        this.mainMenu = new MainMenu(this.frame, this);
+        MainMenu menu = new MainMenu(this.frame, this);
         this.frame.revalidate();
         this.frame.repaint();
     }
 
     /**
-     * Tekee pelin valmisteluruudun ja laittaa sen ruutuun
+     * Tekee pelin valmisteluruudun
      *
      * @param gameMode Pelimoodi
      */
     public void buildPreparation(int gameMode) {
         clearFrame();
-        this.gamePrep = new GamePreparation(gameMode, this.frame, this);
+        GamePreparation gamePrep = new GamePreparation(gameMode, this.frame, this);
         this.frame.revalidate();
         this.frame.repaint();
     }
 
 
     /**
-     * Tekee tappeluyksinpeli ja laittaa sen ruutuun
+     * Tekee tappeluyksinpeli
      *
      * @param p Pelaaja
      * @param o Vastustaja
      */
     void buildBattleSinglePlayerGame(Player p, Opponent o) {
         clearFrame();
-        this.battleSinglePlayerGame = new SinglePlayerGame(18, this.frame, this, p, o);
+        SinglePlayerGame battleSinglePlayerGame = new SinglePlayerGame(18, this.frame, this, p, o);
         this.frame.revalidate();
         this.frame.repaint();
     }
 
     /**
-     * Tekee kaksinpeli ja laittaa sen ruutuun Mutta ei oikeesti tee vielä
-     * mitään
-     */
-    public void buildTwoPlayerGame() {
-        this.twoPlayerGame = new MultiPlayerGame();
-    }
-
-    /**
-     * Sulkee ikkunan eli samalla sammuttaa pelin
+     * Sulkee ikkunan, mikä sammuttaa pelin
      */
     public void closeScreen() {
         this.frame.dispose();

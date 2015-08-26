@@ -29,8 +29,12 @@ public class DrawingBoardMenu extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+        paintBackground(g2d);
+        paintButtons(g2d);
+    }
+    
+    public void paintBackground(Graphics g2d){
         g2d.drawImage(makeImage(pictures[0]), 0, 0, null);
-        paintButtons(g);
     }
 
     public void paintButtons(Graphics g2d) {

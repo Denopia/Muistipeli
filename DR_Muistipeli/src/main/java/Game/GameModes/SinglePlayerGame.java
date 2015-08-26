@@ -2,7 +2,7 @@ package Game.GameModes;
 
 import TileController.TileController;
 import Game.GameScreen;
-import Graphics.DrawingBoardSingle;
+import Graphics.DrawingBoardSinglePlayerGame;
 import Player.Computer.Opponent;
 import Player.Human.Player;
 import Tile.Tile;
@@ -23,7 +23,7 @@ public class SinglePlayerGame {
 
     private GameScreen gameScreen;
     private JFrame frame;
-    private DrawingBoardSingle dbbs;
+    private DrawingBoardSinglePlayerGame dbbs;
     private TileController tc;
     private MouseListenerSinglePlayerGame mouseListener;
     private Player player;
@@ -37,25 +37,23 @@ public class SinglePlayerGame {
     private boolean horRow5;
     private boolean horRow6;
 
-    private ArrayList<Boolean> horizontalRows;
-
     private int pairs;
     private boolean mouseOnHit;
     private boolean mouseOnSkill1;
 
     public SinglePlayerGame(int pairs, JFrame frame, GameScreen gs, Player bp, Opponent bo) {
-        mouseOnSkill1 = false;
-        mouseOnHit = false;
+        this.mouseOnSkill1 = false;
+        this.mouseOnHit = false;
         this.pairs = pairs;
         this.player = bp;
         this.opponent = bo;
         this.opponent.setGame(this);
-        playersTurn = true;
+        this.playersTurn = true;
         this.frame = frame;
         this.gameScreen = gs;
         this.tc = new TileController(pairs);
         this.tc.shuffleTiles();
-        this.dbbs = new DrawingBoardSingle(this);
+        this.dbbs = new DrawingBoardSinglePlayerGame(this);
         this.mouseListener = new MouseListenerSinglePlayerGame(this);
         this.frame.add(dbbs);
         this.frame.addMouseListener(mouseListener);
@@ -63,6 +61,10 @@ public class SinglePlayerGame {
         dbbs.repaint();
     }
 
+    /**
+     * Asettaa kaikki rivit pois korostuksesta
+     * Tähän hommaan tarvitaan joku erillinen luokka
+     */
     public void setHorRowsFalse() {
         horRow1 = false;
         horRow2 = false;
@@ -110,7 +112,7 @@ public class SinglePlayerGame {
     public void playerUseSkill1(int row) {
         if (player.getCharacter().getEnergy() >= 5) {
             player.getCharacter().setEnergy(player.getCharacter().getEnergy() - 5);
-            this.player.useSkill1(this.tc, row, opponent);
+            player.useSkill1(tc, row, opponent);
             pairTiles();
         }
     }
@@ -132,7 +134,7 @@ public class SinglePlayerGame {
     }
 
     public boolean isPlayersTurn() {
-        return this.playersTurn;
+        return playersTurn;
     }
 
     public void passTurn() {
@@ -215,10 +217,9 @@ public class SinglePlayerGame {
     }
 
     private void endTurnCheck() {
-        tc.cleanTiles(opponent);
+        tc.cleanTiles();
         player.setNeutral();
-        opponent.setNeutral();
-        refresh();
+        opponent.setNeutral();    
         checkRefill();
         unHighlightAll();
         gameOver();
@@ -238,6 +239,15 @@ public class SinglePlayerGame {
 
     public void unHighlightSkill1() {
         mouseOnSkill1 = false;
+    }
+    
+    public boolean getHitH() {
+        return mouseOnHit;
+    }
+
+    public boolean getSkill1H() {
+
+        return mouseOnSkill1;
     }
 
     public void unHighlightAll() {
@@ -291,15 +301,6 @@ public class SinglePlayerGame {
                 opponent.setHitThisTurnTrue();
             }
         }
-    }
-
-    public boolean getHitH() {
-        return mouseOnHit;
-    }
-
-    public boolean getSkill1H() {
-
-        return mouseOnSkill1;
     }
 
     public void backToMenu() {

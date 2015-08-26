@@ -23,13 +23,13 @@ public class GamePreparationTest {
     
     @Test
     public void canMakePlayer(){
-        Player bp = gp.makeBattlePlayer(1, 1);
+        Player bp = gp.makePlayer(1, 1);
         assertEquals(bp.getCharacter().getClass(), new Gus().getClass());
     }
     
     @Test
     public void canMakeOpponent(){
-        Opponent bo = gp.makeBattleAI(1, 1, 1);
+        Opponent bo = gp.makeOpponent(1, 1, 1);
         assertEquals(bo.getCharacter().getClass(), new Gus().getClass());
     }
     

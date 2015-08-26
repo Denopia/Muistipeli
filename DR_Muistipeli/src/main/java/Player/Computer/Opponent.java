@@ -15,24 +15,31 @@ import javax.swing.Timer;
  * Yksinpelin vastustaja. PitÃ¤Ã¤ sisÃ¤llÃ¤Ã¤n tietokonevastuksen tiedot ja
  * suorittaa vastuksen vuoron.
  *
+ * Vastustajalle olisi hyvä lisätä oma luokka laattojen käsittelyyn
  */
 public class Opponent {
 
-    private GameCharacter gc;
+    private int turn;
+    private SinglePlayerGame game;
     private ArrayList<Tile> scoredTiles;
     private ArrayList<Tile> knownTiles;
-    private SinglePlayerGame game;
+    private GameCharacter gc;
     private int difficulty;
     private boolean hitThisTurn;
 
     public Opponent() {
-        this.scoredTiles = new ArrayList<>();
-        this.knownTiles = new ArrayList<>();
+        turn = 0;
+        scoredTiles = new ArrayList<>();
+        knownTiles = new ArrayList<>();
         hitThisTurn = false;
     }
 
+    public void setGame(SinglePlayerGame game) {
+        this.game = game;
+    }
+
     public void setDifficulty(int i) {
-        this.difficulty = i;
+        difficulty = i;
     }
 
     public void setCharacter(GameCharacter gc) {
@@ -40,28 +47,28 @@ public class Opponent {
     }
 
     public GameCharacter getCharacter() {
-        return this.gc;
+        return gc;
     }
 
     public void setHitThisTurnTrue() {
-        this.hitThisTurn = true;
+        hitThisTurn = true;
     }
 
     public void setHitThisTurnFalse() {
-        this.hitThisTurn = false;
+        hitThisTurn = false;
     }
 
     public boolean getHitThisTurn() {
-        return this.hitThisTurn;
+        return hitThisTurn;
     }
 
     public void addScoredPair(Tile tile) {
-        this.gc.setEnergy(this.gc.getEnergy() + 1);
-        this.scoredTiles.add(tile);
+        gc.setEnergy(gc.getEnergy() + 1);
+        scoredTiles.add(tile);
     }
 
     public int getNumberOfPairsScored() {
-        return this.scoredTiles.size();
+        return scoredTiles.size();
     }
 
     public void addSeenTile(Tile tile) {
@@ -81,35 +88,27 @@ public class Opponent {
     }
 
     public Image getPortrait() {
-        return this.gc.getCurrentImage();
-    }
-
-    public void scorePair() {
-        setHappy();
-    }
-
-    public void failPair() {
-        setUnhappy();
+        return gc.getCurrentImage();
     }
 
     public void setHappy() {
-        this.gc.setHappy();
+        gc.setHappy();
     }
 
     public void setUnhappy() {
-        this.gc.setUnhappy();
+        gc.setUnhappy();
     }
 
     public void setNeutral() {
-        this.gc.setNeutral();
+        gc.setNeutral();
     }
 
     public void setTakeDamage() {
-        this.gc.setTakeDamage();
+        gc.setTakeDamage();
     }
 
     public void setGiveDamage() {
-        this.gc.setGiveDamage();
+        gc.setGiveDamage();
     }
 
     public void cleanSeenTiles() {
@@ -119,7 +118,6 @@ public class Opponent {
     }
 
     public void forgetSomeTiles2ez() {
-        System.out.println("FORGOT ALL");
         forgetAll();
     }
 
@@ -127,7 +125,6 @@ public class Opponent {
         if (knownTiles.size() <= 0) {
             return;
         }
-
         int removeThisMany;
         if (knownTiles.size() < 4) {
             removeThisMany = 1;
@@ -153,16 +150,13 @@ public class Opponent {
             int removeThis = lots.get(pickThisPlace);
             knownTiles.remove(removeThis);
             removeThisMany--;
-            System.out.println("REMOVED ONE");
         }
-        System.out.println("----------------");
     }
 
     public void forgetSomeTilesChallenging() {
         if (knownTiles.size() <= 0) {
             return;
         }
-
         int removeThisMany;
         if (knownTiles.size() < 6) {
             removeThisMany = 1;
@@ -188,13 +182,17 @@ public class Opponent {
             int removeThis = lots.get(pickThisPlace);
             knownTiles.remove(removeThis);
             removeThisMany--;
-            System.out.println("REMOVED ONE");
         }
-        System.out.println("----------------");
     }
 
     public void forgetSomeTilesImpossible() {
-        System.out.println("NEVER FORGET");
+        turn++;
+        System.out.println("ON VUORO : " + turn);
+        System.out.println("TIEDÄN MITÄ ON NÄIDEN LAATTOJEN TAKANA:");
+        for (Tile t : knownTiles) {
+            System.out.println("LAATAN NUMERO " + t.getPlacement() + " TAKANA ON LUKU " + t.getId());
+        }
+//        System.out.println("NEVER FORGET");
     }
 
     public boolean doIForgetJustAverage() {
@@ -291,14 +289,22 @@ public class Opponent {
         return false;
     }
 
+    /**
+     * Vastustaja kääntää kaksi laattaa
+     *
+     * @param slowDown Kuinka paljon timerit odottaa lisää
+     */
     public void turnTwoTiles(int slowDown) {
         Timer timer;
         Timer timerMini;
         Timer timer2;
         Timer timer2Mini;
 
+        //Katsotaan onko tiedossa paria joka voitaisiin kääntää
         final ArrayList<Tile> seenPair = checkForPair();
+        //Jos tiedetään pari, käännetään se
         if (!seenPair.isEmpty()) {
+            //Kääntää ensimmäisen laatan
             timer = new Timer(2000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -306,6 +312,7 @@ public class Opponent {
                     game.refresh();
                 }
             });
+            //Kääntää toisen laatan
             timer2 = new Timer(4000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -314,6 +321,7 @@ public class Opponent {
                     game.pairTiles();
                 }
             });
+            //Korostaa ensimmäisen laatan
             timerMini = new Timer(1000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -321,6 +329,7 @@ public class Opponent {
                     game.refresh();
                 }
             });
+            //Korostaa toisen laatan
             timer2Mini = new Timer(3000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -329,19 +338,27 @@ public class Opponent {
                 }
             });
         } else {
+            //Jos ei tiedetä paria niin joudutaan arvamaan aluksi yksi laatta sattumalta
             final Tile firstTile;
             final Tile secondTile;
-            final Tile thirdTile;
-            Tile ttt;
+
             int random1 = randomNumber(getUnseenTiles().size());
             firstTile = getUnseenTiles().get(random1);
-            knownTiles.add(firstTile);
+            addSeenTile(firstTile);
             boolean luckyPair = false;
+            for (Tile nt : knownTiles) {
+                if (nt.getId() == firstTile.getId()
+                        && nt.getPlacement() != firstTile.getPlacement()) {
+                    luckyPair = true;
+                }
+            }
+            //Luodaan varalle toinen random laatta, jos ensimmäiselle ei tiedetä paria
             int random2 = random1;
             while (random1 == random2) {
                 random2 = randomNumber(getUnseenTiles().size());
             }
             secondTile = getUnseenTiles().get(random2);
+            //Kääntää ensimmäisen laatan
             timer = new Timer(2000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -349,6 +366,7 @@ public class Opponent {
                     game.refresh();
                 }
             });
+            //Korostaa ensimmäisen laatan
             timerMini = new Timer(1000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
@@ -356,7 +374,9 @@ public class Opponent {
                     game.refresh();
                 }
             });
+            //Jos löytyi ensimmäiselle laatalle pari
             if (luckyPair) {
+                //Kääntää toisen laatan
                 timer2 = new Timer(4000 + slowDown, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
@@ -370,6 +390,7 @@ public class Opponent {
                         game.pairTiles();
                     }
                 });
+                //Korostaa toisen laatan
                 timer2Mini = new Timer(3000 + slowDown, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
@@ -382,15 +403,19 @@ public class Opponent {
                         game.refresh();
                     }
                 });
+                //Jos ei tidetä ensimmäiselle laatalle paria, käännetään toinen random
             } else {
+                //Kääntää toisen laatan
                 timer2 = new Timer(4000 + slowDown, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                         secondTile.turn();
+                        addSeenTile(secondTile);
                         game.refresh();
                         game.pairTiles();
                     }
                 });
+                //Korostaa toisen laatan
                 timer2Mini = new Timer(3000 + slowDown, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
@@ -400,6 +425,7 @@ public class Opponent {
                 });
             }
         }
+        //Lopuksi käynnistetään timerit
         timer.setRepeats(false);
         timer2.setRepeats(false);
         timerMini.setRepeats(false);
@@ -410,12 +436,22 @@ public class Opponent {
         timer2Mini.start();
     }
 
-    public int randomNumber(int i) {
+    private Double randomDouble() {
+        Random r = new Random();
+        return r.nextDouble();
+    }
+
+    private int randomNumber(int i) {
         Random r = new Random();
         return r.nextInt(i);
     }
 
-    public ArrayList<Tile> getUnseenTiles() {
+    /**
+     * Listaa kaikki laatat joita ei tiedetä
+     *
+     * @return Lista laatoista joita ei tiedetä
+     */
+    private ArrayList<Tile> getUnseenTiles() {
         ArrayList<Tile> unturned = game.getController().getHiddenTiles();
         ArrayList<Tile> unseen = new ArrayList<>();
         for (Tile ut : unturned) {
@@ -432,6 +468,11 @@ public class Opponent {
         return unseen;
     }
 
+    /**
+     * Käy läpi nähdyt laatat ja jos löytyy pari palautetaan se listana
+     *
+     * @return Lista jossa on kaksi laattaa jotka muodostavat parin
+     */
     public ArrayList<Tile> checkForPair() {
         ArrayList<Tile> tp = new ArrayList<>();
         for (Tile tile : knownTiles) {
@@ -446,12 +487,11 @@ public class Opponent {
         return tp;
     }
 
+    /**
+     * Unohtaa kaikki laatat
+     */
     public void forgetAll() {
         this.knownTiles = new ArrayList<>();
-    }
-
-    public void setGame(SinglePlayerGame game) {
-        this.game = game;
     }
 
 }

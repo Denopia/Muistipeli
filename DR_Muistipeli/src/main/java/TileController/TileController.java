@@ -22,11 +22,11 @@ public class TileController {
     }
 
     public ArrayList<Tile> getTiles() {
-        return this.tiles;
+        return tiles;
     }
 
     public void shuffleTiles() {
-        Collections.shuffle(this.tiles);
+        Collections.shuffle(tiles);
         setCoordinates6x6();
     }
 
@@ -35,7 +35,7 @@ public class TileController {
         int y = 148;
         int z = 0;
         int p = 0;
-        for (Tile tile : this.tiles) {
+        for (Tile tile : tiles) {
             tile.setCoordinates(x, y);
             tile.setPlacement(p);
             p++;
@@ -49,6 +49,12 @@ public class TileController {
         }
     }
 
+    /**
+     * Palauta niiden laattojen lukumäärä jotka on käännetty näkyviin, mutta
+     * eivät ole vielä muodostaneet paria
+     *
+     * @return Laattojen lukumäärä
+     */
     public int getTilesTurned() {
         int tilesTurned = 0;
         for (Tile tile : tiles) {
@@ -62,40 +68,6 @@ public class TileController {
     public void unHighlightAll() {
         for (Tile tile : tiles) {
             tile.unHighlight();
-        }
-    }
-
-    public void pairTiles() {
-        for (Tile tile : tiles) {
-            if (tile.getTurned()) {
-                tile.pair();
-            }
-        }
-    }
-
-    public void pairTiles(Player player) {
-        boolean addOne = true;
-        for (Tile tile : tiles) {
-            if (tile.getTurned()) {
-                tile.pair();
-                if (addOne) {
-                    player.addScoredPair(tile);
-                    addOne = false;
-                }
-            }
-        }
-    }
-
-    public void pairTiles(Opponent opponent) {
-        boolean addOne = true;
-        for (Tile tile : tiles) {
-            if (tile.getTurned()) {
-                tile.pair();
-                if (addOne) {
-                    opponent.addScoredPair(tile);
-                    addOne = false;
-                }
-            }
         }
     }
 
@@ -123,6 +95,11 @@ public class TileController {
         return pt;
     }
 
+    /**
+     * Palautetaan lista laatoista joilla on pari
+     *
+     * @return Laattalista
+     */
     public ArrayList<Tile> getPairedTiles() {
         ArrayList<Tile> t = new ArrayList<>();
         for (Tile tile : tiles) {
@@ -133,16 +110,11 @@ public class TileController {
         return t;
     }
 
-    public ArrayList<Tile> getFlippedTiles() {
-        ArrayList<Tile> t = new ArrayList<>();
-        for (Tile tile : tiles) {
-            if (tile.getTurned()) {
-                t.add(tile);
-            }
-        }
-        return t;
-    }
-
+    /**
+     * Palautetaan lista laatoista joilla ei ole paria
+     *
+     * @return Laattalista
+     */
     public ArrayList<Tile> getHiddenTiles() {
         ArrayList<Tile> t = new ArrayList<>();
         for (Tile tile : tiles) {
@@ -153,7 +125,10 @@ public class TileController {
         return t;
     }
 
-    public void newTiles() {
+    /**
+     * Luodaan uudet pelilaatat
+     */
+    public final void newTiles() {
         this.tiles = new ArrayList<>();
         int i = 1;
         for (int j = 0; j < pairs; j++) {
@@ -167,6 +142,13 @@ public class TileController {
         }
     }
 
+    /**
+     * Tarkastaa kaikki käännetyt laatat ja jos löytyy pareja muodostaa niistä
+     * parin ja lisää sen pelaajalle
+     *
+     * @param player Pelaaja jolle pari lisätään
+     * @return Jos löytyy pari palautetaan true, jos ei löydy palautetaan false
+     */
     public boolean checkPairs(Player player) {
         boolean gotPair = false;
         for (Tile tile1 : tiles) {
@@ -186,6 +168,13 @@ public class TileController {
         return gotPair;
     }
 
+    /**
+     * Tarkastaa kaikki käännetyt laatat ja jos löytyy pareja muodostaa niistä
+     * parin ja lisää sen pelaajalle
+     *
+     * @param opponent Vastustaja jolle pari lisätään
+     * @return Jos löytyy pari palautetaan true, jos ei löydy palautetaan false
+     */
     public boolean checkPairs(Opponent opponent) {
         boolean gotPair = false;
         for (Tile tile1 : tiles) {
@@ -205,7 +194,10 @@ public class TileController {
         return gotPair;
     }
 
-    public void cleanTiles(Opponent opponent) {
+    /**
+     * Käänetään parittomat laatat piiloon
+     */
+    public void cleanTiles() {
         unTurnUnpairedTiles();
 
     }

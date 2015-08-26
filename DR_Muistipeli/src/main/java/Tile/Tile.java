@@ -15,7 +15,6 @@ public class Tile {
     private int y;
     private boolean turned;
     private boolean highlight;
-    private boolean readyToBepaired;
     private boolean paired;
     private String blankPath;
     private String highlightPath;
@@ -23,7 +22,6 @@ public class Tile {
     private Image currentImg;
 
     public Tile(int p, String blankPath, String highlightPath, String turnedPath) {
-        this.readyToBepaired = false;
         this.id = p;
         this.blankPath = blankPath;
         this.highlightPath = highlightPath;
@@ -35,31 +33,31 @@ public class Tile {
     }
 
     public int getX() {
-        return this.x;
+        return x;
     }
 
     public int getY() {
-        return this.y;
+        return y;
     }
 
     public boolean getTurned() {
-        return this.turned;
+        return turned;
     }
 
     public boolean getHighlight() {
-        return this.highlight;
+        return highlight;
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public int getPlacement() {
-        return this.placement;
+        return placement;
     }
 
     public void setPlacement(int i) {
-        this.placement = i;
+        placement = i;
     }
 
     public void setCoordinates(int x, int y) {
@@ -68,22 +66,9 @@ public class Tile {
     }
 
     public void pair() {
-        this.readyToBepaired = false;
-        this.turned = false;
-        this.paired = true;
-        this.currentImg = createImage(turnedPath);
-    }
-
-    public boolean getReadyToBePaired() {
-        return this.readyToBepaired;
-    }
-
-    public void setReadyToBePaired() {
-        this.readyToBepaired = true;
-    }
-
-    public void setNotReadyToBePaired() {
-        this.readyToBepaired = false;
+        turned = false;
+        paired = true;
+        currentImg = createImage(turnedPath);
     }
 
     public void turn() {
@@ -91,8 +76,8 @@ public class Tile {
             return;
         }
         unHighlight();
-        this.turned = true;
-        this.currentImg = createImage(turnedPath);
+        turned = true;
+        currentImg = createImage(turnedPath);
     }
 
     public void unTurn() {
@@ -100,27 +85,38 @@ public class Tile {
             return;
         }
         unHighlight();
-        this.readyToBepaired = false;
-        this.turned = false;
-        this.currentImg = createImage(blankPath);
+        turned = false;
+        currentImg = createImage(blankPath);
     }
 
     public void highlight() {
         if (turned || paired) {
             return;
         }
-        this.highlight = true;
+        highlight = true;
     }
 
     public void unHighlight() {
         if (turned || paired) {
             return;
         }
-        this.highlight = false;
+        highlight = false;
     }
 
     public Image getImage() {
         return currentImg;
+    }
+
+    public boolean getPaired() {
+        return paired;
+    }
+
+    public String getHighlightPath() {
+        return blankPath;
+    }
+
+    public Image getHighlightImage() {
+        return createImage(highlightPath);
     }
 
     private Image createImage(String path) {
@@ -134,17 +130,4 @@ public class Tile {
         Image kuva = icon.getImage();
         return kuva;
     }
-
-    public boolean getPaired() {
-        return this.paired;
-    }
-
-    public String getHighlightPath() {
-        return this.blankPath;
-    }
-
-    public Image getHighlightImage() {
-        return createImage(highlightPath);
-    }
-
 }

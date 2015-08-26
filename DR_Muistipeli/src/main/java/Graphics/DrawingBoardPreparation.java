@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 /**
  * Piirtää pelin valmisteluruudun
- * 
+ *
  */
 public class DrawingBoardPreparation extends JPanel {
 
@@ -24,16 +24,19 @@ public class DrawingBoardPreparation extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(makeImage("game_prep_screen.png"), 0, 0, null);
+        paintBackground(g2d);
         paintMode(g2d);
         paintCharacterFrames(g2d);
+        paintArrows(g2d);
         paintPlayer(g2d);
         paintOpponent(g2d);
         paintDifficulty(g2d);
-        paintMenu(g2d);
-        paintStart(g2d);
+        paintMenuButton(g2d);
+        paintStartButton(g2d);
+    }
 
-        paintArrows(g2d);
+    public void paintBackground(Graphics2D g2d) {
+        g2d.drawImage(makeImage("game_prep_screen.png"), 0, 0, null);
     }
 
     public void paintMode(Graphics2D g2d) {
@@ -70,7 +73,7 @@ public class DrawingBoardPreparation extends JPanel {
         }
     }
 
-    public void paintMenu(Graphics2D g2d) {
+    public void paintMenuButton(Graphics2D g2d) {
         if (gp.getMenu() == true) {
             g2d.drawImage(makeImage("menu_arrow_highlight.png"), 35, 618, null);
         } else {
@@ -78,7 +81,7 @@ public class DrawingBoardPreparation extends JPanel {
         }
     }
 
-    public void paintStart(Graphics2D g2d) {
+    public void paintStartButton(Graphics2D g2d) {
         if (gp.getStart() == true) {
             g2d.drawImage(makeImage("start_arrow_highlight.png"), 795, 618, null);
         } else {
