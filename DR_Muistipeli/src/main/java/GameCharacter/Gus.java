@@ -1,6 +1,8 @@
 package GameCharacter;
 
+import Tile.Tile;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -50,6 +52,7 @@ public class Gus implements GameCharacter {
         setNeutral();
     }
 
+    @Override
     public void setNeutral() {
         if (getHp() > 15) {
             setCurrentImage(neutral);
@@ -58,51 +61,58 @@ public class Gus implements GameCharacter {
         }
     }
 
+    @Override
     public void setHappy() {
         setCurrentImage(happy);
     }
 
+    @Override
     public void setUnhappy() {
         setCurrentImage(unhappy);
     }
 
+    @Override
     public void setTakeDamage() {
         setCurrentImage(takeDamage);
     }
 
+    @Override
     public void setGiveDamage() {
         setCurrentImage(giveDamage);
     }
 
+    @Override
     public void setDamaged() {
         setCurrentImage(damaged);
     }
 
-
+    @Override
     public int getHp() {
         return hp;
     }
 
+    @Override
     public void setHp(int i) {
         this.hp = i;
     }
 
+    @Override
     public int getEnergy() {
         return energy;
     }
 
+    @Override
     public void setEnergy(int i) {
         this.energy = i;
     }
 
-    public String getBasic() {
-        return this.neutral;
-    }
 
+    @Override
     public Image getCurrentImage() {
         return this.currentImage;
     }
 
+    @Override
     public void setCurrentImage(String string) {
         this.currentImage = createImage(string);
     }
@@ -118,6 +128,16 @@ public class Gus implements GameCharacter {
         }
         Image kuva = icon.getImage();
         return kuva;
+    }
+
+    @Override
+    public ArrayList<Tile> useSkill(ArrayList<Tile> tiles, int row) {
+        ArrayList<Tile> tilesToBeTurned = new ArrayList<>();
+        int r = row * 6;
+        for (int i = 0; i < 6; i++) {
+            tilesToBeTurned.add(tiles.get(r + i));
+        }
+        return tilesToBeTurned;
     }
 
 }

@@ -4,7 +4,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
- * Pelilaatta. Sillä on kuva ja sijainti
+ * Sisaltaa yhden laatan kaikki tiedot ja voi palauttaa sen arvoja tai muutella
+ * niita
  *
  */
 public class Tile {
@@ -109,10 +110,6 @@ public class Tile {
 
     public boolean getPaired() {
         return paired;
-    }
-
-    public String getHighlightPath() {
-        return blankPath;
     }
 
     public Image getHighlightImage() {

@@ -18,3 +18,4 @@
 23.8.2015|6h|Lisättiin pelaajalle mahdollisuus käyttää taitoa, lisää kuvia
 24.8.2015|5h|Tehtiin päävalikko uusiksi ja korjailtiin ohjelmaa sieltä täältä
 25.8.2015|4h|Korjattiin päävalikkoa ja siistittiin hieman koodia ja lisättiin kommentteja
+27.8.2015|5h|Testejä, dokumentointia, javadocia

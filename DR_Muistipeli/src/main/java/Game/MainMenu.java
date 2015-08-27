@@ -79,18 +79,32 @@ public class MainMenu {
         refresh();
     }
 
+    /**
+     * Kaskee peli-ikkunaa luomaan pelin valmisteluruudun
+     *
+     * @param i Pelimoodi
+     */
     public void startPreparationScreen(int i) {
         gameScreen.buildPreparation(i);
     }
 
+    /**
+     * Kaskee peli-ikkunaa luomaan ohjeruudun
+     */
     public void showInstructions() {
         System.out.println("Näytä ohjeet!");
     }
 
+    /**
+     * Kaskee peli-ikkunaa sammuttamaan pelin
+     */
     public void closeGame() {
         gameScreen.closeScreen();
     }
 
+    /**
+     *Kaskee piirtoalustaa paivittamaan itsensa
+     */
     public void refresh() {
         dbm.repaint();
     }

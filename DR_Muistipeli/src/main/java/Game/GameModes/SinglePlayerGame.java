@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
- * Tappeluyksinpeli. TietÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤ hiiren sijainnin nappuloiden
+ * Yksinpeli. TietÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤ hiiren sijainnin nappuloiden
  * pÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤llÃƒÆ’Ã‚Â¤. Suorittaa pelin toimintoja kun hiirellÃƒÆ’Ã‚Â¤
  * klikkaa nappeja ja pelilaattoja. TietÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤ myÃƒÆ’Ã‚Â¶s pelaajat.
  *
@@ -62,8 +62,8 @@ public class SinglePlayerGame {
     }
 
     /**
-     * Asettaa kaikki rivit pois korostuksesta
-     * Tähän hommaan tarvitaan joku erillinen luokka
+     * Asettaa kaikki rivit pois korostuksesta Näihin highlight ylläpitoihin
+     * vielä erillinen luokka
      */
     public void setHorRowsFalse() {
         horRow1 = false;
@@ -109,10 +109,15 @@ public class SinglePlayerGame {
         }
     }
 
+    /**
+     * Kaskee pelaajaa kayttamaan taidon
+     *
+     * @param row Luku mika kertoo kuinka taidon tulee toteuttaa itsensa
+     */
     public void playerUseSkill1(int row) {
         if (player.getCharacter().getEnergy() >= 5) {
             player.getCharacter().setEnergy(player.getCharacter().getEnergy() - 5);
-            player.useSkill1(tc, row, opponent);
+            tc.turnTheseTiles(player.useSkill1(tc.getTiles(), row));
             pairTiles();
         }
     }
@@ -137,6 +142,9 @@ public class SinglePlayerGame {
         return playersTurn;
     }
 
+    /**
+     * Vaihtaa vuorossa olevaa pelaajaa
+     */
     public void passTurn() {
         if (playersTurn) {
             opponent.setHitThisTurnFalse();
@@ -146,6 +154,9 @@ public class SinglePlayerGame {
         playersTurn = !playersTurn;
     }
 
+    /**
+     * Paivittaa piirtoalustan
+     */
     public void refresh() {
         dbbs.repaint();
     }
@@ -201,25 +212,36 @@ public class SinglePlayerGame {
         return timer;
     }
 
+    /**
+     * Tarkistaa onko pelin syytä loppua toisen pelaajan voittoon
+     */
     public void gameOver() {
         if (opponent.getCharacter().getHp() < 1 || player.getCharacter().getHp() < 1) {
             gameScreen.buildMainMenu();
         }
     }
 
+    /**
+     * Tarkistaa pitaako luoda kentalle uudet laatat
+     */
     public void checkRefill() {
         if (tc.pairedTiles() == tc.getTiles().size() / 2) {
-            this.tc.newTiles();
-            this.tc.shuffleTiles();
-            opponent.forgetAll();
+            tc.newTiles();
+            tc.shuffleTiles();
+            opponent.getTileController().forgetAll();
         }
         refresh();
     }
 
+    /**
+     * Suorittaa vuoron lopussa puhdistuksen. Laattakontrolleri siistii laattalista,
+     * pelaajat asetetaan neutraaliin tilaan, tarkastetaan joudutaanko luomaan uudet laatat,
+     * poistetaan korostus kaikista elementeista, ja tarkastetaan loppuuko peli
+     */
     private void endTurnCheck() {
         tc.cleanTiles();
         player.setNeutral();
-        opponent.setNeutral();    
+        opponent.setNeutral();
         checkRefill();
         unHighlightAll();
         gameOver();
@@ -240,7 +262,7 @@ public class SinglePlayerGame {
     public void unHighlightSkill1() {
         mouseOnSkill1 = false;
     }
-    
+
     public boolean getHitH() {
         return mouseOnHit;
     }
@@ -250,12 +272,18 @@ public class SinglePlayerGame {
         return mouseOnSkill1;
     }
 
+    /**
+     * Poistetaan kaikki korostukset
+     */
     public void unHighlightAll() {
         unHighlightSkill1();
         unHighlightHit();
         setHorRowsFalse();
     }
 
+    /**
+     * Lyo vastustajaa jos pelaajalla on tarpeeksi resursseja eika talla vuorolla ole viela lyoty
+     */
     public void hitOpponent() {
         if (!player.getHitThisTurn()) {
             if (player.getCharacter().getEnergy() > 0) {
@@ -279,6 +307,9 @@ public class SinglePlayerGame {
         }
     }
 
+    /**
+     * Lyo pelaajaa jos vastustajalla on tarpeeksi resursseja eika talla vuorolla ole viela lyoty
+     */
     public void hitPlayer() {
         if (!opponent.getHitThisTurn()) {
             if (opponent.getCharacter().getEnergy() > 0) {
@@ -303,7 +334,10 @@ public class SinglePlayerGame {
         }
     }
 
+    /**
+     * Lopttaa pelin ja kaskee peliruutua rakentamaan paavalikon
+     */
     public void backToMenu() {
-        this.gameScreen.buildMainMenu();
+        gameScreen.buildMainMenu();
     }
 }

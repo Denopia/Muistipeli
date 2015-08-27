@@ -52,18 +52,22 @@
                 <configuration>
                     <targetClasses>
                         <param>Game*</param>
+                        <param>Game.GameModes*</param>
                         <param>GameCharacter*</param>
-                        <param>Player*</param>
+                        <param>Player.Computer*</param>
+                        <param>Player.Human*</param>
                         <param>Tile*</param>
                         <param>TileController*</param>                                                                
                     </targetClasses>
                     
                     <targetTests>
                         <param>Game*</param>
+                        <param>Game.GameModes*</param>
                         <param>GameCharacter*</param>
-                        <param>Player*</param>
+                        <param>Player.Computer*</param>
+                        <param>Player.Human*</param>
                         <param>Tile*</param>
-                        <param>TileController*</param>
+                        <param>TileController*</param> 
                     </targetTests>
                 </configuration>
             </plugin>

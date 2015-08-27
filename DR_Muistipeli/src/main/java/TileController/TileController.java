@@ -25,11 +25,17 @@ public class TileController {
         return tiles;
     }
 
+    /**
+     * Sekoittaa laatat
+     */
     public void shuffleTiles() {
         Collections.shuffle(tiles);
         setCoordinates6x6();
     }
 
+    /**
+     * Asettaa laatoille koordinaatit ja paikat
+     */
     public void setCoordinates6x6() {
         int x = 251;
         int y = 148;
@@ -200,6 +206,17 @@ public class TileController {
     public void cleanTiles() {
         unTurnUnpairedTiles();
 
+    }
+
+    /**
+     * Kaantaa tietyt laatat
+     *
+     * @param tiles Laatat jotka halutaan kaantaa
+     */
+    public void turnTheseTiles(ArrayList<Tile> tiles) {
+        for (Tile tile : tiles) {
+            tile.turn();
+        }
     }
 
 }

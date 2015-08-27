@@ -1,9 +1,7 @@
 package Player.Human;
 
 import GameCharacter.GameCharacter;
-import Player.Computer.Opponent;
 import Tile.Tile;
-import TileController.TileController;
 import java.awt.Image;
 import java.util.ArrayList;
 
@@ -16,12 +14,26 @@ public class Player {
     private ArrayList<Tile> scoredTiles;
     private boolean hitThisTurn;
     private boolean skill1Selected;
+    private boolean neautralState;
 
     public Player() {
+        this.neautralState = true;
         this.scoredTiles = new ArrayList<>();
         this.hitThisTurn = false;
         this.skill1Selected = false;
 
+    }
+
+    public void setNeutralStateTrue() {
+        neautralState = true;
+    }
+
+    public void setNeutralStateFalse() {
+        neautralState = false;
+    }
+
+    public boolean getNeutralState() {
+        return neautralState;
     }
 
     public void setCharacter(GameCharacter gc) {
@@ -44,6 +56,10 @@ public class Player {
         return scoredTiles.size();
     }
 
+    /**
+     * Lisaa laatan pelaajan kaantamiin pareihin
+     * @param tile Laatta mika on osa paria jonka pelaaja on muodostanut
+     */
     public void addScoredPair(Tile tile) {
         gc.setEnergy(gc.getEnergy() + 1);
         scoredTiles.add(tile);
@@ -63,22 +79,27 @@ public class Player {
 
     public void setHappy() {
         gc.setHappy();
+        setNeutralStateFalse();
     }
 
     public void setUnhappy() {
         gc.setUnhappy();
+        setNeutralStateFalse();
     }
 
     public void setNeutral() {
         gc.setNeutral();
+        setNeutralStateTrue();
     }
 
     public void setTakeDamage() {
         gc.setTakeDamage();
+        setNeutralStateFalse();
     }
 
     public void setGiveDamage() {
         gc.setGiveDamage();
+        setNeutralStateFalse();
     }
 
     public GameCharacter getCharacter() {
@@ -98,23 +119,14 @@ public class Player {
     }
 
     /**
-     * Käyttää taidon, joka kääntää yhden rivin laattoja Tulisi olla oikeastaan
-     * pelihahmolla tämä metodi Lisäksi varmaan parempi vain laittaa
-     * palauttamaan lista käännettävistä laatoista pelille, joka voi sitten
-     * kontrollerin kautta ne kääntää
-     *
-     * @param tc Laattakontrolleri
-     * @param row Mille riville taito käytetään
-     * @param bo Vastustaja
+     * Kayttaa pelaajan pelihahmon taidon
+     * @param tiles Pelin laatat
+     * @param row Joku luku joka määrittelee kuinka taito toimii, tassa tapauksessa viela vain rivi
+     * @return Laatat jotka kuuluvat taidon efektin alueeseen
      */
-    public void useSkill1(TileController tc, int row, Opponent bo) {
-        int r = row * 6;
-        for (int i = 0; i < 6; i++) {
-            tc.getTiles().get(r).turn();
-            bo.addSeenTile(tc.getTiles().get(r));
-            r++;
-        }
+    public ArrayList<Tile> useSkill1(ArrayList<Tile> tiles, int row) {
         deselectSkil1();
+        return gc.useSkill(tiles, row);
     }
 
 }

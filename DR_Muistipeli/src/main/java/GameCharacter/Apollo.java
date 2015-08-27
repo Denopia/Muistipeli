@@ -1,6 +1,8 @@
 package GameCharacter;
 
+import Tile.Tile;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -30,23 +32,23 @@ public class Apollo implements GameCharacter {
 
     @Override
     public void setImages1() {
-        neutral = "gus_neutral.png";
-        happy = "gus_yes.png";
-        unhappy = "gus_no.png";
-        damaged = "gus_damaged.png";
-        takeDamage = "gus_take_damage.png";
-        giveDamage = "gus_give_damage.png";
+        neutral = "character/apollo/apollo_neutral.png";
+        happy = "character//apollo_yes.png";
+        unhappy = "character/apollo/apollo_no.png";
+        damaged = "character/apollo/apollo_damaged.png";
+        takeDamage = "character/apollo/apollo_take_damage.png";
+        giveDamage = "character/apollo/apollo_give_damage.png";
         setCurrentImage(neutral);
     }
 
     @Override
     public void setImages2() {
-        neutral = "gus_neutral.png";
-        happy = "gus_yes.png";
-        unhappy = "gus_no.png";
-        damaged = "gus_damaged.png";
-        takeDamage = "gus_take_damage.png";
-        giveDamage = "gus_give_damage.png";
+        neutral = "character/apollo/apollo_neutral.png";
+        happy = "character//apollo_yes.png";
+        unhappy = "character/apollo/apollo_no.png";
+        damaged = "character/apollo/apollo_damaged.png";
+        takeDamage = "character/apollo/apollo_take_damage.png";
+        giveDamage = "character/apollo/apollo_give_damage.png";
         setCurrentImage(neutral);
     }
 
@@ -113,6 +115,11 @@ public class Apollo implements GameCharacter {
         }
         Image kuva = icon.getImage();
         return kuva;
+    }
+
+    @Override
+    public ArrayList<Tile> useSkill(ArrayList<Tile> tiles, int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

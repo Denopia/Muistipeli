@@ -72,12 +72,13 @@ public class MouseListenerSinglePlayerGame extends MouseAdapter {
                 return;
             }
         }
+        game.refresh();
     }
 
     @Override
     public void mousePressed(MouseEvent me) {
         //Jos ei pelaajan vuoro, ei tehdä mitään
-        if (!game.isPlayersTurn()) {
+        if (!game.isPlayersTurn() || !game.getPlayer().getNeutralState()) {
             return;
         }
         //Jos laattoja on käännetty 2 tai ennemmän ei käännetä ylimääräisiä ennen kuin tilanne on selvitetty

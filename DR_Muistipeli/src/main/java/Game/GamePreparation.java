@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 /**
  * Luokka pitää yllä pelin valmisteluruutua, eli tietää mikä vaikeustaso ja
  * hahmot on valittuna ja mahdollistaa näiden vaihtamisen.
+ *
+ * Highlight yllapito tulee tehda viela omasi luokakseen
  */
 public class GamePreparation {
 
@@ -54,27 +56,27 @@ public class GamePreparation {
     }
 
     public void setDifficulty(int i) {
-        this.difficulty = i;
+        difficulty = i;
     }
 
     public int getDifficulty() {
-        return this.difficulty;
+        return difficulty;
     }
 
     public void setPlayerCharacter(int i) {
-        this.playerCharacter = i;
+        playerCharacter = i;
     }
 
     public int getPlayerCharacter() {
-        return this.playerCharacter;
+        return playerCharacter;
     }
 
     public void setOpponentCharacter(int i) {
-        this.opponentCharacter = i;
+        opponentCharacter = i;
     }
 
     public int getOpponentCharacter() {
-        return this.opponentCharacter;
+        return opponentCharacter;
     }
 
     /**
@@ -137,8 +139,13 @@ public class GamePreparation {
         return bo;
     }
 
+    /**
+     * Palauttaa pelimoodin
+     *
+     * @return Pelimoodi
+     */
     public int getMode() {
-        return this.gameMode;
+        return gameMode;
     }
 
     /**

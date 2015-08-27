@@ -1,6 +1,8 @@
 package GameCharacter;
 
+import Tile.Tile;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -114,6 +116,11 @@ public class PBot implements GameCharacter {
         }
         Image kuva = icon.getImage();
         return kuva;
+    }
+
+    @Override
+    public ArrayList<Tile> useSkill(ArrayList<Tile> tiles, int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

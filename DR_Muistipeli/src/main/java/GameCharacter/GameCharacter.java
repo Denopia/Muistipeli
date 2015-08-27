@@ -1,6 +1,8 @@
 package GameCharacter;
 
+import Tile.Tile;
 import java.awt.Image;
+import java.util.ArrayList;
 
 /**
  * Pelihahmorajapinta. Näyttää mitä kaikkea hahmoluokkien tulee tehdä.
@@ -37,5 +39,7 @@ public interface GameCharacter {
     public void setTakeDamage();
 
     public void setGiveDamage();
+
+    public ArrayList<Tile> useSkill(ArrayList<Tile> tiles, int i);
 
 }
