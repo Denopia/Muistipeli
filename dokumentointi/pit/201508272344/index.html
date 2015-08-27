@@ -1,0 +1,155 @@
+<html>
+<head>
+  
+    <style type='text/css'>
+   
+   .tests{ 
+     width : 50%;
+     float : left;
+   }
+   
+   .mutees{
+     float : right;
+     width : 50%;
+   }
+   
+   .unit {
+     padding-top : 20px;
+     clear : both;
+   }
+   
+   .coverage_bar {
+    display : inline-block;
+    height : 1.1em;
+    width: 130px;
+    background: #FAA;
+    margin: 0 5px;
+    vertical-align: middle;
+    border: 1px solid #AAA;
+    position : relative;
+   }
+   
+   .coverage_complete {
+    display : inline-block;
+    height : 100%;
+    background: #DFD;
+    float: left;
+   }
+   
+   .coverage_ledgend {
+        position : absolute;
+        height : 100%;
+        width : 100%;
+        left : 0;
+        top : 0;
+        text-align : center;
+   }
+   
+   .line, .mut {
+        vertical-align : middle;
+   }
+   
+   .coveragePercentage {
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+   }
+  </style>
+  
+</head>
+<body>
+
+<h1>Pit Test Coverage Report</h1>
+
+<h3>Project Summary</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>13</td>
+            <td>22% <div class="coverage_bar"><div class="coverage_complete" style="width:22%"></div><div class="coverage_ledgend">219/1013</div></div></td>
+            <td>9% <div class="coverage_bar"><div class="coverage_complete" style="width:9%"></div><div class="coverage_ledgend">50/562</div></div></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Breakdown by Package</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number of Classes</th>
+            <th>Line Coverage</th>
+            <th>Mutation Coverage</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><a href="./Game/index.html">Game</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">33% </div><div class="coverage_bar"><div class="coverage_complete" style="width:33%"></div><div class="coverage_ledgend">61/184</div></div></td>
+            <td><div class="coveragePercentage">17% </div><div class="coverage_bar"><div class="coverage_complete" style="width:17%"></div><div class="coverage_ledgend">16/92</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./Game.GameModes/index.html">Game.GameModes</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">11% </div><div class="coverage_bar"><div class="coverage_complete" style="width:11%"></div><div class="coverage_ledgend">19/168</div></div></td>
+            <td><div class="coveragePercentage">0% </div><div class="coverage_bar"><div class="coverage_complete" style="width:0%"></div><div class="coverage_ledgend">0/115</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./GameCharacter/index.html">GameCharacter</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">22% </div><div class="coverage_bar"><div class="coverage_complete" style="width:22%"></div><div class="coverage_ledgend">36/161</div></div></td>
+            <td><div class="coveragePercentage">16% </div><div class="coverage_bar"><div class="coverage_complete" style="width:16%"></div><div class="coverage_ledgend">10/62</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./Player.Computer/index.html">Player.Computer</a></td>
+            <td>3</td>
+            <td><div class="coveragePercentage">9% </div><div class="coverage_bar"><div class="coverage_complete" style="width:9%"></div><div class="coverage_ledgend">25/287</div></div></td>
+            <td><div class="coveragePercentage">2% </div><div class="coverage_bar"><div class="coverage_complete" style="width:2%"></div><div class="coverage_ledgend">3/185</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./Player.Human/index.html">Player.Human</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">18% </div><div class="coverage_bar"><div class="coverage_complete" style="width:18%"></div><div class="coverage_ledgend">9/50</div></div></td>
+            <td><div class="coveragePercentage">5% </div><div class="coverage_bar"><div class="coverage_complete" style="width:5%"></div><div class="coverage_ledgend">1/22</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./Tile/index.html">Tile</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">62% </div><div class="coverage_bar"><div class="coverage_complete" style="width:62%"></div><div class="coverage_ledgend">34/55</div></div></td>
+            <td><div class="coveragePercentage">57% </div><div class="coverage_bar"><div class="coverage_complete" style="width:57%"></div><div class="coverage_ledgend">12/21</div></div></td>
+        </tr>
+
+        <tr>
+            <td><a href="./TileController/index.html">TileController</a></td>
+            <td>1</td>
+            <td><div class="coveragePercentage">32% </div><div class="coverage_bar"><div class="coverage_complete" style="width:32%"></div><div class="coverage_ledgend">35/108</div></div></td>
+            <td><div class="coveragePercentage">12% </div><div class="coverage_bar"><div class="coverage_complete" style="width:12%"></div><div class="coverage_ledgend">8/65</div></div></td>
+        </tr>
+
+     </tbody>
+</table>
+<br/>
+
+
+
+<hr/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.4
+
+</body>
+</html>
