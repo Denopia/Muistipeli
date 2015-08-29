@@ -1,5 +1,6 @@
 package GameCharacter;
 
+import Game.GameModes.SinglePlayerGame;
 import Tile.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -119,8 +120,10 @@ public class PBot implements GameCharacter {
     }
 
     @Override
-    public ArrayList<Tile> useSkill(ArrayList<Tile> tiles, int i) {
+    public boolean useSkill(SinglePlayerGame game) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+   
 
 }

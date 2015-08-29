@@ -1,6 +1,8 @@
 package Graphics;
 
 import Game.GameModes.SinglePlayerGame;
+import GameCharacter.Apollo;
+import GameCharacter.Gus;
 import Tile.Tile;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,45 +27,62 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        
+
         paintBackground(g2d);
         paintFrames(g2d);
         paintPlayers(g2d);
         paintStats(g2d);
         paintTiles(g2d);
     }
-    
-    public void paintPlayers(Graphics2D g2d){
+
+    public void paintPlayers(Graphics2D g2d) {
         g2d.drawImage(game.getPlayer().getPortrait(), 18, 139, null);
         g2d.drawImage(game.getOpponent().getPortrait(), 789 + 200, 139, -200, 300, null);
     }
 
     public void paintBackground(Graphics2D g2d) {
-         g2d.drawImage(makeImage("background.png"), 0, 0, null);
+        g2d.drawImage(makeImage("background.png"), 0, 0, null);
     }
 
     private void paintTiles(Graphics2D g2d) {
-        for (Tile tile : game.getTiles()) {
+        for (Tile tile : game.getTController().getTiles()) {
             g2d.drawImage(tile.getImage(), tile.getX(), tile.getY(), null);
-            if (tile.getHighlight() && !game.getPlayer().getSkill1Selected()) {
+            if (tile.getHighlight() && !game.getPlayer().getSkillSelected()) {
                 g2d.drawImage(tile.getHighlightImage(), tile.getX(), tile.getY(), null);
             }
         }
-        
-        if (game.getPlayer().getSkill1Selected()) {
-            Image img = makeImage("skill_1_area.png");
-            if (game.getHorRow() == 1) {
-                g2d.drawImage(img, 259 - 9, 185 - 38, null);
-            } else if (game.getHorRow() == 2) {
-                g2d.drawImage(img, 259 - 9, 270 - 38, null);
-            } else if (game.getHorRow() == 3) {
-                g2d.drawImage(img, 259 - 9, 355 - 38, null);
-            } else if (game.getHorRow() == 4) {
-                g2d.drawImage(img, 259 - 9, 440 - 38, null);
-            } else if (game.getHorRow() == 5) {
-                g2d.drawImage(img, 259 - 9, 525 - 38, null);
-            } else if (game.getHorRow() == 6) {
-                g2d.drawImage(img, 259 - 9, 610 - 38, null);
+
+        if (game.getPlayer().getSkillSelected()) {
+            if (game.getPlayer().getCharacter().getClass() == Gus.class) {
+                Image img = makeImage("skill_1_area.png");
+                if (game.getHController().getHorRow() == 1) {
+                    g2d.drawImage(img, 259 - 9, 185 - 38, null);
+                } else if (game.getHController().getHorRow() == 2) {
+                    g2d.drawImage(img, 259 - 9, 270 - 38, null);
+                } else if (game.getHController().getHorRow() == 3) {
+                    g2d.drawImage(img, 259 - 9, 355 - 38, null);
+                } else if (game.getHController().getHorRow() == 4) {
+                    g2d.drawImage(img, 259 - 9, 440 - 38, null);
+                } else if (game.getHController().getHorRow() == 5) {
+                    g2d.drawImage(img, 259 - 9, 525 - 38, null);
+                } else if (game.getHController().getHorRow() == 6) {
+                    g2d.drawImage(img, 259 - 9, 610 - 38, null);
+                }
+            } else if (game.getPlayer().getCharacter().getClass() == Apollo.class) {
+                Image img = makeImage("skill_2_area.png");
+                if (game.getHController().getVerRow() == 1) {
+                    g2d.drawImage(img, 259 - 9, 185 - 38, null);
+                } else if (game.getHController().getVerRow() == 2) {
+                    g2d.drawImage(img, 344 - 9, 185 - 38, null);
+                } else if (game.getHController().getVerRow() == 3) {
+                    g2d.drawImage(img, 429 - 9, 185 - 38, null);
+                } else if (game.getHController().getVerRow() == 4) {
+                    g2d.drawImage(img, 429 + 85 - 9, 185 - 38, null);
+                } else if (game.getHController().getVerRow() == 5) {
+                    g2d.drawImage(img, 429 + 85 + 85 - 9, 185 - 38, null);
+                } else if (game.getHController().getVerRow() == 6) {
+                    g2d.drawImage(img, 429 + 85 + 85 + 85 - 9, 185 - 38, null);
+                }
             }
         }
     }
@@ -139,7 +158,7 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
     private void paintAttackButtons(Graphics2D g2d) {
         g2d.drawImage(makeImage("hit_face_button.png"), 838, 512, null);
 
-        if (game.getHitH()) {
+        if (game.getHController().getHitH()) {
             g2d.drawImage(makeImage("hit_face_button_highlight.png"), 67, 512, null);
         } else {
             g2d.drawImage(makeImage("hit_face_button.png"), 67, 512, null);
@@ -150,14 +169,14 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
         g2d.drawImage(makeImage("hit_face_button.png"), 838, 512, null);
         g2d.drawImage(makeImage("skill_1_button.png"), 838, 572, null);
 
-        if (game.getHitH()) {
+        if (game.getHController().getHitH()) {
             g2d.drawImage(makeImage("hit_face_button_highlight.png"), 67, 512, null);
         } else {
             g2d.drawImage(makeImage("hit_face_button.png"), 67, 512, null);
         }
-        if (game.getPlayer().getSkill1Selected()) {
+        if (game.getPlayer().getSkillSelected()) {
             g2d.drawImage(makeImage("skill_1_button_selected.png"), 67, 572, null);
-        } else if (game.getSkill1H()) {
+        } else if (game.getHController().getSkillH()) {
             g2d.drawImage(makeImage("skill_1_button_highlight.png"), 67, 572, null);
         } else {
             g2d.drawImage(makeImage("skill_1_button.png"), 67, 572, null);

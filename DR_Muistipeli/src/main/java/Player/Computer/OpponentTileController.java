@@ -58,7 +58,7 @@ public class OpponentTileController {
      * @param game Peli jonka laatat kaydaan lapi
      */
     public void cleanKnownTiles(SinglePlayerGame game) {
-        for (Tile tile : game.getController().getPairedTiles()) {
+        for (Tile tile : game.getTController().getPairedTiles()) {
             knownTiles.remove(tile);
         }
     }
@@ -218,10 +218,11 @@ public class OpponentTileController {
     /**
      * Listaa kaikki laatat joita ei tiedetä
      *
+     * @param game
      * @return Lista laatoista joita ei tiedetä
      */
     public ArrayList<Tile> getUnseenTiles(SinglePlayerGame game) {
-        ArrayList<Tile> unturned = game.getController().getHiddenTiles();
+        ArrayList<Tile> unturned = game.getTController().getHiddenTiles();
         ArrayList<Tile> unseen = new ArrayList<>();
         for (Tile ut : unturned) {
             boolean notSeen = true;

@@ -38,17 +38,17 @@ public class DrawingBoardMenu extends JPanel {
     }
 
     public void paintButtons(Graphics g2d) {
-        if (menu.getSPG()) {
+        if (menu.getHController().getSPG()) {
             g2d.drawImage(makeImage(pictures[1]), 406, 234, null);
         } else {
             g2d.drawImage(makeImage(pictures[2]), 406, 234, null);
         }
-        if (menu.getIns()) {
+        if (menu.getHController().getIns()) {
             g2d.drawImage(makeImage(pictures[3]), 464, 457, null);
         } else {
             g2d.drawImage(makeImage(pictures[4]), 464, 457, null);
         }
-        if (menu.getExit()) {
+        if (menu.getHController().getExit()) {
             g2d.drawImage(makeImage(pictures[5]), 464, 557, null);
         } else {
             g2d.drawImage(makeImage(pictures[6]), 464, 557, null);

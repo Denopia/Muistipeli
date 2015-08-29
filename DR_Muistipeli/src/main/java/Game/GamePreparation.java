@@ -4,6 +4,7 @@ import GameCharacter.Apollo;
 import GameCharacter.Gus;
 import GameCharacter.PBot;
 import Graphics.DrawingBoardPreparation;
+import Helpers.PreparationHighlightController;
 import Player.Computer.Opponent;
 import Player.Human.Player;
 import UserInterface.MouseListener.MouseListenerPreparation;
@@ -27,18 +28,10 @@ public class GamePreparation {
     private int opponentCharacter;
     private int playerColor;
     private int opponentColor;
-    private boolean mouseOnArrow1;
-    private boolean mouseOnArrow2;
-    private boolean mouseOnArrow3;
-    private boolean mouseOnArrow4;
-    private boolean mouseOnDifficulty1;
-    private boolean mouseOnDifficulty2;
-    private boolean mouseOnDifficulty3;
-    private boolean mouseOnDifficulty4;
-    private boolean mouseOnStart;
-    private boolean mouseOnMenu;
+    private PreparationHighlightController hController;
 
     public GamePreparation(int gameMode, JFrame frame, GameScreen gs) {
+        this.hController = new PreparationHighlightController();
         this.difficulty = 2;
         this.playerCharacter = 1;
         this.opponentCharacter = 1;
@@ -52,7 +45,10 @@ public class GamePreparation {
         this.frame.addMouseListener(mmlp);
         this.frame.addMouseMotionListener(mmlp);
         this.frame.add(dbp);
-        unHighlightAll();
+    }
+
+    public PreparationHighlightController getHController() {
+        return hController;
     }
 
     public void setDifficulty(int i) {
@@ -146,132 +142,6 @@ public class GamePreparation {
      */
     public int getMode() {
         return gameMode;
-    }
-
-    /**
-     * Laittaa kaikkien nappuloiden korostusarvoksi false
-     */
-    public final void unHighlightAll() {
-        mouseOnArrow1 = false;
-        mouseOnArrow2 = false;
-        mouseOnArrow3 = false;
-        mouseOnArrow4 = false;
-        mouseOnDifficulty1 = false;
-        mouseOnDifficulty2 = false;
-        mouseOnDifficulty3 = false;
-        mouseOnDifficulty4 = false;
-        mouseOnStart = false;
-        mouseOnMenu = false;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightA1() {
-        mouseOnArrow1 = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightA2() {
-        mouseOnArrow2 = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightA3() {
-        mouseOnArrow3 = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightA4() {
-        mouseOnArrow4 = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightD1() {
-        mouseOnDifficulty1 = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightD2() {
-        mouseOnDifficulty2 = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightD3() {
-        mouseOnDifficulty3 = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightD4() {
-        mouseOnDifficulty4 = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightMenu() {
-        mouseOnMenu = true;
-    }
-
-    /**
-     * Laittaa tämän nappulan korostetuksi
-     */
-    public void highlightStart() {
-        mouseOnStart = true;
-    }
-
-    public boolean getA1() {
-        return mouseOnArrow1;
-    }
-
-    public boolean getA2() {
-        return mouseOnArrow2;
-    }
-
-    public boolean getA3() {
-        return mouseOnArrow3;
-    }
-
-    public boolean getA4() {
-        return mouseOnArrow4;
-    }
-
-    public boolean getD1() {
-        return mouseOnDifficulty1;
-    }
-
-    public boolean getD2() {
-        return mouseOnDifficulty2;
-    }
-
-    public boolean getD3() {
-        return mouseOnDifficulty3;
-    }
-
-    public boolean getD4() {
-        return mouseOnDifficulty4;
-    }
-
-    public boolean getMenu() {
-        return mouseOnMenu;
-    }
-
-    public boolean getStart() {
-        return mouseOnStart;
     }
 
     /**

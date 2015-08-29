@@ -1,5 +1,6 @@
 package GameCharacter;
 
+import Game.GameModes.SinglePlayerGame;
 import Tile.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -106,7 +107,6 @@ public class Gus implements GameCharacter {
         this.energy = i;
     }
 
-
     @Override
     public Image getCurrentImage() {
         return this.currentImage;
@@ -131,13 +131,20 @@ public class Gus implements GameCharacter {
     }
 
     @Override
-    public ArrayList<Tile> useSkill(ArrayList<Tile> tiles, int row) {
-        ArrayList<Tile> tilesToBeTurned = new ArrayList<>();
-        int r = row * 6;
-        for (int i = 0; i < 6; i++) {
-            tilesToBeTurned.add(tiles.get(r + i));
+    public boolean useSkill(SinglePlayerGame game) {
+        if (energy >= 5 && game.getHController().getHorRow() != -1) {
+            energy -= 5;
+            ArrayList<Tile> tilesToBeTurned = new ArrayList<>();
+            int r = (game.getHController().getHorRow() - 1) * 6;
+            for (int i = 0; i < 6; i++) {
+                tilesToBeTurned.add(game.getTController().getTiles().get(r + i));
+            }
+            for (Tile tile : tilesToBeTurned) {
+                tile.turn();
+            }
+            game.getPlayer().deselectSkil();
+            return true;
         }
-        return tilesToBeTurned;
+        return false;
     }
-
 }

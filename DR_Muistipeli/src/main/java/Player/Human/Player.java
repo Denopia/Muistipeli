@@ -1,5 +1,6 @@
 package Player.Human;
 
+import Game.GameModes.SinglePlayerGame;
 import GameCharacter.GameCharacter;
 import Tile.Tile;
 import java.awt.Image;
@@ -13,14 +14,14 @@ public class Player {
     private GameCharacter gc;
     private ArrayList<Tile> scoredTiles;
     private boolean hitThisTurn;
-    private boolean skill1Selected;
+    private boolean skillSelected;
     private boolean neautralState;
 
     public Player() {
         this.neautralState = true;
         this.scoredTiles = new ArrayList<>();
         this.hitThisTurn = false;
-        this.skill1Selected = false;
+        this.skillSelected = false;
 
     }
 
@@ -107,26 +108,24 @@ public class Player {
     }
 
     public void selectSkil1() {
-        skill1Selected = true;
+        skillSelected = true;
     }
 
-    public void deselectSkil1() {
-        skill1Selected = false;
+    public void deselectSkil() {
+        skillSelected = false;
     }
 
-    public boolean getSkill1Selected() {
-        return skill1Selected;
+    public boolean getSkillSelected() {
+        return skillSelected;
     }
 
     /**
      * Kayttaa pelaajan pelihahmon taidon
-     * @param tiles Pelin laatat
-     * @param row Joku luku joka määrittelee kuinka taito toimii, tassa tapauksessa viela vain rivi
-     * @return Laatat jotka kuuluvat taidon efektin alueeseen
+     * @param game
+     * @return 
      */
-    public ArrayList<Tile> useSkill1(ArrayList<Tile> tiles, int row) {
-        deselectSkil1();
-        return gc.useSkill(tiles, row);
+    public boolean useSkill(SinglePlayerGame game) {
+        return gc.useSkill(game);
     }
 
 }

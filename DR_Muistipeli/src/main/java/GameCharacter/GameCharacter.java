@@ -1,5 +1,6 @@
 package GameCharacter;
 
+import Game.GameModes.SinglePlayerGame;
 import Tile.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -40,6 +41,6 @@ public interface GameCharacter {
 
     public void setGiveDamage();
 
-    public ArrayList<Tile> useSkill(ArrayList<Tile> tiles, int i);
+    public boolean useSkill(SinglePlayerGame game);
 
 }

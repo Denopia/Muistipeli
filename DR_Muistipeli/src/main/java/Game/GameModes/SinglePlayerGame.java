@@ -3,13 +3,13 @@ package Game.GameModes;
 import TileController.TileController;
 import Game.GameScreen;
 import Graphics.DrawingBoardSinglePlayerGame;
+import Helpers.SinglePlayerGameAttackController;
+import Helpers.SinglePlayerGameHighlightController;
 import Player.Computer.Opponent;
 import Player.Human.Player;
-import Tile.Tile;
 import UserInterface.MouseListener.MouseListenerSinglePlayerGame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -29,21 +29,13 @@ public class SinglePlayerGame {
     private Player player;
     private Opponent opponent;
     private boolean playersTurn;
-
-    private boolean horRow1;
-    private boolean horRow2;
-    private boolean horRow3;
-    private boolean horRow4;
-    private boolean horRow5;
-    private boolean horRow6;
-
     private int pairs;
-    private boolean mouseOnHit;
-    private boolean mouseOnSkill1;
+    private SinglePlayerGameHighlightController hController;
+    private SinglePlayerGameAttackController aController;
 
     public SinglePlayerGame(int pairs, JFrame frame, GameScreen gs, Player bp, Opponent bo) {
-        this.mouseOnSkill1 = false;
-        this.mouseOnHit = false;
+        this.aController = new SinglePlayerGameAttackController(this);
+        this.hController = new SinglePlayerGameHighlightController();
         this.pairs = pairs;
         this.player = bp;
         this.opponent = bo;
@@ -61,72 +53,15 @@ public class SinglePlayerGame {
         dbbs.repaint();
     }
 
-    /**
-     * Asettaa kaikki rivit pois korostuksesta Näihin highlight ylläpitoihin
-     * vielä erillinen luokka
-     */
-    public void setHorRowsFalse() {
-        horRow1 = false;
-        horRow2 = false;
-        horRow3 = false;
-        horRow4 = false;
-        horRow5 = false;
-        horRow6 = false;
+    public SinglePlayerGameAttackController getAController() {
+        return aController;
     }
 
-    public void setHorRowTrue(int i) {
-        setHorRowsFalse();
-        if (i == 1) {
-            horRow1 = true;
-        } else if (i == 2) {
-            horRow2 = true;
-        } else if (i == 3) {
-            horRow3 = true;
-        } else if (i == 4) {
-            horRow4 = true;
-        } else if (i == 5) {
-            horRow5 = true;
-        } else if (i == 6) {
-            horRow6 = true;
-        }
+    public SinglePlayerGameHighlightController getHController() {
+        return hController;
     }
 
-    public int getHorRow() {
-        if (horRow1 == true) {
-            return 1;
-        } else if (horRow2 == true) {
-            return 2;
-        } else if (horRow3 == true) {
-            return 3;
-        } else if (horRow4 == true) {
-            return 4;
-        } else if (horRow5 == true) {
-            return 5;
-        } else if (horRow6 == true) {
-            return 6;
-        } else {
-            return -1;
-        }
-    }
-
-    /**
-     * Kaskee pelaajaa kayttamaan taidon
-     *
-     * @param row Luku mika kertoo kuinka taidon tulee toteuttaa itsensa
-     */
-    public void playerUseSkill1(int row) {
-        if (player.getCharacter().getEnergy() >= 5) {
-            player.getCharacter().setEnergy(player.getCharacter().getEnergy() - 5);
-            tc.turnTheseTiles(player.useSkill1(tc.getTiles(), row));
-            pairTiles();
-        }
-    }
-
-    public ArrayList<Tile> getTiles() {
-        return tc.getTiles();
-    }
-
-    public TileController getController() {
+    public TileController getTController() {
         return tc;
     }
 
@@ -143,6 +78,15 @@ public class SinglePlayerGame {
     }
 
     /**
+     * Kaskee pelaajaa kayttamaan taidon
+     */
+    public void playerUseSkill() {
+        if (player.useSkill(this)) {
+            pairTiles();
+        }
+    }
+
+    /**
      * Vaihtaa vuorossa olevaa pelaajaa
      */
     public void passTurn() {
@@ -152,13 +96,6 @@ public class SinglePlayerGame {
             player.setHitThisTurnFalse();
         }
         playersTurn = !playersTurn;
-    }
-
-    /**
-     * Paivittaa piirtoalustan
-     */
-    public void refresh() {
-        dbbs.repaint();
     }
 
     public void pairTiles() {
@@ -234,104 +171,25 @@ public class SinglePlayerGame {
     }
 
     /**
-     * Suorittaa vuoron lopussa puhdistuksen. Laattakontrolleri siistii laattalista,
-     * pelaajat asetetaan neutraaliin tilaan, tarkastetaan joudutaanko luomaan uudet laatat,
-     * poistetaan korostus kaikista elementeista, ja tarkastetaan loppuuko peli
+     * Suorittaa vuoron lopussa puhdistuksen. Laattakontrolleri siistii
+     * laattalista, pelaajat asetetaan neutraaliin tilaan, tarkastetaan
+     * joudutaanko luomaan uudet laatat, poistetaan korostus kaikista
+     * elementeista, ja tarkastetaan loppuuko peli
      */
-    private void endTurnCheck() {
+    public void endTurnCheck() {
         tc.cleanTiles();
         player.setNeutral();
         opponent.setNeutral();
         checkRefill();
-        unHighlightAll();
+        hController.unHighlightAll();
         gameOver();
     }
 
-    public void highlightHit() {
-        mouseOnHit = true;
-    }
-
-    public void unHighlightHit() {
-        mouseOnHit = false;
-    }
-
-    public void highlightSkill1() {
-        mouseOnSkill1 = true;
-    }
-
-    public void unHighlightSkill1() {
-        mouseOnSkill1 = false;
-    }
-
-    public boolean getHitH() {
-        return mouseOnHit;
-    }
-
-    public boolean getSkill1H() {
-
-        return mouseOnSkill1;
-    }
-
     /**
-     * Poistetaan kaikki korostukset
+     * Paivittaa piirtoalustan
      */
-    public void unHighlightAll() {
-        unHighlightSkill1();
-        unHighlightHit();
-        setHorRowsFalse();
-    }
-
-    /**
-     * Lyo vastustajaa jos pelaajalla on tarpeeksi resursseja eika talla vuorolla ole viela lyoty
-     */
-    public void hitOpponent() {
-        if (!player.getHitThisTurn()) {
-            if (player.getCharacter().getEnergy() > 0) {
-                player.getCharacter().setEnergy(player.getCharacter().getEnergy() - 1);
-                opponent.getCharacter().setHp(opponent.getCharacter().getHp() - 1);
-                opponent.setTakeDamage();
-                player.setGiveDamage();
-                Timer timer = new Timer(1000, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        player.setNeutral();
-                        opponent.setNeutral();
-                        endTurnCheck();
-                        refresh();
-                    }
-                });
-                timer.setRepeats(false);
-                timer.start();
-                player.setHitThisTurnTrue();
-            }
-        }
-    }
-
-    /**
-     * Lyo pelaajaa jos vastustajalla on tarpeeksi resursseja eika talla vuorolla ole viela lyoty
-     */
-    public void hitPlayer() {
-        if (!opponent.getHitThisTurn()) {
-            if (opponent.getCharacter().getEnergy() > 0) {
-                opponent.getCharacter().setEnergy(opponent.getCharacter().getEnergy() - 1);
-                player.getCharacter().setHp(player.getCharacter().getHp() - 1);
-                player.setTakeDamage();
-                opponent.setGiveDamage();
-                refresh();
-                Timer timer = new Timer(1000, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        opponent.setNeutral();
-                        player.setNeutral();
-                        endTurnCheck();
-                        refresh();
-                    }
-                });
-                timer.setRepeats(false);
-                timer.start();
-                opponent.setHitThisTurnTrue();
-            }
-        }
+    public void refresh() {
+        dbbs.repaint();
     }
 
     /**
@@ -340,4 +198,5 @@ public class SinglePlayerGame {
     public void backToMenu() {
         gameScreen.buildMainMenu();
     }
+
 }

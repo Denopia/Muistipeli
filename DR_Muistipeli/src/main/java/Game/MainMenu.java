@@ -1,6 +1,7 @@
 package Game;
 
 import Graphics.DrawingBoardMenu;
+import Helpers.MainMenuHighlightController;
 import UserInterface.MouseListener.MouseListenerMainMenu;
 import javax.swing.JFrame;
 
@@ -16,66 +17,26 @@ public class MainMenu {
     private DrawingBoardMenu dbm;
     private GameScreen gameScreen;
     private MouseListenerMainMenu mouseListener;
-    private boolean mouseOnSPG;
-    private boolean mouseOnIns;
-    private boolean mouseOnExit;
+    private MainMenuHighlightController hController;
 
     public MainMenu(JFrame frame, GameScreen gs) {
         this.frame = frame;
         this.dbm = new DrawingBoardMenu(this);
         this.gameScreen = gs;
         this.mouseListener = new MouseListenerMainMenu(this);
-        unHighlightAll();
+        this.hController = new MainMenuHighlightController(this);
 
         this.frame.addMouseListener(this.mouseListener);
         this.frame.addMouseMotionListener(this.mouseListener);
         this.frame.add(dbm);
     }
-
-    public void highlightSPG() {
-        if (!mouseOnSPG) {
-            unHighlightAll();
-            mouseOnSPG = true;
-            refresh();
-        }
-    }
-
-    public void highlightIns() {
-        if (!mouseOnIns) {
-            unHighlightAll();
-            mouseOnIns = true;
-            refresh();
-        }
-    }
-
-    public void highlightExit() {
-        if (!mouseOnExit) {
-            unHighlightAll();
-            mouseOnExit = true;
-            refresh();
-        }
-    }
-
-    public boolean getIns() {
-        return mouseOnIns;
-    }
-
-    public boolean getExit() {
-        return mouseOnExit;
-    }
-
-    public boolean getSPG() {
-        return mouseOnSPG;
-    }
-
-    public final void unHighlightAll() {
-        mouseOnExit = false;
-        mouseOnIns = false;
-        mouseOnSPG = false;
+    
+    public MainMenuHighlightController getHController(){
+        return hController;
     }
 
     public void unHighlightAllAndDraw() {
-        unHighlightAll();
+        hController.unHighlightAll();
         refresh();
     }
 
@@ -103,7 +64,7 @@ public class MainMenu {
     }
 
     /**
-     *Kaskee piirtoalustaa paivittamaan itsensa
+     * Kaskee piirtoalustaa paivittamaan itsensa
      */
     public void refresh() {
         dbm.repaint();

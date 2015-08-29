@@ -54,7 +54,7 @@ public class OpponentTurnController {
                 int slowDown = 0;
                 actionsBeforeTurningTiles();
                 if (doIHit()) {
-                    opponent.getGame().hitPlayer();
+                    opponent.getGame().getAController().hitPlayer();
                     slowDown = +1000;
                 }
                 if (doIUseAbility()) {
@@ -104,7 +104,7 @@ public class OpponentTurnController {
             timer = new Timer(2000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    opponent.getGame().getController().getTiles().get(seenPair.get(0).getPlacement()).turn();
+                    opponent.getGame().getTController().getTiles().get(seenPair.get(0).getPlacement()).turn();
                     opponent.getGame().refresh();
                 }
             });
@@ -112,7 +112,7 @@ public class OpponentTurnController {
             timer2 = new Timer(4000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    opponent.getGame().getController().getTiles().get(seenPair.get(1).getPlacement()).turn();
+                    opponent.getGame().getTController().getTiles().get(seenPair.get(1).getPlacement()).turn();
                     opponent.getGame().refresh();
                     opponent.getGame().pairTiles();
                 }
@@ -121,7 +121,7 @@ public class OpponentTurnController {
             timerMini = new Timer(1000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    opponent.getGame().getController().getTiles().get(seenPair.get(0).getPlacement()).highlight();
+                    opponent.getGame().getTController().getTiles().get(seenPair.get(0).getPlacement()).highlight();
                     opponent.getGame().refresh();
                 }
             });
@@ -129,7 +129,7 @@ public class OpponentTurnController {
             timer2Mini = new Timer(3000 + slowDown, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    opponent.getGame().getController().getTiles().get(seenPair.get(1).getPlacement()).highlight();
+                    opponent.getGame().getTController().getTiles().get(seenPair.get(1).getPlacement()).highlight();
                     opponent.getGame().refresh();
                 }
             });
