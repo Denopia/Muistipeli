@@ -16,13 +16,27 @@ public class Player {
     private boolean hitThisTurn;
     private boolean skillSelected;
     private boolean neautralState;
+    private int turnsLeft;
 
     public Player() {
+        turnsLeft = 0;
         this.neautralState = true;
         this.scoredTiles = new ArrayList<>();
         this.hitThisTurn = false;
         this.skillSelected = false;
 
+    }
+    
+    public void addTurn(){
+        turnsLeft++;
+    }
+    
+    public void removeTurn(){
+        turnsLeft--;
+    }
+    
+    public int getTurns(){
+        return turnsLeft;
     }
 
     public void setNeutralStateTrue() {
@@ -59,10 +73,10 @@ public class Player {
 
     /**
      * Lisaa laatan pelaajan kaantamiin pareihin
+     *
      * @param tile Laatta mika on osa paria jonka pelaaja on muodostanut
      */
     public void addScoredPair(Tile tile) {
-        gc.setEnergy(gc.getEnergy() + 1);
         scoredTiles.add(tile);
     }
 
@@ -121,8 +135,9 @@ public class Player {
 
     /**
      * Kayttaa pelaajan pelihahmon taidon
+     *
      * @param game
-     * @return 
+     * @return
      */
     public boolean useSkill(SinglePlayerGame game) {
         return gc.useSkill(game);

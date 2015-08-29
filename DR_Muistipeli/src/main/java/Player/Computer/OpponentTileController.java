@@ -247,7 +247,8 @@ public class OpponentTileController {
         ArrayList<Tile> tp = new ArrayList<>();
         for (Tile tile : knownTiles) {
             for (Tile tile2 : knownTiles) {
-                if ((tile.getPlacement() != tile2.getPlacement()) && (tile.getId() == tile2.getId())) {
+                if ((tile.getPlacement() != tile2.getPlacement())
+                        && (tile.getEffect().equals(tile2.getEffect()))) {
                     tp.add(tile);
                     tp.add(tile2);
                     return tp;

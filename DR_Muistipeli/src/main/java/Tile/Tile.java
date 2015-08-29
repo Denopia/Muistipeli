@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
  */
 public class Tile {
 
-    private int id;
+    private String effect;
     private int placement;
     private int x;
     private int y;
@@ -22,8 +22,8 @@ public class Tile {
     private String turnedPath;
     private Image currentImg;
 
-    public Tile(int p, String blankPath, String highlightPath, String turnedPath) {
-        this.id = p;
+    public Tile(String effect, String blankPath, String highlightPath, String turnedPath) {
+        this.effect = effect;
         this.blankPath = blankPath;
         this.highlightPath = highlightPath;
         this.turnedPath = turnedPath;
@@ -49,8 +49,9 @@ public class Tile {
         return highlight;
     }
 
-    public int getId() {
-        return id;
+    
+    public String getEffect(){
+        return effect;
     }
 
     public int getPlacement() {

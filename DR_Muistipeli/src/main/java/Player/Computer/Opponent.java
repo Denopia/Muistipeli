@@ -19,12 +19,25 @@ public class Opponent {
     private GameCharacter gc;
     private int difficulty;
     private boolean hitThisTurn;
-    Object getGame;
+    private int turnsLeft;
 
     public Opponent() {
+        turnsLeft = 0;
         tiles = new OpponentTileController();
         turn = new OpponentTurnController(this);
         hitThisTurn = false;
+    }
+    
+    public void addTurn(){
+        turnsLeft++;
+    }
+    
+    public void removeTurn(){
+        turnsLeft--;
+    }
+    
+    public int getTurns(){
+        return turnsLeft;
     }
 
     public OpponentTileController getTileController() {
@@ -73,7 +86,6 @@ public class Opponent {
      * @param tile Laattaa joka kuuluu pariin
      */
     public void addScoredPair(Tile tile) {
-        gc.setEnergy(gc.getEnergy() + 1);
         tiles.getScoredTiles().add(tile);
     }
 

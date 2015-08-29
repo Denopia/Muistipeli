@@ -143,7 +143,7 @@ public class OpponentTurnController {
             opponent.addSeenTile(firstTile);
             boolean luckyPair = false;
             for (Tile nt : opponent.getTileController().getKnownTiles()) {
-                if (nt.getId() == firstTile.getId()
+                if (nt.getEffect().equals(firstTile.getEffect())
                         && nt.getPlacement() != firstTile.getPlacement()) {
                     luckyPair = true;
                 }
@@ -177,7 +177,7 @@ public class OpponentTurnController {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                         for (Tile tt : opponent.getTileController().getKnownTiles()) {
-                            if ((tt.getId() == firstTile.getId())
+                            if ((tt.getEffect().equals(firstTile.getEffect()))
                                     && (tt.getPlacement() != firstTile.getPlacement())) {
                                 tt.turn();
                             }
@@ -191,7 +191,7 @@ public class OpponentTurnController {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                         for (Tile tt : opponent.getTileController().getKnownTiles()) {
-                            if ((tt.getId() == firstTile.getId())
+                            if ((tt.getEffect().equals(firstTile.getEffect()))
                                     && (tt.getPlacement() != firstTile.getPlacement())) {
                                 tt.highlight();
                             }

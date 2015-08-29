@@ -138,7 +138,7 @@ public class MouseListenerSinglePlayerGame extends MouseAdapter {
                     break;
                 }
             }
-            if (game.getTController().getTilesTurned() == 2) {
+            if (game.getTController().getTilesTurned() > 1) {
                 game.pairTiles();
 
             }

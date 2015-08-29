@@ -1,5 +1,6 @@
 package TileController;
 
+import Game.GameModes.SinglePlayerGame;
 import Player.Computer.Opponent;
 import Player.Human.Player;
 import Tile.Tile;
@@ -14,6 +15,10 @@ public class TileController {
 
     private ArrayList<Tile> tiles;
     private int pairs;
+    private final String[] tileEffects = {"turn+1", "energy+1", "hit+1", "health+1", "skull", "turn+2", "energy+2", "hit+2", "health+2"};
+    private final String[] tilePaths = {"watch2x1turn.png", "watch2x1energy.png",
+        "watch2x1damage.png", "watch2x1health.png", "watch2xskull.png", "watch2x2turn.png",
+        "watch2x2energy.png", "watch2x2damage.png", "watch2x2health.png"};
 
     public TileController(int pairs) {
         this.pairs = pairs;
@@ -136,14 +141,15 @@ public class TileController {
      */
     public final void newTiles() {
         this.tiles = new ArrayList<>();
-        int i = 1;
-        for (int j = 0; j < pairs; j++) {
-            String pname = "watch2x" + i + ".png";
-            tiles.add(new Tile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
-            tiles.add(new Tile(i, "watchblank2x.png", "watchhighlight2x.png", pname));
+        int i = 0;
+        int p = 18;
+        while (p > 0) {
+            tiles.add(new Tile(tileEffects[i], "watchblank2x.png", "watchhighlight2x.png", tilePaths[i]));
+            tiles.add(new Tile(tileEffects[i], "watchblank2x.png", "watchhighlight2x.png", tilePaths[i]));
             i++;
-            if (i == 10) {
-                i = 1;
+            p--;
+            if (i == 8) {
+                i = 0;
             }
         }
     }
@@ -152,22 +158,23 @@ public class TileController {
      * Tarkastaa kaikki käännetyt laatat ja jos löytyy pareja muodostaa niistä
      * parin ja lisää sen pelaajalle
      *
-     * @param player Pelaaja jolle pari lisätään
+     * @param game
      * @return Jos löytyy pari palautetaan true, jos ei löydy palautetaan false
      */
-    public boolean checkPairs(Player player) {
+    public boolean checkPairsForPlayer(SinglePlayerGame game) {
         boolean gotPair = false;
         for (Tile tile1 : tiles) {
             for (Tile tile2 : tiles) {
                 if (tile1.getPlacement() != tile2.getPlacement()
-                        && tile1.getId() == tile2.getId()
+                        && tile1.getEffect().equals(tile2.getEffect())
                         && tile1.getTurned() && tile2.getTurned()
                         && !tile1.getPaired()
                         && !tile2.getPaired()) {
                     tile1.pair();
                     tile2.pair();
-                    player.addScoredPair(tile1);
+                    game.getPlayer().addScoredPair(tile1);
                     gotPair = true;
+                    doTileEffectForPlayer(game, tile1);
                 }
             }
         }
@@ -178,22 +185,23 @@ public class TileController {
      * Tarkastaa kaikki käännetyt laatat ja jos löytyy pareja muodostaa niistä
      * parin ja lisää sen pelaajalle
      *
-     * @param opponent Vastustaja jolle pari lisätään
+     * @param game
      * @return Jos löytyy pari palautetaan true, jos ei löydy palautetaan false
      */
-    public boolean checkPairs(Opponent opponent) {
+    public boolean checkPairsForOpponent(SinglePlayerGame game) {
         boolean gotPair = false;
         for (Tile tile1 : tiles) {
             for (Tile tile2 : tiles) {
                 if (tile1.getPlacement() != tile2.getPlacement()
-                        && tile1.getId() == tile2.getId()
+                        && tile1.getEffect().equals(tile2.getEffect())
                         && tile1.getTurned() && tile2.getTurned()
                         && !tile1.getPaired()
                         && !tile2.getPaired()) {
                     tile1.pair();
                     tile2.pair();
-                    opponent.addScoredPair(tile1);
+                    game.getOpponent().addScoredPair(tile1);
                     gotPair = true;
+                    doTileEffectForOpponent(game, tile1);
                 }
             }
         }
@@ -205,7 +213,6 @@ public class TileController {
      */
     public void cleanTiles() {
         unTurnUnpairedTiles();
-
     }
 
     /**
@@ -219,4 +226,50 @@ public class TileController {
         }
     }
 
+    //"turn+1", "energy+1", "hit+1", "health+1", "skull", "turn+2", "energy+2", "hit+2", "health+2"
+    private void doTileEffectForPlayer(SinglePlayerGame game, Tile tile1) {
+        if (tile1.getEffect().equals(tileEffects[0])) {
+            game.getPlayer().addTurn();
+        } else if (tile1.getEffect().equals(tileEffects[1])) {
+            game.getPlayer().getCharacter().setEnergy(game.getPlayer().getCharacter().getEnergy() + 1);
+        } else if (tile1.getEffect().equals(tileEffects[2])) {
+            game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() - 1);
+        } else if (tile1.getEffect().equals(tileEffects[3])) {
+            game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() + 1);
+        } else if (tile1.getEffect().equals(tileEffects[4])) {
+            game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() - 1);
+        } else if (tile1.getEffect().equals(tileEffects[5])) {
+            game.getPlayer().addTurn();
+            game.getPlayer().addTurn();
+        } else if (tile1.getEffect().equals(tileEffects[6])) {
+            game.getPlayer().getCharacter().setEnergy(game.getPlayer().getCharacter().getEnergy() + 2);
+        } else if (tile1.getEffect().equals(tileEffects[7])) {
+            game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() - 2);
+        } else if (tile1.getEffect().equals(tileEffects[8])) {
+            game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() + 2);
+        }
+    }
+
+    private void doTileEffectForOpponent(SinglePlayerGame game, Tile tile1) {
+        if (tile1.getEffect().equals(tileEffects[0])) {
+            game.getOpponent().addTurn();
+        } else if (tile1.getEffect().equals(tileEffects[1])) {
+            game.getOpponent().getCharacter().setEnergy(game.getOpponent().getCharacter().getEnergy() + 1);
+        } else if (tile1.getEffect().equals(tileEffects[2])) {
+            game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() - 1);
+        } else if (tile1.getEffect().equals(tileEffects[3])) {
+            game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() + 1);
+        } else if (tile1.getEffect().equals(tileEffects[4])) {
+            game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() - 1);
+        } else if (tile1.getEffect().equals(tileEffects[5])) {
+            game.getOpponent().addTurn();
+            game.getOpponent().addTurn();
+        } else if (tile1.getEffect().equals(tileEffects[6])) {
+            game.getOpponent().getCharacter().setEnergy(game.getOpponent().getCharacter().getEnergy() + 2);
+        } else if (tile1.getEffect().equals(tileEffects[7])) {
+            game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() - 2);
+        } else if (tile1.getEffect().equals(tileEffects[8])) {
+            game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() + 2);
+        }
+    }
 }

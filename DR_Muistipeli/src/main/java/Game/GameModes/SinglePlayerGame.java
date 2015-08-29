@@ -51,6 +51,7 @@ public class SinglePlayerGame {
         this.frame.addMouseListener(mouseListener);
         this.frame.addMouseMotionListener(mouseListener);
         dbbs.repaint();
+        player.addTurn();
     }
 
     public SinglePlayerGameAttackController getAController() {
@@ -91,17 +92,26 @@ public class SinglePlayerGame {
      */
     public void passTurn() {
         if (playersTurn) {
-            opponent.setHitThisTurnFalse();
+            player.removeTurn();
+            if (player.getTurns() < 1) {
+                opponent.setHitThisTurnFalse();
+                opponent.addTurn();
+                playersTurn = !playersTurn;
+            }
         } else {
-            player.setHitThisTurnFalse();
+            opponent.removeTurn();
+            if (opponent.getTurns() < 1) {
+                player.setHitThisTurnFalse();
+                player.addTurn();
+                playersTurn = !playersTurn;
+            }
         }
-        playersTurn = !playersTurn;
     }
 
     public void pairTiles() {
         Timer timer;
         if (playersTurn) {
-            boolean pair = tc.checkPairs(player);
+            boolean pair = tc.checkPairsForPlayer(this);
             if (pair) {
                 player.setHappy();
             } else {
@@ -109,7 +119,7 @@ public class SinglePlayerGame {
             }
             timer = turnEndTimer(pair);
         } else {
-            boolean pair = tc.checkPairs(opponent);
+            boolean pair = tc.checkPairsForOpponent(this);
             if (pair) {
                 opponent.setHappy();
             } else {
@@ -119,6 +129,7 @@ public class SinglePlayerGame {
         }
         timer.setRepeats(false);
         timer.start();
+        passTurn();
     }
 
     public Timer turnEndTimer(boolean pair) {
@@ -138,7 +149,6 @@ public class SinglePlayerGame {
             timer = new Timer(1500, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    passTurn();
                     endTurnCheck();
                     if (!playersTurn) {
                         opponent.spendTurn();
