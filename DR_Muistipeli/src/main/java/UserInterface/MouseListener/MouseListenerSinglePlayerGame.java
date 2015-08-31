@@ -20,15 +20,20 @@ public class MouseListenerSinglePlayerGame extends MouseAdapter {
 
     @Override
     public void mouseMoved(MouseEvent me) {
+
         //Jos ei pelaajan vuoro, ei tehda mitaan
         if (!game.isPlayersTurn()) {
             return;
         }
         //Poistaa kaikki korostukset
-        game.getHController().unHighlightHit();
-        game.getHController().unHighlightSkill();
+        game.getHController().unHighlightAll();
         game.getTController().unHighlightAll();
-
+        //Jos hiiri luovutusnapin paalla korostetaan se
+        if (me.getX() >= 462 && me.getX() <= 561 && me.getY() >= 714 && me.getY() <= 749) {
+            game.getHController().highlightExit();
+            game.refresh();
+            return;
+        }
         //Jos hiiri toimintanapin päällä, korostetaan se
         if (me.getX() >= 76 && me.getX() <= 177 && me.getY() >= 550 && me.getY() <= 591) {
             game.getHController().highlightHit();
@@ -92,9 +97,14 @@ public class MouseListenerSinglePlayerGame extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent me) {
+
         //Jos ei pelaajan vuoro, ei tehdä mitään
         if (!game.isPlayersTurn() || !game.getPlayer().getNeutralState()) {
             return;
+        }
+        //Jos painetaan luovutusnappia, lopetetaan peli
+        if (me.getButton() == 1 && me.getX() >= 462 && me.getX() <= 561 && me.getY() >= 714 && me.getY() <= 749) {
+            game.backToMenu();
         }
         //Jos laattoja on käännetty 2 tai ennemmän ei käännetä ylimääräisiä ennen kuin tilanne on selvitetty
         if (game.getTController().getTilesTurned() > 1) {
@@ -104,25 +114,25 @@ public class MouseListenerSinglePlayerGame extends MouseAdapter {
         if (game.getPlayer().getSkillSelected()) {
             if (me.getButton() == 1) {
                 if (me.getX() >= 76 && me.getX() <= 177 && me.getY() >= 610 && me.getY() <= 651) {
-                    game.getPlayer().deselectSkil();
+                    game.getPlayer().deselectSkill();
                 } else {
                     game.playerUseSkill();
                 }
                 //Jos right klikataan mistä vaan, otetaan taito pois aktiivisesta tilasta
             } else if (me.getButton() == 3) {
                 game.getHController().unHighlightAll();
-                game.getPlayer().deselectSkil();
+                game.getPlayer().deselectSkill();
             }
             game.refresh();
             return;
         }
-        if (me.getX() >= 76 && me.getX() <= 177 && me.getY() >= 550 && me.getY() <= 591 && me.getButton() == 1) {
+        if (me.getX() >= 76 && me.getX() <= 177 && me.getY() >= 550 && me.getY() <= 591 && me.getButton() == 1 && !game.getTController().tileIsTurned()) {
             game.getAController().hitOpponent();
             game.refresh();
             return;
         }
-        if (me.getX() >= 76 && me.getX() <= 177 && me.getY() >= 610 && me.getY() <= 651 && me.getButton() == 1) {
-            game.getPlayer().selectSkil1();
+        if (me.getX() >= 76 && me.getX() <= 177 && me.getY() >= 610 && me.getY() <= 651 && me.getButton() == 1 && !game.getTController().tileIsTurned()) {
+            game.getPlayer().selectSkill();
             game.refresh();
             return;
         }

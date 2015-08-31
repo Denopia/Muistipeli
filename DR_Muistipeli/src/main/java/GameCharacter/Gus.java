@@ -4,7 +4,6 @@ import Game.GameModes.SinglePlayerGame;
 import Tile.Tile;
 import java.awt.Image;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 
 /**
  * Pelihahmo. Pitää sisällään juuri tämän hahmon tiedot.
@@ -14,7 +13,7 @@ public class Gus implements GameCharacter {
 
     private int hp;
     private int energy;
-    private Image currentImage;
+    private String currentImage;
     private String neutral;
     private String happy;
     private String unhappy;
@@ -43,48 +42,37 @@ public class Gus implements GameCharacter {
     }
 
     @Override
-    public void setImages2() {
-        neutral = "character/gus/gus_neutral.png";
-        happy = "character/gus/gus_yes.png";
-        unhappy = "character/gus/gus_no.png";
-        damaged = "character/gus/gus_damaged.png";
-        takeDamage = "character/gus/gus_take_damage.png";
-        giveDamage = "character/gus/gus_give_damage.png";
-        setNeutral();
-    }
-
-    @Override
     public void setNeutral() {
         if (getHp() > 15) {
-            setCurrentImage(neutral);
+            currentImage = neutral;
         } else {
-            setCurrentImage(damaged);
+            currentImage = damaged;
         }
     }
 
     @Override
     public void setHappy() {
-        setCurrentImage(happy);
+        currentImage = happy;
     }
 
     @Override
     public void setUnhappy() {
-        setCurrentImage(unhappy);
+        currentImage = unhappy;
     }
 
     @Override
     public void setTakeDamage() {
-        setCurrentImage(takeDamage);
+        currentImage = takeDamage;
     }
 
     @Override
     public void setGiveDamage() {
-        setCurrentImage(giveDamage);
+        currentImage = giveDamage;
     }
 
     @Override
     public void setDamaged() {
-        setCurrentImage(damaged);
+        currentImage = damaged;
     }
 
     @Override
@@ -94,7 +82,10 @@ public class Gus implements GameCharacter {
 
     @Override
     public void setHp(int i) {
-        this.hp = i;
+        hp = i;
+        if (hp > 30) {
+            hp = 30;
+        }
     }
 
     @Override
@@ -104,30 +95,12 @@ public class Gus implements GameCharacter {
 
     @Override
     public void setEnergy(int i) {
-        this.energy = i;
+        energy = i;
     }
 
     @Override
-    public Image getCurrentImage() {
-        return this.currentImage;
-    }
-
-    @Override
-    public void setCurrentImage(String string) {
-        this.currentImage = createImage(string);
-    }
-
-    @Override
-    public Image createImage(String path) {
-        ImageIcon icon = null;
-        java.net.URL imgURL = getClass().getClassLoader().getResource(path);
-        if (imgURL != null) {
-            icon = new ImageIcon(imgURL);
-        } else {
-            System.err.println("Picture " + path + " not found");
-        }
-        Image kuva = icon.getImage();
-        return kuva;
+    public String getCurrentImage() {
+        return currentImage;
     }
 
     @Override
@@ -142,7 +115,7 @@ public class Gus implements GameCharacter {
             for (Tile tile : tilesToBeTurned) {
                 tile.turn();
             }
-            game.getPlayer().deselectSkil();
+            game.getPlayer().deselectSkill();
             return true;
         }
         return false;

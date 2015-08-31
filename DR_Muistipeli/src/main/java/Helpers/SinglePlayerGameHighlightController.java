@@ -19,10 +19,12 @@ public class SinglePlayerGameHighlightController {
     private boolean horRow6;
     private boolean mouseOnHit;
     private boolean mouseOnSkill1;
+    private boolean mouseOnExit;
 
     public SinglePlayerGameHighlightController() {
         this.mouseOnSkill1 = false;
         this.mouseOnHit = false;
+        mouseOnExit = false;
         setHorRowsFalse();
         setVerRowsFalse();
     }
@@ -145,9 +147,11 @@ public class SinglePlayerGameHighlightController {
      * Poistetaan kaikki korostukset
      */
     public void unHighlightAll() {
+        unHighlightExit();
         unHighlightSkill();
         unHighlightHit();
         setHorRowsFalse();
+        setVerRowsFalse();
     }
 
     /**
@@ -162,6 +166,17 @@ public class SinglePlayerGameHighlightController {
      */
     public void unHighlightHit() {
         mouseOnHit = false;
+    }
+
+    public void highlightExit() {
+        mouseOnExit = true;
+    }
+
+    /**
+     * Poistaa lyontinappulan korostuksen
+     */
+    public void unHighlightExit() {
+        mouseOnExit = false;
     }
 
     /**
@@ -194,6 +209,10 @@ public class SinglePlayerGameHighlightController {
      */
     public boolean getSkillH() {
         return mouseOnSkill1;
+    }
+
+    public boolean getExitH() {
+        return mouseOnExit;
     }
 
 }

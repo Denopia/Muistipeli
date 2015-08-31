@@ -14,7 +14,7 @@ public class Apollo implements GameCharacter {
 
     private int hp;
     private int energy;
-    private Image currentImage;
+    private String currentImage;
     private String neutral;
     private String happy;
     private String unhappy;
@@ -39,83 +39,69 @@ public class Apollo implements GameCharacter {
         damaged = "character/apollo/apollo_damaged.png";
         takeDamage = "character/apollo/apollo_take_damage.png";
         giveDamage = "character/apollo/apollo_give_damage.png";
-        setCurrentImage(neutral);
+        setNeutral();
     }
 
     @Override
-    public void setImages2() {
-        neutral = "character/apollo/apollo_neutral.png";
-        happy = "character/apollo/apollo_yes.png";
-        unhappy = "character/apollo/apollo_no.png";
-        damaged = "character/apollo/apollo_damaged.png";
-        takeDamage = "character/apollo/apollo_take_damage.png";
-        giveDamage = "character/apollo/apollo_give_damage.png";
-        setCurrentImage(neutral);
-    }
-
     public void setNeutral() {
-        setCurrentImage(neutral);
+        if (getHp() > 15) {
+            currentImage = neutral;
+        } else {
+            currentImage = damaged;
+        }
     }
 
+    @Override
     public void setHappy() {
-        setCurrentImage(happy);
+        currentImage = happy;
     }
 
+    @Override
     public void setUnhappy() {
-        setCurrentImage(unhappy);
+        currentImage = unhappy;
     }
 
+    @Override
     public void setTakeDamage() {
-        setCurrentImage(takeDamage);
+        currentImage = takeDamage;
     }
 
+    @Override
     public void setGiveDamage() {
-        setCurrentImage(giveDamage);
+        currentImage = giveDamage;
     }
 
+    @Override
     public void setDamaged() {
-        setCurrentImage(damaged);
+        currentImage = damaged;
     }
 
+    @Override
     public int getHp() {
         return hp;
     }
 
+    @Override
     public void setHp(int i) {
-        this.hp = i;
+        hp = i;
+        if (hp > 30) {
+            hp = 30;
+        }
     }
 
+    @Override
     public int getEnergy() {
         return energy;
     }
 
+    @Override
     public void setEnergy(int i) {
-        this.energy = i;
-    }
-
-    public String getBasic() {
-        return this.neutral;
-    }
-
-    public Image getCurrentImage() {
-        return this.currentImage;
-    }
-
-    public void setCurrentImage(String string) {
-        this.currentImage = createImage(string);
+        energy = i;
     }
 
     @Override
-    public Image createImage(String path) {
-        ImageIcon icon = null;
-        java.net.URL imgURL = getClass().getClassLoader().getResource(path);
-        if (imgURL != null) {
-            icon = new ImageIcon(imgURL);
-        } else {
-            System.err.println("Picture " + path + " not found");
-        }
-        Image kuva = icon.getImage();
-        return kuva;
+    public String getCurrentImage() {
+        return currentImage;
     }
 
     @Override
@@ -130,7 +116,7 @@ public class Apollo implements GameCharacter {
             for (Tile tile : tilesToBeTurned) {
                 tile.turn();
             }
-            game.getPlayer().deselectSkil();
+            game.getPlayer().deselectSkill();
             return true;
         }
         return false;

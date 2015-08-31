@@ -20,17 +20,17 @@ public class GamePreparationTest {
         gp = new GamePreparation(2, new JFrame(), new GameScreen(new JFrame()));
     }
 
-    @Test
-    public void canMakePlayer() {
-        Player bp = gp.makePlayer(1, 1);
-        assertEquals(bp.getCharacter().getClass(), new Gus().getClass());
-    }
-
-    @Test
-    public void canMakeOpponent() {
-        Opponent bo = gp.makeOpponent(1, 1, 1);
-        assertEquals(bo.getCharacter().getClass(), new Gus().getClass());
-    }
+//    @Test
+//    public void canMakePlayer() {
+//        Player bp = gp.makePlayer(1, 1);
+//        assertEquals(bp.getCharacter().getClass(), new Gus().getClass());
+//    }
+//
+//    @Test
+//    public void canMakeOpponent() {
+//        Opponent bo = gp.makeOpponent(1, 1, 1);
+//        assertEquals(bo.getCharacter().getClass(), new Gus().getClass());
+//    }
 
     @Test
     public void canChangePlayerCharacter() {

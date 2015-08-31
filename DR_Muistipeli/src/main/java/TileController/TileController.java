@@ -1,8 +1,6 @@
 package TileController;
 
 import Game.GameModes.SinglePlayerGame;
-import Player.Computer.Opponent;
-import Player.Human.Player;
 import Tile.Tile;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +22,10 @@ public class TileController {
         this.pairs = pairs;
         this.tiles = new ArrayList<>();
         newTiles();
+    }
+
+    public String[] getEffects() {
+        return tileEffects;
     }
 
     public ArrayList<Tile> getTiles() {
@@ -175,6 +177,7 @@ public class TileController {
                     game.getPlayer().addScoredPair(tile1);
                     gotPair = true;
                     doTileEffectForPlayer(game, tile1);
+                    game.setFaces(tile1.getEffect());
                 }
             }
         }
@@ -202,6 +205,7 @@ public class TileController {
                     game.getOpponent().addScoredPair(tile1);
                     gotPair = true;
                     doTileEffectForOpponent(game, tile1);
+                    game.setFaces(tile1.getEffect());
                 }
             }
         }
@@ -237,7 +241,7 @@ public class TileController {
         } else if (tile1.getEffect().equals(tileEffects[3])) {
             game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() + 1);
         } else if (tile1.getEffect().equals(tileEffects[4])) {
-            game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() - 1);
+            game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() - 3);
         } else if (tile1.getEffect().equals(tileEffects[5])) {
             game.getPlayer().addTurn();
             game.getPlayer().addTurn();
@@ -260,7 +264,7 @@ public class TileController {
         } else if (tile1.getEffect().equals(tileEffects[3])) {
             game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() + 1);
         } else if (tile1.getEffect().equals(tileEffects[4])) {
-            game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() - 1);
+            game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() - 3);
         } else if (tile1.getEffect().equals(tileEffects[5])) {
             game.getOpponent().addTurn();
             game.getOpponent().addTurn();
@@ -271,5 +275,14 @@ public class TileController {
         } else if (tile1.getEffect().equals(tileEffects[8])) {
             game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() + 2);
         }
+    }
+
+    public boolean tileIsTurned() {
+        for (Tile tile : tiles) {
+            if (tile.getTurned()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

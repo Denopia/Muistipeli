@@ -25,7 +25,7 @@ public class GameScreen {
      * Tyhjentää peliruudun piirtoalustoista ja hiirenkuuntelijoista
      */
     public void clearFrame() {
-        this.frame.getContentPane().removeAll();
+        frame.getContentPane().removeAll();
         for (MouseListener m : frame.getMouseListeners()) {
             frame.removeMouseListener(m);
         }
@@ -39,9 +39,9 @@ public class GameScreen {
      */
     public void buildMainMenu() {
         clearFrame();
-        MainMenu menu = new MainMenu(this.frame, this);
-        this.frame.revalidate();
-        this.frame.repaint();
+        MainMenu menu = new MainMenu(frame, this);
+        frame.revalidate();
+        frame.repaint();
     }
 
     /**
@@ -51,11 +51,10 @@ public class GameScreen {
      */
     public void buildPreparation(int gameMode) {
         clearFrame();
-        GamePreparation gamePrep = new GamePreparation(gameMode, this.frame, this);
-        this.frame.revalidate();
-        this.frame.repaint();
+        GamePreparation gamePrep = new GamePreparation(gameMode, frame, this);
+        frame.revalidate();
+        frame.repaint();
     }
-
 
     /**
      * Tekee tappeluyksinpeli
@@ -65,16 +64,23 @@ public class GameScreen {
      */
     void buildBattleSinglePlayerGame(Player p, Opponent o) {
         clearFrame();
-        SinglePlayerGame battleSinglePlayerGame = new SinglePlayerGame(18, this.frame, this, p, o);
-        this.frame.revalidate();
-        this.frame.repaint();
+        SinglePlayerGame battleSinglePlayerGame = new SinglePlayerGame(18, frame, this, p, o);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    void buildInstructionScreen() {
+        clearFrame();
+        Instructions ins = new Instructions(frame, this);
+        frame.revalidate();
+        frame.repaint();
     }
 
     /**
      * Sulkee ikkunan, mikä sammuttaa pelin
      */
     public void closeScreen() {
-        this.frame.dispose();
+        frame.dispose();
     }
 
 }

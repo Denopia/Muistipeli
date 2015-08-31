@@ -2,7 +2,6 @@ package Game;
 
 import GameCharacter.Apollo;
 import GameCharacter.Gus;
-import GameCharacter.PBot;
 import Graphics.DrawingBoardPreparation;
 import Helpers.PreparationHighlightController;
 import Player.Computer.Opponent;
@@ -19,24 +18,20 @@ import javax.swing.JFrame;
 public class GamePreparation {
 
     private JFrame frame;
-    private int gameMode;
     private GameScreen gs;
     private DrawingBoardPreparation dbp;
     private MouseListenerPreparation mmlp;
+    private PreparationHighlightController hController;
+    private int gameMode;
     private int difficulty;
     private int playerCharacter;
     private int opponentCharacter;
-    private int playerColor;
-    private int opponentColor;
-    private PreparationHighlightController hController;
 
     public GamePreparation(int gameMode, JFrame frame, GameScreen gs) {
         this.hController = new PreparationHighlightController();
         this.difficulty = 2;
         this.playerCharacter = 1;
         this.opponentCharacter = 1;
-        this.playerColor = 1;
-        this.opponentColor = 1;
         this.frame = frame;
         this.gameMode = gameMode;
         this.gs = gs;
@@ -81,7 +76,7 @@ public class GamePreparation {
      */
     public void startGame() {
         if (gameMode == 1) {
-            gs.buildBattleSinglePlayerGame(makePlayer(playerCharacter, playerColor), makeOpponent(opponentCharacter, opponentColor, difficulty));
+            gs.buildBattleSinglePlayerGame(makePlayer(playerCharacter), makeOpponent(opponentCharacter, difficulty));
         }
     }
 
@@ -89,23 +84,18 @@ public class GamePreparation {
      * Tekee pelaajan valitun hahmon ja värin mukaan
      *
      * @param character Pelaajan pelihahmo
-     * @param color Pelihahmon väri
      * @return Luotu pelaaja
      */
-    public Player makePlayer(int character, int color) {
+    public Player makePlayer(int character) {
         Player bp = new Player();
         if (character == 1) {
             bp.setCharacter(new Gus());
         } else if (character == 2) {
             bp.setCharacter(new Apollo());
-        } else if (character == 3) {
-            bp.setCharacter(new PBot());
         }
-        if (color == 1) {
-            bp.getCharacter().setImages1();
-        } else if (color == 2) {
-            bp.getCharacter().setImages2();
-        }
+
+        bp.getCharacter().setImages1();
+
         return bp;
     }
 
@@ -113,24 +103,17 @@ public class GamePreparation {
      * Tekee vastustajan valitun hahmon ja värin mukaan
      *
      * @param character Vastustajan pelihahmo
-     * @param color Vastustajan väri
      * @param difficulty Vastustajan vaikeusaste
      * @return Luotu vastustaja
      */
-    public Opponent makeOpponent(int character, int color, int difficulty) {
+    public Opponent makeOpponent(int character, int difficulty) {
         Opponent bo = new Opponent();
         if (character == 1) {
             bo.setCharacter(new Gus());
         } else if (character == 2) {
             bo.setCharacter(new Apollo());
-        } else if (character == 3) {
-            bo.setCharacter(new PBot());
         }
-        if (color == 1) {
-            bo.getCharacter().setImages1();
-        } else if (color == 2) {
-            bo.getCharacter().setImages2();
-        }
+        bo.getCharacter().setImages1();
         bo.setDifficulty(difficulty);
         return bo;
     }
@@ -157,7 +140,7 @@ public class GamePreparation {
     public void previousPlayerCharacter() {
         playerCharacter--;
         if (playerCharacter == 0) {
-            playerCharacter = 3;
+            playerCharacter = 2;
         }
     }
 
@@ -166,7 +149,7 @@ public class GamePreparation {
      */
     public void nextPlayerCharacter() {
         playerCharacter++;
-        if (playerCharacter == 4) {
+        if (playerCharacter == 3) {
             playerCharacter = 1;
         }
     }
@@ -177,7 +160,7 @@ public class GamePreparation {
     public void previousOpponentCharacter() {
         opponentCharacter--;
         if (opponentCharacter == 0) {
-            opponentCharacter = 3;
+            opponentCharacter = 2;
         }
     }
 
@@ -186,7 +169,7 @@ public class GamePreparation {
      */
     public void nextOpponentCharacter() {
         opponentCharacter++;
-        if (opponentCharacter == 4) {
+        if (opponentCharacter == 3) {
             opponentCharacter = 1;
         }
     }

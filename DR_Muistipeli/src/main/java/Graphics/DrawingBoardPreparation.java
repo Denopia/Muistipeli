@@ -51,22 +51,30 @@ public class DrawingBoardPreparation extends JPanel {
 
     public void paintDifficulty(Graphics2D g2d) {
         g2d.drawImage(makeImage("difficulty_block.png"), 262, 605, null);
-        if (preparation.getHController().getD1() == true || preparation.getDifficulty() == 1) {
+        if (preparation.getDifficulty() == 1) {
+            g2d.drawImage(makeImage("difficulty_0_selected.png"), 262, 642, null);
+        } else if (preparation.getHController().getD1() == true) {
             g2d.drawImage(makeImage("difficulty_0_highlight.png"), 262, 642, null);
         } else {
             g2d.drawImage(makeImage("difficulty_0.png"), 262, 642, null);
         }
-        if (preparation.getHController().getD2() == true || preparation.getDifficulty() == 2) {
+        if (preparation.getDifficulty() == 2) {
+            g2d.drawImage(makeImage("difficulty_1_selected.png"), 381, 642, null);
+        } else if (preparation.getHController().getD2() == true) {
             g2d.drawImage(makeImage("difficulty_1_highlight.png"), 381, 642, null);
         } else {
             g2d.drawImage(makeImage("difficulty_1.png"), 381, 642, null);
         }
-        if (preparation.getHController().getD3() == true || preparation.getDifficulty() == 3) {
+        if (preparation.getDifficulty() == 3) {
+            g2d.drawImage(makeImage("difficulty_2_selected.png"), 500, 642, null);
+        } else if (preparation.getHController().getD3() == true) {
             g2d.drawImage(makeImage("difficulty_2_highlight.png"), 500, 642, null);
         } else {
             g2d.drawImage(makeImage("difficulty_2.png"), 500, 642, null);
         }
-        if (preparation.getHController().getD4() == true || preparation.getDifficulty() == 4) {
+        if (preparation.getDifficulty() == 4) {
+            g2d.drawImage(makeImage("difficulty_3_selected.png"), 619, 642, null);
+        } else if (preparation.getHController().getD4() == true) {
             g2d.drawImage(makeImage("difficulty_3_highlight.png"), 619, 642, null);
         } else {
             g2d.drawImage(makeImage("difficulty_3.png"), 619, 642, null);
@@ -99,8 +107,6 @@ public class DrawingBoardPreparation extends JPanel {
             g2d.drawImage(makeImage("character/gus/gus_neutral.png"), 161, 162, null);
         } else if (preparation.getPlayerCharacter() == 2) {
             g2d.drawImage(makeImage("character/apollo/apollo_neutral.png"), 161, 162, null);
-        } else if (preparation.getPlayerCharacter() == 3) {
-            g2d.drawImage(makeImage("character/pbot/ROBO.png"), 161, 162, null);
         }
     }
 
@@ -109,8 +115,6 @@ public class DrawingBoardPreparation extends JPanel {
             g2d.drawImage(makeImage("character/gus/gus_neutral.png"), 645 + 200, 162, -200, 300, null);
         } else if (preparation.getOpponentCharacter() == 2) {
             g2d.drawImage(makeImage("character/apollo/apollo_neutral.png"), 645 + 200, 162, -200, 300, null);
-        } else if (preparation.getOpponentCharacter() == 3) {
-            g2d.drawImage(makeImage("character/pbot/ROBO.png"), 645 + 200, 162, -200, 300, null);
         }
     }
 

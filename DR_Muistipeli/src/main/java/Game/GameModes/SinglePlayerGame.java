@@ -83,12 +83,13 @@ public class SinglePlayerGame {
      */
     public void playerUseSkill() {
         if (player.useSkill(this)) {
+            player.addTurn();
             pairTiles();
         }
     }
 
     /**
-     * Vaihtaa vuorossa olevaa pelaajaa
+     * Vaihtaa vuorossa olevaa pelaajaa jos nykyisen pelaajan siirrot loppu
      */
     public void passTurn() {
         if (playersTurn) {
@@ -112,17 +113,13 @@ public class SinglePlayerGame {
         Timer timer;
         if (playersTurn) {
             boolean pair = tc.checkPairsForPlayer(this);
-            if (pair) {
-                player.setHappy();
-            } else {
+            if (!pair) {
                 player.setUnhappy();
             }
             timer = turnEndTimer(pair);
         } else {
             boolean pair = tc.checkPairsForOpponent(this);
-            if (pair) {
-                opponent.setHappy();
-            } else {
+            if (!pair) {
                 opponent.setUnhappy();
             }
             timer = turnEndTimer(pair);
@@ -207,6 +204,33 @@ public class SinglePlayerGame {
      */
     public void backToMenu() {
         gameScreen.buildMainMenu();
+    }
+//"turn+1", "energy+1", "hit+1", "health+1", "skull", "turn+2", "energy+2", "hit+2", "health+2"
+
+    public void setFaces(String effect) {
+        if (playersTurn) {
+            if (effect.equals(tc.getEffects()[0]) || effect.equals(tc.getEffects()[1])
+                    || effect.equals(tc.getEffects()[3]) || effect.equals(tc.getEffects()[5])
+                    || effect.equals(tc.getEffects()[6]) || effect.equals(tc.getEffects()[8])) {
+                player.setHappy();
+            } else if (effect.equals(tc.getEffects()[2]) || effect.equals(tc.getEffects()[7])) {
+                player.setGiveDamage();
+                opponent.setTakeDamage();
+            } else if (effect.equals(tc.getEffects()[4])) {
+                player.setTakeDamage();
+            }
+        } else {
+            if (effect.equals(tc.getEffects()[0]) || effect.equals(tc.getEffects()[1])
+                    || effect.equals(tc.getEffects()[3]) || effect.equals(tc.getEffects()[5])
+                    || effect.equals(tc.getEffects()[6]) || effect.equals(tc.getEffects()[8])) {
+                opponent.setHappy();
+            } else if (effect.equals(tc.getEffects()[2]) || effect.equals(tc.getEffects()[7])) {
+                opponent.setGiveDamage();
+                player.setTakeDamage();
+            } else if (effect.equals(tc.getEffects()[4])) {
+                opponent.setTakeDamage();
+            }
+        }
     }
 
 }

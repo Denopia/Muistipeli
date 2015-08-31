@@ -80,7 +80,7 @@ public class Player {
         scoredTiles.add(tile);
     }
 
-    public Image getPortrait() {
+    public String getPortrait() {
         return gc.getCurrentImage();
     }
 
@@ -121,11 +121,11 @@ public class Player {
         return gc;
     }
 
-    public void selectSkil1() {
+    public void selectSkill() {
         skillSelected = true;
     }
 
-    public void deselectSkil() {
+    public void deselectSkill() {
         skillSelected = false;
     }
 

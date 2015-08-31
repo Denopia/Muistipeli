@@ -107,7 +107,7 @@ public class Opponent {
         tiles.getKnownTiles().remove(tile);
     }
 
-    public Image getPortrait() {
+    public String getPortrait() {
         return gc.getCurrentImage();
     }
 

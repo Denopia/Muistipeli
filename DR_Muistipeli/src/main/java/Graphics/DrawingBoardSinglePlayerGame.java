@@ -33,15 +33,16 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
         paintPlayers(g2d);
         paintStats(g2d);
         paintTiles(g2d);
+        paintExit(g2d);
     }
 
     public void paintPlayers(Graphics2D g2d) {
-        g2d.drawImage(game.getPlayer().getPortrait(), 18, 139, null);
-        g2d.drawImage(game.getOpponent().getPortrait(), 789 + 200, 139, -200, 300, null);
+        g2d.drawImage(makeImage(game.getPlayer().getPortrait()), 18, 139, null);
+        g2d.drawImage(makeImage(game.getOpponent().getPortrait()), 789 + 200, 139, -200, 300, null);
     }
 
     public void paintBackground(Graphics2D g2d) {
-        g2d.drawImage(makeImage("background.png"), 0, 0, null);
+        g2d.drawImage(makeImage("background4.png"), 0, 0, null);
     }
 
     private void paintTiles(Graphics2D g2d) {
@@ -195,4 +196,11 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
         return img;
     }
 
+    private void paintExit(Graphics2D g2d) {
+        if (game.getHController().getExitH()) {
+            g2d.drawImage(makeImage("give_up_highlight.png"), 450, 711 - 38, null);
+        } else {
+             g2d.drawImage(makeImage("give_up.png"), 450, 711 - 38, null);
+        }
+    }
 }

@@ -14,7 +14,7 @@ public class TileTest {
 
     @Before
     public void setUp() {
-        tile = new Tile(1, "watchblank2x.png", "watchblank2x.png", "watchblank2x.png");
+//        tile = new Tile(1, "watchblank2x.png", "watchblank2x.png", "watchblank2x.png");
     }
 
     @Test
@@ -24,7 +24,7 @@ public class TileTest {
         assertEquals(tile.getPlacement(), 45);
         assertEquals(tile.getX(), 7);
         assertEquals(tile.getY(), 999);
-        assertEquals(tile.getAmount(), 1);
+//        assertEquals(tile.getAmount(), 1);
         Assert.assertFalse(tile.getPaired());
         Assert.assertFalse(tile.getTurned());
     }

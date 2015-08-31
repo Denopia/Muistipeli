@@ -10,19 +10,19 @@ import java.util.Random;
  * Kontrolloi vastustajan loytamat parit ja laatat jotka vastustaja on nahnyt
  */
 public class OpponentTileController {
-
+    
     ArrayList<Tile> scoredTiles;
     ArrayList<Tile> knownTiles;
-
+    
     public OpponentTileController() {
         scoredTiles = new ArrayList<>();
         knownTiles = new ArrayList<>();
     }
-
+    
     public ArrayList<Tile> getScoredTiles() {
         return scoredTiles;
     }
-
+    
     public ArrayList<Tile> getKnownTiles() {
         return knownTiles;
     }
@@ -245,11 +245,12 @@ public class OpponentTileController {
      */
     public ArrayList<Tile> checkForPair() {
         ArrayList<Tile> tp = new ArrayList<>();
-        for (Tile tile : knownTiles) {
+        for (Tile tile1 : knownTiles) {
             for (Tile tile2 : knownTiles) {
-                if ((tile.getPlacement() != tile2.getPlacement())
-                        && (tile.getEffect().equals(tile2.getEffect()))) {
-                    tp.add(tile);
+                if ((tile1.getPlacement() != tile2.getPlacement())
+                        && (tile1.getEffect().equals(tile2.getEffect()))
+                        && !tile1.getEffect().equals("skull")) {
+                    tp.add(tile1);
                     tp.add(tile2);
                     return tp;
                 }

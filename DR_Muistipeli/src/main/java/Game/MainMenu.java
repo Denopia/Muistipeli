@@ -53,7 +53,7 @@ public class MainMenu {
      * Kaskee peli-ikkunaa luomaan ohjeruudun
      */
     public void showInstructions() {
-        System.out.println("Näytä ohjeet!");
+        gameScreen.buildInstructionScreen();
     }
 
     /**
