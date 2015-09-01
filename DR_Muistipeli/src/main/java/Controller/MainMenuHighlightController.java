@@ -1,6 +1,4 @@
-package Helpers;
-
-import Game.MainMenu;
+package Controller;
 
 /**
  * Pitaa vain ylla mitka elementit pelin paavalikossa ovat korostettuna
@@ -10,35 +8,21 @@ public class MainMenuHighlightController {
     private boolean mouseOnSPG;
     private boolean mouseOnIns;
     private boolean mouseOnExit;
-    private MainMenu menu;
 
-    public MainMenuHighlightController(MainMenu menu) {
-        this.menu = menu;
+    public MainMenuHighlightController() {
         unHighlightAll();
     }
 
     public void highlightSPG() {
-        if (!mouseOnSPG) {
-            unHighlightAll();
-            mouseOnSPG = true;
-            menu.refresh();
-        }
+        mouseOnSPG = true;
     }
 
     public void highlightIns() {
-        if (!mouseOnIns) {
-            unHighlightAll();
-            mouseOnIns = true;
-            menu.refresh();
-        }
+        mouseOnIns = true;
     }
 
     public void highlightExit() {
-        if (!mouseOnExit) {
-            unHighlightAll();
-            mouseOnExit = true;
-            menu.refresh();
-        }
+        mouseOnExit = true;
     }
 
     public boolean getIns() {

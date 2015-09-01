@@ -1,7 +1,6 @@
 package Tile;
 
 import java.awt.Image;
-import javax.swing.ImageIcon;
 
 /**
  * Sisaltaa yhden laatan kaikki tiedot ja voi palauttaa sen arvoja tai muutella
@@ -20,7 +19,7 @@ public class Tile {
     private String blankPath;
     private String highlightPath;
     private String turnedPath;
-    private Image currentImg;
+    private String currentImg;
 
     public Tile(String effect, String blankPath, String highlightPath, String turnedPath) {
         this.effect = effect;
@@ -30,7 +29,7 @@ public class Tile {
         this.turned = false;
         this.highlight = false;
         this.paired = false;
-        this.currentImg = createImage(blankPath);
+        this.currentImg = blankPath;
     }
 
     public int getX() {
@@ -49,8 +48,7 @@ public class Tile {
         return highlight;
     }
 
-    
-    public String getEffect(){
+    public String getEffect() {
         return effect;
     }
 
@@ -70,7 +68,7 @@ public class Tile {
     public void pair() {
         turned = false;
         paired = true;
-        currentImg = createImage(turnedPath);
+        currentImg = turnedPath;
     }
 
     public void turn() {
@@ -79,7 +77,7 @@ public class Tile {
         }
         unHighlight();
         turned = true;
-        currentImg = createImage(turnedPath);
+        currentImg = turnedPath;
     }
 
     public void unTurn() {
@@ -88,7 +86,7 @@ public class Tile {
         }
         unHighlight();
         turned = false;
-        currentImg = createImage(blankPath);
+        currentImg = blankPath;
     }
 
     public void highlight() {
@@ -105,7 +103,7 @@ public class Tile {
         highlight = false;
     }
 
-    public Image getImage() {
+    public String getImage() {
         return currentImg;
     }
 
@@ -113,19 +111,7 @@ public class Tile {
         return paired;
     }
 
-    public Image getHighlightImage() {
-        return createImage(highlightPath);
-    }
-
-    private Image createImage(String path) {
-        ImageIcon icon = null;
-        java.net.URL imgURL = getClass().getClassLoader().getResource(path);
-        if (imgURL != null) {
-            icon = new ImageIcon(imgURL);
-        } else {
-            System.err.println("Picture " + path + " not found");
-        }
-        Image kuva = icon.getImage();
-        return kuva;
+    public String getHighlightImage() {
+        return highlightPath;
     }
 }

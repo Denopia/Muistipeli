@@ -1,4 +1,4 @@
-package Helpers;
+package Controller;
 
 public class InstructionsHighlightController {
 

@@ -47,9 +47,9 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
 
     private void paintTiles(Graphics2D g2d) {
         for (Tile tile : game.getTController().getTiles()) {
-            g2d.drawImage(tile.getImage(), tile.getX(), tile.getY(), null);
+            g2d.drawImage(makeImage(tile.getImage()), tile.getX(), tile.getY(), null);
             if (tile.getHighlight() && !game.getPlayer().getSkillSelected()) {
-                g2d.drawImage(tile.getHighlightImage(), tile.getX(), tile.getY(), null);
+                g2d.drawImage(makeImage(tile.getHighlightImage()), tile.getX(), tile.getY(), null);
             }
         }
 
@@ -200,7 +200,7 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
         if (game.getHController().getExitH()) {
             g2d.drawImage(makeImage("give_up_highlight.png"), 450, 711 - 38, null);
         } else {
-             g2d.drawImage(makeImage("give_up.png"), 450, 711 - 38, null);
+            g2d.drawImage(makeImage("give_up.png"), 450, 711 - 38, null);
         }
     }
 }

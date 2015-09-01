@@ -3,7 +3,7 @@ package Game;
 import GameCharacter.Apollo;
 import GameCharacter.Gus;
 import Graphics.DrawingBoardPreparation;
-import Helpers.PreparationHighlightController;
+import Controller.PreparationHighlightController;
 import Player.Computer.Opponent;
 import Player.Human.Player;
 import UserInterface.MouseListener.MouseListenerPreparation;

@@ -1,4 +1,4 @@
-package Helpers;
+package Controller;
 
 /**
  * Pitaa vain ylla mitka elementit pelin valmisteluruudulla ovat korostettuna

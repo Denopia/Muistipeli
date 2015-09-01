@@ -25,7 +25,6 @@ public class DrawingBoardPreparation extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         paintBackground(g2d);
-        paintMode(g2d);
         paintCharacterFrames(g2d);
         paintArrows(g2d);
         paintPlayer(g2d);
@@ -37,16 +36,6 @@ public class DrawingBoardPreparation extends JPanel {
 
     public void paintBackground(Graphics2D g2d) {
         g2d.drawImage(makeImage("game_prep_screen.png"), 0, 0, null);
-    }
-
-    public void paintMode(Graphics2D g2d) {
-        Image mode = makeImage("battle_title.png");
-        if (preparation.getMode() == 1) {
-            mode = makeImage("");
-        } else if (preparation.getMode() == 2) {
-            mode = makeImage("battle_title.png");
-        }
-        g2d.drawImage(mode, 324, 59, null);
     }
 
     public void paintDifficulty(Graphics2D g2d) {

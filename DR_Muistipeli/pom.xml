@@ -51,23 +51,23 @@
                 <version>1.1.4</version>
                 <configuration>
                     <targetClasses>
+                        <param>Controller*</param>
                         <param>Game*</param>
                         <param>Game.GameModes*</param>
                         <param>GameCharacter*</param>
                         <param>Player.Computer*</param>
                         <param>Player.Human*</param>
-                        <param>Tile*</param>
-                        <param>TileController*</param>                                                                
+                        <param>Tile*</param>                                                              
                     </targetClasses>
                     
                     <targetTests>
+                        <param>Controller*</param>
                         <param>Game*</param>
                         <param>Game.GameModes*</param>
                         <param>GameCharacter*</param>
                         <param>Player.Computer*</param>
                         <param>Player.Human*</param>
-                        <param>Tile*</param>
-                        <param>TileController*</param> 
+                        <param>Tile*</param> 
                     </targetTests>
                 </configuration>
             </plugin>

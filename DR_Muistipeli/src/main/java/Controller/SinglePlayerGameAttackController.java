@@ -1,4 +1,4 @@
-package Helpers;
+package Controller;
 
 import Game.GameModes.SinglePlayerGame;
 import java.awt.event.ActionEvent;

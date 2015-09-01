@@ -1,7 +1,7 @@
 package Game;
 
 import Graphics.DrawingBoardMenu;
-import Helpers.MainMenuHighlightController;
+import Controller.MainMenuHighlightController;
 import UserInterface.MouseListener.MouseListenerMainMenu;
 import javax.swing.JFrame;
 
@@ -24,7 +24,7 @@ public class MainMenu {
         this.dbm = new DrawingBoardMenu(this);
         this.gameScreen = gs;
         this.mouseListener = new MouseListenerMainMenu(this);
-        this.hController = new MainMenuHighlightController(this);
+        this.hController = new MainMenuHighlightController();
 
         this.frame.addMouseListener(this.mouseListener);
         this.frame.addMouseMotionListener(this.mouseListener);
@@ -33,11 +33,6 @@ public class MainMenu {
     
     public MainMenuHighlightController getHController(){
         return hController;
-    }
-
-    public void unHighlightAllAndDraw() {
-        hController.unHighlightAll();
-        refresh();
     }
 
     /**

@@ -1,7 +1,7 @@
 package Game;
 
 import Graphics.DrawingBoardInstructions;
-import Helpers.InstructionsHighlightController;
+import Controller.InstructionsHighlightController;
 import UserInterface.MouseListener.MouseListenerInstructions;
 import javax.swing.JFrame;
 

@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
  */
 public class MouseListenerMainMenu extends MouseAdapter {
 
-    private final MainMenu menu;
+    private MainMenu menu;
 
     public MouseListenerMainMenu(MainMenu menu) {
         this.menu = menu;
@@ -19,6 +19,7 @@ public class MouseListenerMainMenu extends MouseAdapter {
 
     @Override
     public void mouseMoved(MouseEvent me) {
+        menu.getHController().unHighlightAll();
         if ((me.getX()) >= (418)
                 && (me.getX()) <= (605)
                 && (me.getY()) >= (309)
@@ -34,9 +35,8 @@ public class MouseListenerMainMenu extends MouseAdapter {
                 && (me.getY()) >= (598)
                 && (me.getY()) <= (631)) {
             menu.getHController().highlightExit();
-        } else {
-            menu.unHighlightAllAndDraw();
         }
+        menu.refresh();
     }
 
     @Override

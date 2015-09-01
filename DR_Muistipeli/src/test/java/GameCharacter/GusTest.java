@@ -1,7 +1,7 @@
 package GameCharacter;
 
 import Tile.Tile;
-import TileController.TileController;
+import Controller.TileController;
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;

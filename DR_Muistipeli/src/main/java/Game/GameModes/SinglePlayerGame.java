@@ -1,10 +1,10 @@
 package Game.GameModes;
 
-import TileController.TileController;
+import Controller.TileController;
 import Game.GameScreen;
 import Graphics.DrawingBoardSinglePlayerGame;
-import Helpers.SinglePlayerGameAttackController;
-import Helpers.SinglePlayerGameHighlightController;
+import Controller.SinglePlayerGameAttackController;
+import Controller.SinglePlayerGameHighlightController;
 import Player.Computer.Opponent;
 import Player.Human.Player;
 import UserInterface.MouseListener.MouseListenerSinglePlayerGame;
@@ -169,7 +169,7 @@ public class SinglePlayerGame {
      * Tarkistaa pitaako luoda kentalle uudet laatat
      */
     public void checkRefill() {
-        if (tc.pairedTiles() == tc.getTiles().size() / 2) {
+        if (tc.getTilesPaired() == tc.getTiles().size() / 2) {
             tc.newTiles();
             tc.shuffleTiles();
             opponent.getTileController().forgetAll();
@@ -184,7 +184,7 @@ public class SinglePlayerGame {
      * elementeista, ja tarkastetaan loppuuko peli
      */
     public void endTurnCheck() {
-        tc.cleanTiles();
+        tc.unTurnUnpairedTiles();
         player.setNeutral();
         opponent.setNeutral();
         checkRefill();

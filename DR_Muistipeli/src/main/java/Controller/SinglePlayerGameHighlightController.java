@@ -1,4 +1,4 @@
-package Helpers;
+package Controller;
 
 /**
  * Pitaa vain ylla mitka elementit yksinpeliruudulla ovat korostettuna
@@ -22,11 +22,7 @@ public class SinglePlayerGameHighlightController {
     private boolean mouseOnExit;
 
     public SinglePlayerGameHighlightController() {
-        this.mouseOnSkill1 = false;
-        this.mouseOnHit = false;
-        mouseOnExit = false;
-        setHorRowsFalse();
-        setVerRowsFalse();
+        unHighlightAll();
     }
 
     /**
@@ -47,7 +43,6 @@ public class SinglePlayerGameHighlightController {
      * @param i Mika rivi korostetaan
      */
     public void setHorRowTrue(int i) {
-        setHorRowsFalse();
         if (i == 1) {
             horRow1 = true;
         } else if (i == 2) {
@@ -81,7 +76,6 @@ public class SinglePlayerGameHighlightController {
      * @param i Mika rivi korostetaan
      */
     public void setVerRowTrue(int i) {
-        setVerRowsFalse();
         if (i == 1) {
             verRow1 = true;
         } else if (i == 2) {
@@ -146,7 +140,7 @@ public class SinglePlayerGameHighlightController {
     /**
      * Poistetaan kaikki korostukset
      */
-    public void unHighlightAll() {
+    public final void unHighlightAll() {
         unHighlightExit();
         unHighlightSkill();
         unHighlightHit();
