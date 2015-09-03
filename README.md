@@ -1,3 +1,3 @@
 # Muistipeli
 
-uu-uu~
+Muistipeli se on.

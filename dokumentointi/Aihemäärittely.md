@@ -35,6 +35,7 @@ Pelin käynnistyessä pääluokka MuistipeliMain luo uuden UI olion, joka on vä
 - Pelistä puuttuu voitto/häviöruutu. Kun toinen pelaaja voittaa peli palaa välittömästi alkuvalikkoon
 - Pelin vaikeusasteita ei keretty hioa kunnolla. Toiseksi helpoin taso tuntuu olevan sopivin.
 - Vastustajan "tekoäly" jäi muutenkin kovin alkukantaiseksi
+- Apollo-hahmon kuvat ovat osaksi puuttelliset mutta peli toimii silti
 - Hiiren liikeen kuuntelu oli vielä tarkoitus muuttaa ottamaan hiiren koordinaatit vain ruudun piirron yhteydessä ja näin tarkastaa mikä nappula piirretään korostettuna
 - Peli ei välttämättä sovi värisokeille tässä versiossa, olisi hyvä vaihtaa värit vastaamaan jotain kuvaa, kuten vaikkapa vihreä numero voisi olla sydän jonka sisällä on numero jne.
 - Pelin sisältö jäi hyvin pieneksi koska muutamia tarkoitettuja ominaisuuksia ei vain keretty lisätä

@@ -39,7 +39,6 @@ public class MouseListenerMainMenu extends MouseAdapter {
                 && (me.getY()) <= (631 - 38)) {
             menu.getHController().highlightExit();
         }
-//        menu.refresh();
     }
 
     @Override
