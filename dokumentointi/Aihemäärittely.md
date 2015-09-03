@@ -24,9 +24,13 @@ Pelaaja
 
 ####Rakennekuvaus:
 Pelin käynnistyessä pääluokka MuistipeliMain luo uuden UI olion, joka on vähän turha väliolio (luo vain framen ja GameScreenin eikä käytetä myöhemmin). GameScreen luo aluksi päävalikon MainMenu mikä tekee itselleen piirtoalustan, hiirenkuuntelijan, ja korostusten ylläpidon. 
+   
    Kun valikossa painaa ohje-nappia annetaan GameScreenille käsky luoda Instructions olio. Samalla GameScreen poistaa MainMenun piirtoalustan pelin framesta. Instructions oli luo itselleen taas piirtoalustan, hiirenkuuntelijan ja korostuksen ylläpidon ja laittaa piirtoalustan pelin frameen.
+   
    Kun painetaan ohjeruudussa valikkonappia, ohjeiden piirtoalusta poistetaan framesta ja luodaan taas uusi valikko olio kuten pelin käynnistyessä. Kun valikossa nyt painetaan yksinpeli-nappia valikko poistetaan framesta ja luodaan tilalle GamePreparation olio joka taas itselleen luo tarvittavat oliot, piirtoalustan, hiirenkuuntelijan ja korostuskontrollerin.
+   
    Kun pelin valmistelu on kunnossa ja peli aloitetaan tapahtuu sama homma kuin aikaisemminkin. Poistetaan valmistelun piirtoalusta ruudusta ja GameScreenia käsketään luomaan itse peli. Peli tekee itselleen kasan uusia olioita: korostusmuistilistan, hyökkäykskontrollerin, hiirenkuuntelijan, piirtoalustan ja laattojenkäsittelijän. GamePreparation olikin luonut pelaajan ja vastustajan jo valmiiksi ja antanut ne GameScreenin kautta SinglePlayerGamelle parametrina. Pelaajien luonnissa heille myös on tehty pelihahmo-oliot ja vastustaja lisäksi tekee itselleen vuoronsuorittajan ja laattojen kontrollerin, johon lisätään laattoja sitä mukaa kun niitä pelissä käännellään.
+  
   Keskeisessä osassa pelissä on siis GameScreen luokka jonka kautta luodaan pelin frameen aina haluttavaa sisältöä. GameScreen ei itse tunne muuta kuin framen, mutta se antaa itsensä ohje-, valikko-, valmistelu- ja yksinpeliolioille, jotka voivat käskeä sitä muokkaamaan näytettävää framen sisältöä.
 
 
