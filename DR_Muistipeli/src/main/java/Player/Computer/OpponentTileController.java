@@ -7,22 +7,24 @@ import java.util.Collections;
 import java.util.Random;
 
 /**
- * Kontrolloi vastustajan loytamat parit ja laatat jotka vastustaja on nahnyt
+ * Kontrolloi vastustajan nakemia laattoja
  */
 public class OpponentTileController {
-    
-    ArrayList<Tile> scoredTiles;
-    ArrayList<Tile> knownTiles;
-    
+
+    private ArrayList<Tile> knownTiles;
+
+    /**
+     * Konstruktori, luo listan valmiiksi
+     */
     public OpponentTileController() {
-        scoredTiles = new ArrayList<>();
         knownTiles = new ArrayList<>();
     }
-    
-    public ArrayList<Tile> getScoredTiles() {
-        return scoredTiles;
-    }
-    
+
+    /**
+     * Palauttaa vastustajan tuntemat laatat
+     *
+     * @return Laattalista
+     */
     public ArrayList<Tile> getKnownTiles() {
         return knownTiles;
     }
@@ -218,7 +220,7 @@ public class OpponentTileController {
     /**
      * Listaa kaikki laatat joita ei tiedetä
      *
-     * @param game
+     * @param game Peli josta haetaan laatat
      * @return Lista laatoista joita ei tiedetä
      */
     public ArrayList<Tile> getUnseenTiles(SinglePlayerGame game) {

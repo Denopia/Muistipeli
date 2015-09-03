@@ -1,146 +1,149 @@
 package Player.Human;
 
-import Game.GameModes.SinglePlayerGame;
 import GameCharacter.GameCharacter;
-import Tile.Tile;
-import java.awt.Image;
-import java.util.ArrayList;
 
 /**
- * Pitää sisällään ihmispelaajan tiedot.
+ * Pitaa sisallaan ihmispelaajan tiedot.
  */
 public class Player {
 
     private GameCharacter gc;
-    private ArrayList<Tile> scoredTiles;
-    private boolean hitThisTurn;
     private boolean skillSelected;
-    private boolean neautralState;
-    private int turnsLeft;
+    private boolean neutralState;
+    private int movesLeft;
+    private int hitsLeft;
 
+    /**
+     * Konstruktori
+     */
     public Player() {
-        turnsLeft = 0;
-        this.neautralState = true;
-        this.scoredTiles = new ArrayList<>();
-        this.hitThisTurn = false;
+        movesLeft = 0;
+        hitsLeft = 0;
+        this.neutralState = true;
         this.skillSelected = false;
-
-    }
-    
-    public void addTurn(){
-        turnsLeft++;
-    }
-    
-    public void removeTurn(){
-        turnsLeft--;
-    }
-    
-    public int getTurns(){
-        return turnsLeft;
     }
 
+    /**
+     * Lisaa vuoron
+     */
+    public void addMove() {
+        movesLeft++;
+    }
+
+    /**
+     * Poistaa vuoron
+     */
+    public void removeMove() {
+        movesLeft--;
+    }
+
+    /**
+     * Palauttaa vuorot
+     *
+     * @return vuorot
+     */
+    public int getMoves() {
+        return movesLeft;
+    }
+
+    /**
+     * Asettaa pelaajan neutraliin tilaan
+     */
     public void setNeutralStateTrue() {
-        neautralState = true;
+        neutralState = true;
     }
 
+    /**
+     * Poistaa pelaajan neutraalista tilasta
+     */
     public void setNeutralStateFalse() {
-        neautralState = false;
+        neutralState = false;
     }
 
+    /**
+     * Palauttaa neutraalin tilan totuusarvon
+     *
+     * @return true jos on neutraali, false jos ei
+     */
     public boolean getNeutralState() {
-        return neautralState;
+        return neutralState;
     }
 
+    /**
+     * Asettaa hahmon
+     *
+     * @param gc hahmo
+     */
     public void setCharacter(GameCharacter gc) {
         this.gc = gc;
     }
 
-    public void setHitThisTurnTrue() {
-        hitThisTurn = true;
-    }
-
-    public void setHitThisTurnFalse() {
-        hitThisTurn = false;
-    }
-
-    public boolean getHitThisTurn() {
-        return hitThisTurn;
-    }
-
-    public int getNumberOfPairsScored() {
-        return scoredTiles.size();
+    /**
+     * Poistaa lyonnin
+     */
+    public void removeHit() {
+        hitsLeft--;
     }
 
     /**
-     * Lisaa laatan pelaajan kaantamiin pareihin
-     *
-     * @param tile Laatta mika on osa paria jonka pelaaja on muodostanut
+     * Lisaa lyonnin
      */
-    public void addScoredPair(Tile tile) {
-        scoredTiles.add(tile);
+    public void addHit() {
+        hitsLeft++;
     }
 
-    public String getPortrait() {
-        return gc.getCurrentImage();
+    /**
+     * Palauttaa jaljella olevat lyonnit
+     *
+     * @return lyonnit
+     */
+    public int getHitsLeft() {
+        return hitsLeft;
     }
 
-    public void scorePair() {
-        setHappy();
+    /**
+     * Asettaa lyonnit yhteen
+     */
+    public void setHitsToOne() {
+        hitsLeft = 1;
     }
 
-    public void failPair() {
-        setUnhappy();
-    }
-
-    public void setHappy() {
-        gc.setHappy();
-        setNeutralStateFalse();
-    }
-
-    public void setUnhappy() {
-        gc.setUnhappy();
-        setNeutralStateFalse();
-    }
-
-    public void setNeutral() {
-        gc.setNeutral();
-        setNeutralStateTrue();
-    }
-
-    public void setTakeDamage() {
-        gc.setTakeDamage();
-        setNeutralStateFalse();
-    }
-
-    public void setGiveDamage() {
-        gc.setGiveDamage();
-        setNeutralStateFalse();
-    }
-
+    /**
+     * Palauttaa hahmon
+     *
+     * @return hahmo
+     */
     public GameCharacter getCharacter() {
         return gc;
     }
 
+    /**
+     * Asettaa taidon valituksi
+     */
     public void selectSkill() {
         skillSelected = true;
     }
 
+    /**
+     * Asettaa taidon ei-valituksi
+     */
     public void deselectSkill() {
         skillSelected = false;
     }
 
+    /**
+     * Kertoo onko taito valittu
+     *
+     * @return True jos on valittu, false jos ei
+     */
     public boolean getSkillSelected() {
         return skillSelected;
     }
 
     /**
-     * Kayttaa pelaajan pelihahmon taidon
-     *
-     * @param game
-     * @return
+     * Asettaa vuorot yhteen
      */
-    public boolean useSkill(SinglePlayerGame game) {
-        return gc.useSkill(game);
+    public void setMovesToOne() {
+        movesLeft = 1;
     }
-
 }

@@ -26,19 +26,19 @@
         <configuration>
           <targetClasses>
             <param>Controller*</param>
-            <param>Game*</param>
-            <param>Game.GameModes*</param>
-            <param>GameCharacter*</param>
-            <param>Player.Computer*</param>
+            <param>Game.GamePreparation</param>
+            <param>GameCharacter.Apollo</param>
+            <param>GameCharacter.Gus</param>
+            <param>Player.Computer.Opponent</param>
             <param>Player.Human*</param>
             <param>Tile*</param>
           </targetClasses>
           <targetTests>
             <param>Controller*</param>
-            <param>Game*</param>
-            <param>Game.GameModes*</param>
-            <param>GameCharacter*</param>
-            <param>Player.Computer*</param>
+            <param>Game.GamePreparationTest</param>
+            <param>GameCharacter.ApolloTest</param>
+            <param>GameCharacter.GusTest</param>
+            <param>Player.Computer.OpponentTest</param>
             <param>Player.Human*</param>
             <param>Tile*</param>
           </targetTests>

@@ -2,13 +2,10 @@ package GameCharacter;
 
 import Game.GameModes.SinglePlayerGame;
 import Tile.Tile;
-import java.awt.Image;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 
 /**
  * Pelihahmo. Pitää sisällään juuri tämän hahmon tiedot.
- *
  */
 public class Apollo implements GameCharacter {
 
@@ -22,11 +19,15 @@ public class Apollo implements GameCharacter {
     private String giveDamage;
     private String takeDamage;
 
+    /**
+     * Konstruktori
+     */
     public Apollo() {
         setDefault();
     }
 
-    private void setDefault() {
+    @Override
+    public void setDefault() {
         setHp(30);
         setEnergy(15);
     }
@@ -106,8 +107,8 @@ public class Apollo implements GameCharacter {
 
     @Override
     public boolean useSkill(SinglePlayerGame game) {
-        if (energy >= 5 && game.getHController().getVerRow() != -1) {
-            energy -= 5;
+        if (energy >= 4 && game.getHController().getVerRow() != -1) {
+            energy -= 4;
             ArrayList<Tile> tilesToBeTurned = new ArrayList<>();
             int r = (game.getHController().getVerRow() - 1);
             for (int i = 0; i < 6; i++) {

@@ -4,7 +4,7 @@ import UserInterface.UI;
 import javax.swing.SwingUtilities;
 
 /**
- * Pääluokka, käynnistää pelin.
+ * Paaluokka, kaynnistaa pelin
  * 
  */
 public class MuistipeliMain {

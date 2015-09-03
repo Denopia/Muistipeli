@@ -18,6 +18,11 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
 
     private SinglePlayerGame game;
 
+    /**
+     * Konstruktori
+     *
+     * @param game Yksinpeli olio jolta haetaan tietoja
+     */
     public DrawingBoardSinglePlayerGame(SinglePlayerGame game) {
         this.game = game;
         setOpaque(false);
@@ -36,12 +41,12 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
         paintExit(g2d);
     }
 
-    public void paintPlayers(Graphics2D g2d) {
-        g2d.drawImage(makeImage(game.getPlayer().getPortrait()), 18, 139, null);
-        g2d.drawImage(makeImage(game.getOpponent().getPortrait()), 789 + 200, 139, -200, 300, null);
+    private void paintPlayers(Graphics2D g2d) {
+        g2d.drawImage(makeImage(game.getPlayer().getCharacter().getCurrentImage()), 18, 139, null);
+        g2d.drawImage(makeImage(game.getOpponent().getCharacter().getCurrentImage()), 789 + 200, 139, -200, 300, null);
     }
 
-    public void paintBackground(Graphics2D g2d) {
+    private void paintBackground(Graphics2D g2d) {
         g2d.drawImage(makeImage("background4.png"), 0, 0, null);
     }
 
@@ -49,7 +54,7 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
         for (Tile tile : game.getTController().getTiles()) {
             g2d.drawImage(makeImage(tile.getImage()), tile.getX(), tile.getY(), null);
             if (tile.getHighlight() && !game.getPlayer().getSkillSelected()) {
-                g2d.drawImage(makeImage(tile.getHighlightImage()), tile.getX(), tile.getY(), null);
+                g2d.drawImage(makeImage(tile.getHighlightBorder()), tile.getX(), tile.getY(), null);
             }
         }
 
@@ -89,13 +94,8 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
     }
 
     private void paintFrames(Graphics2D g2d) {
-//        if (BSPG.isPlayersTurn()) {
-//            g2d.drawImage(makeImage("character_frame_light.png"), 12, 133, null);
         g2d.drawImage(makeImage("character_frame.png"), 783, 133, null);
-//        } else {
         g2d.drawImage(makeImage("character_frame.png"), 12, 133, null);
-//            g2d.drawImage(makeImage("character_frame_light.png"), 783, 133, null);
-//        }
     }
 
     private void paintStats(Graphics2D g2d) {
@@ -184,7 +184,7 @@ public class DrawingBoardSinglePlayerGame extends JPanel {
         }
     }
 
-    public Image makeImage(String path) {
+    private Image makeImage(String path) {
         ImageIcon icon = null;
         java.net.URL imgURL = getClass().getClassLoader().getResource(path);
         if (imgURL != null) {

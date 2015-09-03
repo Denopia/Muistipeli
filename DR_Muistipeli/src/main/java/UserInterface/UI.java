@@ -7,7 +7,6 @@ import javax.swing.WindowConstants;
 
 /**
  * Tekee pelin framen
- * 
  */
 public class UI implements Runnable {
 
@@ -15,13 +14,13 @@ public class UI implements Runnable {
 
     @Override
     public void run() {
-        frame = new JFrame("( ͡° ͜ʖ ͡°) Muistipeli ( ͡° ͜ʖ ͡°)");
+        frame = new JFrame("Muistipeli ( ͡° ͜ʖ ͡°)");
         frame.setPreferredSize(new Dimension(1024, 768));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        GameScreen gs = new GameScreen(frame);
+        GameScreen gs = new GameScreen(frame, 33);
         gs.buildMainMenu();
     }
 }

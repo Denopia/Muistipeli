@@ -3,43 +3,44 @@ package Game;
 import Game.GameModes.SinglePlayerGame;
 import Player.Computer.Opponent;
 import Player.Human.Player;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 /**
- * Kontrolloi pelin framea. Luo pelit ja valikon sekä ohjeet ja antaa framen
- * niille käyttöön. Kun näitä ei enää tarvita, tyhjentää framen ja rakentaa
- * uuden tarvittavan näkymän.
+ * Kontrolloi pelin framea. Luo pelit ja valikon seka ohjeet ja antaa framen
+ * niille kayttoon. Kun naita ei ena tarvita, tyhjenta framen ja rakentaa uuden
+ * tarvittavan nakyman.
  *
  */
 public class GameScreen {
 
     private final JFrame frame;
+    private final int refreshRate;
 
-    public GameScreen(JFrame frame) {
+    /**
+     * Konstruktori
+     *
+     * @param frame frame johon tulee tavaraa
+     * @param RefreshRate kuinka kauan yksi kuva nakyy ruudulla
+     */
+    public GameScreen(JFrame frame, int RefreshRate) {
         this.frame = frame;
+        this.refreshRate = RefreshRate;
     }
 
     /**
-     * Tyhjentää peliruudun piirtoalustoista ja hiirenkuuntelijoista
+     * Tyhjentaa peliruudun piirtoalustoista
      */
     public void clearFrame() {
         frame.getContentPane().removeAll();
-        for (MouseListener m : frame.getMouseListeners()) {
-            frame.removeMouseListener(m);
-        }
-        for (MouseMotionListener m : frame.getMouseMotionListeners()) {
-            frame.removeMouseMotionListener(m);
-        }
     }
 
     /**
-     * Tekee päävalikon
+     * Tekee pavalikon
      */
     public void buildMainMenu() {
         clearFrame();
-        MainMenu menu = new MainMenu(frame, this);
+        MainMenu menu = new MainMenu(frame, this, refreshRate);
         frame.revalidate();
         frame.repaint();
     }
@@ -51,36 +52,39 @@ public class GameScreen {
      */
     public void buildPreparation(int gameMode) {
         clearFrame();
-        GamePreparation gamePrep = new GamePreparation(gameMode, frame, this);
+        GamePreparation gamePrep = new GamePreparation(gameMode, frame, this, refreshRate);
         frame.revalidate();
         frame.repaint();
     }
 
     /**
-     * Tekee tappeluyksinpeli
+     * Tekee yksinpelin
      *
      * @param p Pelaaja
      * @param o Vastustaja
      */
     void buildBattleSinglePlayerGame(Player p, Opponent o) {
         clearFrame();
-        SinglePlayerGame battleSinglePlayerGame = new SinglePlayerGame(18, frame, this, p, o);
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    void buildInstructionScreen() {
-        clearFrame();
-        Instructions ins = new Instructions(frame, this);
+        SinglePlayerGame battleSinglePlayerGame = new SinglePlayerGame(18, frame, this, p, o, refreshRate);
         frame.revalidate();
         frame.repaint();
     }
 
     /**
-     * Sulkee ikkunan, mikä sammuttaa pelin
+     * Tekee ohjeruudun
+     */
+    void buildInstructionScreen() {
+        clearFrame();
+        Instructions ins = new Instructions(frame, this, refreshRate);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    /**
+     * Sulkee ikkunan, mika myos sammuttaa pelin
      */
     public void closeScreen() {
-        frame.dispose();
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
 
 }

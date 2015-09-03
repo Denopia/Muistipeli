@@ -14,16 +14,15 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
- * Yksinpeli. TietÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤ hiiren sijainnin nappuloiden
- * pÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤llÃƒÆ’Ã‚Â¤. Suorittaa pelin toimintoja kun hiirellÃƒÆ’Ã‚Â¤
- * klikkaa nappeja ja pelilaattoja. TietÃƒÆ’Ã‚Â¤ÃƒÆ’Ã‚Â¤ myÃƒÆ’Ã‚Â¶s pelaajat.
+ * Yksinpeli. Tietaa pelaajat ja laatat (niiden kontrollerin). Hallinoi siis
+ * kuinka yksinpeli tulee toimimaan (kuten kuinka vuorot vaihtuvat).
  *
  */
 public class SinglePlayerGame {
 
     private GameScreen gameScreen;
     private JFrame frame;
-    private DrawingBoardSinglePlayerGame dbbs;
+    private DrawingBoardSinglePlayerGame dbsp;
     private TileController tc;
     private MouseListenerSinglePlayerGame mouseListener;
     private Player player;
@@ -32,8 +31,22 @@ public class SinglePlayerGame {
     private int pairs;
     private SinglePlayerGameHighlightController hController;
     private SinglePlayerGameAttackController aController;
+    private final int refreshRate;
 
-    public SinglePlayerGame(int pairs, JFrame frame, GameScreen gs, Player bp, Opponent bo) {
+    /**
+     * Konstruktori. Asettaa muistiin tarvittavat oliot ja valmistelee framen
+     * niin etta peli nakyy siina.
+     *
+     * @param pairs Kuinka monta paria peliin tulee
+     * @param frame Pelin frame
+     * @param gs GameScreen luokka
+     * @param bp Pelaaja
+     * @param bo Vastustaja
+     * @param refreshRate Kuinak kauan yksi kuva nakyy ruudulla ennen kuin se
+     * paivitetaan
+     */
+    public SinglePlayerGame(int pairs, JFrame frame, GameScreen gs, Player bp, Opponent bo, int refreshRate) {
+        this.refreshRate = refreshRate;
         this.aController = new SinglePlayerGameAttackController(this);
         this.hController = new SinglePlayerGameHighlightController();
         this.pairs = pairs;
@@ -45,35 +58,79 @@ public class SinglePlayerGame {
         this.gameScreen = gs;
         this.tc = new TileController(pairs);
         this.tc.shuffleTiles();
-        this.dbbs = new DrawingBoardSinglePlayerGame(this);
+        this.dbsp = new DrawingBoardSinglePlayerGame(this);
         this.mouseListener = new MouseListenerSinglePlayerGame(this);
-        this.frame.add(dbbs);
-        this.frame.addMouseListener(mouseListener);
-        this.frame.addMouseMotionListener(mouseListener);
-        dbbs.repaint();
-        player.addTurn();
+        this.frame.add(dbsp);
+        this.dbsp.addMouseListener(mouseListener);
+        this.dbsp.addMouseMotionListener(mouseListener);
+        player.addMove();
+        player.addHit();
+        Timer t = repainter(dbsp, refreshRate);
+        t.setRepeats(true);
+        t.start();
     }
 
+    private Timer repainter(final DrawingBoardSinglePlayerGame d, int refreshRate) {
+        Timer timer = new Timer(refreshRate, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                d.repaint();
+            }
+
+        });
+        return timer;
+    }
+
+    /**
+     * Palauttaa hyokkayskontrollerin
+     *
+     * @return Kontrolleri
+     */
     public SinglePlayerGameAttackController getAController() {
         return aController;
     }
 
+    /**
+     * Palauttaa korostuskontrollerin
+     *
+     * @return Kontrolleri
+     */
     public SinglePlayerGameHighlightController getHController() {
         return hController;
     }
 
+    /**
+     * Palauttaa laattakontrollerin
+     *
+     * @return Kontrolleri
+     */
     public TileController getTController() {
         return tc;
     }
 
+    /**
+     * Palauttaa pelaajan
+     *
+     * @return Pelaaja
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Palauttaa vastustajan
+     *
+     * @return Vastustaja
+     */
     public Opponent getOpponent() {
         return opponent;
     }
 
+    /**
+     * Palauttaa arvon joka kertoo onko pelaajan vuoro
+     *
+     * @return True jos on pelaajan vuoro, false jos ei
+     */
     public boolean isPlayersTurn() {
         return playersTurn;
     }
@@ -82,8 +139,8 @@ public class SinglePlayerGame {
      * Kaskee pelaajaa kayttamaan taidon
      */
     public void playerUseSkill() {
-        if (player.useSkill(this)) {
-            player.addTurn();
+        if (player.getCharacter().useSkill(this)) {
+            player.addMove();
             pairTiles();
         }
     }
@@ -93,71 +150,69 @@ public class SinglePlayerGame {
      */
     public void passTurn() {
         if (playersTurn) {
-            player.removeTurn();
-            if (player.getTurns() < 1) {
-                opponent.setHitThisTurnFalse();
-                opponent.addTurn();
+            player.removeMove();
+            if (player.getMoves() < 1) {
+                opponent.setHitsToOne();
+                opponent.setMovesToOne();
                 playersTurn = !playersTurn;
             }
         } else {
-            opponent.removeTurn();
-            if (opponent.getTurns() < 1) {
-                player.setHitThisTurnFalse();
-                player.addTurn();
+            opponent.removeMove();
+            if (opponent.getMoves() < 1) {
+                player.setHitsToOne();
+                player.setMovesToOne();
                 playersTurn = !playersTurn;
             }
         }
     }
 
+    /**
+     * Tarkastaa onko kaannetyissa laatoissa pareja, ja jos pari loytyy asettaa
+     * oikeat kuvat ja tilat pelaajille ja luo timerit jotka lopettavat vuoron
+     */
     public void pairTiles() {
-        Timer timer;
         if (playersTurn) {
             boolean pair = tc.checkPairsForPlayer(this);
             if (!pair) {
-                player.setUnhappy();
+                player.getCharacter().setUnhappy();
+                player.setNeutralStateFalse();
             }
-            timer = turnEndTimer(pair);
         } else {
             boolean pair = tc.checkPairsForOpponent(this);
             if (!pair) {
-                opponent.setUnhappy();
+                opponent.getCharacter().setUnhappy();
+                opponent.setNeutralStateFalse();
             }
-            timer = turnEndTimer(pair);
         }
+        passTurn();
+        Timer timer = turnEndTimer();
         timer.setRepeats(false);
         timer.start();
-        passTurn();
+
     }
 
-    public Timer turnEndTimer(boolean pair) {
+    /**
+     * Palauttaa timerin joka tietyn ajan kuluttua vaihtaa vuoron seuraavalle
+     * pelaajalle vuoron lopussa suoritettavan tarkastuksen jalkeen
+     *
+     * @return Timer
+     */
+    public Timer turnEndTimer() {
         Timer timer;
-        if (pair) {
-            timer = new Timer(1500, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ae) {
-                    endTurnCheck();
-                    if (!playersTurn) {
-                        opponent.spendTurn();
-                    }
+        timer = new Timer(1500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                endTurnCheck();
+                if (!playersTurn) {
+                    opponent.spendTurn();
                 }
-
-            });
-        } else {
-            timer = new Timer(1500, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ae) {
-                    endTurnCheck();
-                    if (!playersTurn) {
-                        opponent.spendTurn();
-                    }
-                }
-            });
-        }
+            }
+        });
         return timer;
     }
 
     /**
-     * Tarkistaa onko pelin syytä loppua toisen pelaajan voittoon
+     * Tarkistaa onko pelin syyta loppua toisen pelaajan voittoon
      */
     public void gameOver() {
         if (opponent.getCharacter().getHp() < 1 || player.getCharacter().getHp() < 1) {
@@ -174,7 +229,6 @@ public class SinglePlayerGame {
             tc.shuffleTiles();
             opponent.getTileController().forgetAll();
         }
-        refresh();
     }
 
     /**
@@ -184,19 +238,14 @@ public class SinglePlayerGame {
      * elementeista, ja tarkastetaan loppuuko peli
      */
     public void endTurnCheck() {
+        gameOver();
         tc.unTurnUnpairedTiles();
-        player.setNeutral();
-        opponent.setNeutral();
+        player.setNeutralStateTrue();
+        player.getCharacter().setNeutral();
+        opponent.getCharacter().setNeutral();
+        opponent.setNeutralStateTrue();
         checkRefill();
         hController.unHighlightAll();
-        gameOver();
-    }
-
-    /**
-     * Paivittaa piirtoalustan
-     */
-    public void refresh() {
-        dbbs.repaint();
     }
 
     /**
@@ -205,32 +254,61 @@ public class SinglePlayerGame {
     public void backToMenu() {
         gameScreen.buildMainMenu();
     }
-//"turn+1", "energy+1", "hit+1", "health+1", "skull", "turn+2", "energy+2", "hit+2", "health+2"
 
-    public void setFaces(String effect) {
+    /**
+     * Asettaa pelaajille oikeat kuvat laattojen efektien mukaan
+     *
+     * @param effect Laatan efekti
+     */
+    public void setCharacterPictures(String effect) {
         if (playersTurn) {
-            if (effect.equals(tc.getEffects()[0]) || effect.equals(tc.getEffects()[1])
-                    || effect.equals(tc.getEffects()[3]) || effect.equals(tc.getEffects()[5])
-                    || effect.equals(tc.getEffects()[6]) || effect.equals(tc.getEffects()[8])) {
-                player.setHappy();
-            } else if (effect.equals(tc.getEffects()[2]) || effect.equals(tc.getEffects()[7])) {
-                player.setGiveDamage();
-                opponent.setTakeDamage();
-            } else if (effect.equals(tc.getEffects()[4])) {
-                player.setTakeDamage();
-            }
+            setPlayerPicture(effect);
         } else {
-            if (effect.equals(tc.getEffects()[0]) || effect.equals(tc.getEffects()[1])
-                    || effect.equals(tc.getEffects()[3]) || effect.equals(tc.getEffects()[5])
-                    || effect.equals(tc.getEffects()[6]) || effect.equals(tc.getEffects()[8])) {
-                opponent.setHappy();
-            } else if (effect.equals(tc.getEffects()[2]) || effect.equals(tc.getEffects()[7])) {
-                opponent.setGiveDamage();
-                player.setTakeDamage();
-            } else if (effect.equals(tc.getEffects()[4])) {
-                opponent.setTakeDamage();
-            }
+            setOpponentPicture(effect);
         }
     }
 
+    /**
+     * Asettaa vastustajalle oikean kuvan laatan efektin mukaan
+     *
+     * @param effect Laatan efekti
+     */
+    public void setOpponentPicture(String effect) {
+        if (effect.equals(tc.getEffects()[0]) || effect.equals(tc.getEffects()[1])
+                || effect.equals(tc.getEffects()[3]) || effect.equals(tc.getEffects()[5])
+                || effect.equals(tc.getEffects()[6]) || effect.equals(tc.getEffects()[8])) {
+            opponent.getCharacter().setHappy();
+            opponent.setNeutralStateFalse();
+        } else if (effect.equals(tc.getEffects()[2]) || effect.equals(tc.getEffects()[7])) {
+            opponent.getCharacter().setGiveDamage();
+            opponent.setNeutralStateFalse();
+            player.getCharacter().setTakeDamage();
+            player.setNeutralStateFalse();
+        } else if (effect.equals(tc.getEffects()[4])) {
+            opponent.getCharacter().setTakeDamage();
+            opponent.setNeutralStateFalse();
+        }
+    }
+
+    /**
+     * Asettaa pelaajalle oikean kuvan laatan efektin mukaan
+     *
+     * @param effect Laatan efekti
+     */
+    public void setPlayerPicture(String effect) {
+        if (effect.equals(tc.getEffects()[0]) || effect.equals(tc.getEffects()[1])
+                || effect.equals(tc.getEffects()[3]) || effect.equals(tc.getEffects()[5])
+                || effect.equals(tc.getEffects()[6]) || effect.equals(tc.getEffects()[8])) {
+            player.getCharacter().setHappy();
+            player.setNeutralStateFalse();
+        } else if (effect.equals(tc.getEffects()[2]) || effect.equals(tc.getEffects()[7])) {
+            player.getCharacter().setGiveDamage();
+            player.setNeutralStateFalse();
+            opponent.getCharacter().setTakeDamage();
+            opponent.setNeutralStateFalse();
+        } else if (effect.equals(tc.getEffects()[4])) {
+            player.getCharacter().setTakeDamage();
+            player.setNeutralStateFalse();
+        }
+    }
 }

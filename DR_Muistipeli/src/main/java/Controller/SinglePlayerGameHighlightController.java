@@ -1,7 +1,7 @@
 package Controller;
 
 /**
- * Pitaa vain ylla mitka elementit yksinpeliruudulla ovat korostettuna
+ * Pitaa muistissa mitka elementit yksinpeliruudulla ovat korostettuna
  */
 public class SinglePlayerGameHighlightController {
 
@@ -21,6 +21,9 @@ public class SinglePlayerGameHighlightController {
     private boolean mouseOnSkill1;
     private boolean mouseOnExit;
 
+    /**
+     * Konstruktori, asettaa kaikki arvot epatodeksi
+     */
     public SinglePlayerGameHighlightController() {
         unHighlightAll();
     }
@@ -92,7 +95,8 @@ public class SinglePlayerGameHighlightController {
     }
 
     /**
-     * Palauttaa pystyrivin joka on korostettu
+     * Palauttaa pystyrivin joka on korostettu, jos ei yhtaan korostettuna
+     * palauttaa -1
      *
      * @return Korostetun rivin numero
      */
@@ -115,7 +119,8 @@ public class SinglePlayerGameHighlightController {
     }
 
     /**
-     * Palauttaa vaakarivin joka on korostettu
+     * Palauttaa vaakarivin joka on korostettu, jos ei yhtaan korostettuna
+     * palauttaa -1
      *
      * @return Korostetun rivin numero
      */
@@ -149,46 +154,49 @@ public class SinglePlayerGameHighlightController {
     }
 
     /**
-     * Korostaa lyontinappulan
+     * Korostaa lyonti-nappulan
      */
     public void highlightHit() {
         mouseOnHit = true;
     }
 
     /**
-     * Poistaa lyontinappulan korostuksen
+     * Poistaa lyonti-nappulan korostuksen
      */
     public void unHighlightHit() {
         mouseOnHit = false;
     }
 
+    /**
+     * Korostaa luovutus-nappulan
+     */
     public void highlightExit() {
         mouseOnExit = true;
     }
 
     /**
-     * Poistaa lyontinappulan korostuksen
+     * Poistaa luovutus-nappulan korostuksen
      */
     public void unHighlightExit() {
         mouseOnExit = false;
     }
 
     /**
-     * Korostaa taitonappulan
+     * Korostaa taito-nappulan
      */
     public void highlightSkill() {
         mouseOnSkill1 = true;
     }
 
     /**
-     * Poistaa taitonappulan korostuksen
+     * Poistaa taito-nappulan korostuksen
      */
     public void unHighlightSkill() {
         mouseOnSkill1 = false;
     }
 
     /**
-     * Palauttaa lyontinappulan korostuksen
+     * Palauttaa lyonti-nappulan korostuksen
      *
      * @return True jos on korostettu, false jos ei
      */
@@ -197,7 +205,7 @@ public class SinglePlayerGameHighlightController {
     }
 
     /**
-     * Palauttaa taitonappulan korostuksen
+     * Palauttaa taito-nappulan korostuksen
      *
      * @return True jos on korostettu, false jos ei
      */
@@ -205,6 +213,11 @@ public class SinglePlayerGameHighlightController {
         return mouseOnSkill1;
     }
 
+    /**
+     * Palauttaa luovutus-nappulan korostuksen
+     *
+     * @return True jos on korostettu, false jos ei
+     */
     public boolean getExitH() {
         return mouseOnExit;
     }

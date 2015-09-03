@@ -7,7 +7,10 @@ import Controller.PreparationHighlightController;
 import Player.Computer.Opponent;
 import Player.Human.Player;
 import UserInterface.MouseListener.MouseListenerPreparation;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 /**
  * Luokka pitää yllä pelin valmisteluruutua, eli tietää mikä vaikeustaso ja
@@ -27,7 +30,15 @@ public class GamePreparation {
     private int playerCharacter;
     private int opponentCharacter;
 
-    public GamePreparation(int gameMode, JFrame frame, GameScreen gs) {
+    /**
+     * Konstruktori
+     *
+     * @param gameMode pelimoodi
+     * @param frame pelin frame
+     * @param gs pelin GameScreen olio
+     * @param refreshRate kuinka usein ruutu paivitetaan
+     */
+    public GamePreparation(int gameMode, JFrame frame, GameScreen gs, int refreshRate) {
         this.hController = new PreparationHighlightController();
         this.difficulty = 2;
         this.playerCharacter = 1;
@@ -37,42 +48,90 @@ public class GamePreparation {
         this.gs = gs;
         this.dbp = new DrawingBoardPreparation(this);
         this.mmlp = new MouseListenerPreparation(this);
-        this.frame.addMouseListener(mmlp);
-        this.frame.addMouseMotionListener(mmlp);
+        this.dbp.addMouseListener(mmlp);
+        this.dbp.addMouseMotionListener(mmlp);
         this.frame.add(dbp);
+        Timer t = repainter(dbp, refreshRate);
+        t.setRepeats(true);
+        t.start();
     }
 
+    private final Timer repainter(final DrawingBoardPreparation d, int r) {
+        Timer timer = new Timer(r, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                d.repaint();
+            }
+
+        });
+        return timer;
+    }
+
+    /**
+     * Palauttaa korostusten kontrollerin
+     *
+     * @return Korostuskontrolleri
+     */
     public PreparationHighlightController getHController() {
         return hController;
     }
 
+    /**
+     * Asettaa vaikeusasteen
+     *
+     * @param i vaikeusaste
+     */
     public void setDifficulty(int i) {
         difficulty = i;
     }
 
+    /**
+     * Palauttaa vaikeusasteen
+     *
+     * @return Vaikeusaste
+     */
     public int getDifficulty() {
         return difficulty;
     }
 
+    /**
+     * Asettaa pelaajan hahmon
+     *
+     * @param i Hahmon numero
+     */
     public void setPlayerCharacter(int i) {
         playerCharacter = i;
     }
 
+    /**
+     * Palauttaa pelaajan hahmon
+     *
+     * @return Pelaajan hahmon numeron
+     */
     public int getPlayerCharacter() {
         return playerCharacter;
     }
 
+    /**
+     * Asettaa vastustajan hahmon
+     *
+     * @param i Hahmon numero
+     */
     public void setOpponentCharacter(int i) {
         opponentCharacter = i;
     }
 
+    /**
+     * Palauttaa vastustajan hahmon
+     *
+     * @return Vastustajan hahmon numeron
+     */
     public int getOpponentCharacter() {
         return opponentCharacter;
     }
 
     /**
      * Rakentaa oikean pelin pelimoodin mukaan.
-     *
      */
     public void startGame() {
         if (gameMode == 1) {
@@ -81,7 +140,7 @@ public class GamePreparation {
     }
 
     /**
-     * Tekee pelaajan valitun hahmon ja värin mukaan
+     * Tekee pelaajan valitun hahmon mukaan
      *
      * @param character Pelaajan pelihahmo
      * @return Luotu pelaaja
@@ -100,7 +159,7 @@ public class GamePreparation {
     }
 
     /**
-     * Tekee vastustajan valitun hahmon ja värin mukaan
+     * Tekee vastustajan valitun hahmon ja vaikeusasteen mukaan
      *
      * @param character Vastustajan pelihahmo
      * @param difficulty Vastustajan vaikeusaste
@@ -125,13 +184,6 @@ public class GamePreparation {
      */
     public int getMode() {
         return gameMode;
-    }
-
-    /**
-     * Maalaa peliruudun uudestaan
-     */
-    public void refresh() {
-        this.frame.repaint();
     }
 
     /**

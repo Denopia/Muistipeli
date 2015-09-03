@@ -8,23 +8,26 @@ import java.util.Random;
 import javax.swing.Timer;
 
 /**
- *
- * @author Miika
+ * Vastusatajan vuoron suorittaja
  */
 public class OpponentTurnController {
 
     private Opponent opponent;
 
+    /**
+     * Konstruktori
+     *
+     * @param op Vastus jonka vuorot suoritetaan
+     */
     public OpponentTurnController(Opponent op) {
         opponent = op;
     }
 
     /**
-     * Toiminnot jotka tehdaan ennen laattojen kaantamista, eli laattojen
-     * unohdus
+     * Unohtaa laattoja, ehka
      */
-    public void actionsBeforeTurningTiles() {
-        opponent.cleanSeenTiles();
+    private void forgetSomeKnownTilesMaybe() {
+        opponent.getTileController().cleanKnownTiles(opponent.getGame());
         if (opponent.getDifficulty() == 1) {
             if (opponent.getTileController().doIForget2ez()) {
                 opponent.getTileController().forgetSomeTiles2ez();
@@ -52,7 +55,7 @@ public class OpponentTurnController {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 int slowDown = 0;
-                actionsBeforeTurningTiles();
+                forgetSomeKnownTilesMaybe();
                 if (doIHit()) {
                     opponent.getGame().getAController().hitPlayer();
                     slowDown = +1000;
@@ -72,7 +75,7 @@ public class OpponentTurnController {
      *
      * @return True jos lyo, false jos ei
      */
-    public boolean doIHit() {
+    private boolean doIHit() {
         return true;
     }
 
@@ -81,7 +84,7 @@ public class OpponentTurnController {
      *
      * @return True jos kayttaa, false jos ei
      */
-    public boolean doIUseAbility() {
+    private boolean doIUseAbility() {
         return false;
     }
 
@@ -90,7 +93,7 @@ public class OpponentTurnController {
      *
      * @param slowDown Kuinka paljon timerit odottaa lisää
      */
-    public void turnTwoTiles(int slowDown) {
+    private void turnTwoTiles(int slowDown) {
         Timer timer;
         Timer timerMini;
         Timer timer2;
@@ -105,7 +108,6 @@ public class OpponentTurnController {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     opponent.getGame().getTController().getTiles().get(seenPair.get(0).getPlacement()).turn();
-                    opponent.getGame().refresh();
                 }
             });
             //Kääntää toisen laatan
@@ -113,7 +115,6 @@ public class OpponentTurnController {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     opponent.getGame().getTController().getTiles().get(seenPair.get(1).getPlacement()).turn();
-                    opponent.getGame().refresh();
                     opponent.getGame().pairTiles();
                 }
             });
@@ -122,7 +123,6 @@ public class OpponentTurnController {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     opponent.getGame().getTController().getTiles().get(seenPair.get(0).getPlacement()).highlight();
-                    opponent.getGame().refresh();
                 }
             });
             //Korostaa toisen laatan
@@ -130,7 +130,6 @@ public class OpponentTurnController {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     opponent.getGame().getTController().getTiles().get(seenPair.get(1).getPlacement()).highlight();
-                    opponent.getGame().refresh();
                 }
             });
         } else {
@@ -140,7 +139,7 @@ public class OpponentTurnController {
 
             int random1 = randomNumber(opponent.getTileController().getUnseenTiles(opponent.getGame()).size());
             firstTile = opponent.getTileController().getUnseenTiles(opponent.getGame()).get(random1);
-            opponent.addSeenTile(firstTile);
+            opponent.getTileController().addKnownTile(firstTile);
             boolean luckyPair = false;
             for (Tile nt : opponent.getTileController().getKnownTiles()) {
                 if (nt.getEffect().equals(firstTile.getEffect())
@@ -159,7 +158,6 @@ public class OpponentTurnController {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     firstTile.turn();
-                    opponent.getGame().refresh();
                 }
             });
             //Korostaa ensimmäisen laatan
@@ -167,7 +165,6 @@ public class OpponentTurnController {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     firstTile.highlight();
-                    opponent.getGame().refresh();
                 }
             });
             //Jos löytyi ensimmäiselle laatalle pari
@@ -182,7 +179,6 @@ public class OpponentTurnController {
                                 tt.turn();
                             }
                         }
-                        opponent.getGame().refresh();
                         opponent.getGame().pairTiles();
                     }
                 });
@@ -196,7 +192,6 @@ public class OpponentTurnController {
                                 tt.highlight();
                             }
                         }
-                        opponent.getGame().refresh();
                     }
                 }
                 );
@@ -207,8 +202,7 @@ public class OpponentTurnController {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                         secondTile.turn();
-                        opponent.addSeenTile(secondTile);
-                        opponent.getGame().refresh();
+                        opponent.getTileController().addKnownTile(secondTile);
                         opponent.getGame().pairTiles();
                     }
                 });
@@ -217,7 +211,6 @@ public class OpponentTurnController {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                         secondTile.highlight();
-                        opponent.getGame().refresh();
                     }
                 });
             }

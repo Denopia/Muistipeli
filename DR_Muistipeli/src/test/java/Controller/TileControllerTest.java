@@ -123,7 +123,7 @@ public class TileControllerTest {
         p.setCharacter(new Gus());
         Opponent o = new Opponent();
         o.setCharacter(new Gus());
-        SinglePlayerGame g = new SinglePlayerGame(18, new JFrame(), new GameScreen(new JFrame()), p, o);
+        SinglePlayerGame g = new SinglePlayerGame(18, new JFrame(), new GameScreen(new JFrame(), 1000), p, o, 1000);
         p.getCharacter().setHp(10);
         Assert.assertEquals(10, p.getCharacter().getHp());
         c.doTileEffectForPlayer(g, tile);
@@ -137,7 +137,7 @@ public class TileControllerTest {
         p.setCharacter(new Gus());
         Opponent o = new Opponent();
         o.setCharacter(new Gus());
-        SinglePlayerGame g = new SinglePlayerGame(18, new JFrame(), new GameScreen(new JFrame()), p, o);
+        SinglePlayerGame g = new SinglePlayerGame(18, new JFrame(), new GameScreen(new JFrame(), 1000), p, o, 1000);
         o.getCharacter().setHp(10);
         Assert.assertEquals(10, o.getCharacter().getHp());
         c.doTileEffectForOpponent(g, tile);

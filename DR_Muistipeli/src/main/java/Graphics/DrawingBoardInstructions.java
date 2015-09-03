@@ -1,17 +1,24 @@
 package Graphics;
 
 import Game.Instructions;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+/**
+ * Piirtoalusta ohjeruudulle
+ */
 public class DrawingBoardInstructions extends JPanel {
 
     private Instructions ins;
 
+    /**
+     * Konstruktori
+     *
+     * @param ins Instructions olio
+     */
     public DrawingBoardInstructions(Instructions ins) {
         setOpaque(false);
         this.ins = ins;
@@ -31,13 +38,13 @@ public class DrawingBoardInstructions extends JPanel {
 
     private void paintButtons(Graphics2D g2d) {
         if (ins.getHController().getMenuH()) {
-            g2d.drawImage(makeImage("menu_arrow_highlight.png"), 26, 25, null);
+            g2d.drawImage(makeImage("menu_arrow_highlight.png"), 26, 25 - 7, null);
         } else {
-            g2d.drawImage(makeImage("menu_arrow.png"), 26, 25, null);
+            g2d.drawImage(makeImage("menu_arrow.png"), 26, 25 - 7, null);
         }
     }
 
-    public Image makeImage(String path) {
+    private Image makeImage(String path) {
         ImageIcon icon = null;
         java.net.URL imgURL = getClass().getClassLoader().getResource(path);
         if (imgURL != null) {

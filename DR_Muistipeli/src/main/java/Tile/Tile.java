@@ -1,11 +1,7 @@
 package Tile;
 
-import java.awt.Image;
-
 /**
- * Sisaltaa yhden laatan kaikki tiedot ja voi palauttaa sen arvoja tai muutella
- * niita
- *
+ * Sisaltaa yhden laatan kaikki tiedot
  */
 public class Tile {
 
@@ -21,6 +17,14 @@ public class Tile {
     private String turnedPath;
     private String currentImg;
 
+    /**
+     * Konstruktori
+     *
+     * @param effect laatan efekti
+     * @param blankPath piilotetun laatan kuvan polku
+     * @param highlightPath korostusreunan polku
+     * @param turnedPath kaannetyn laatan kuvan polku
+     */
     public Tile(String effect, String blankPath, String highlightPath, String turnedPath) {
         this.effect = effect;
         this.blankPath = blankPath;
@@ -32,12 +36,33 @@ public class Tile {
         this.currentImg = blankPath;
     }
 
+    /**
+     * Antaa x-koordinaatin
+     *
+     * @return koordinaatti
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Antaa y-koordinaatin
+     *
+     * @return koordinaatti
+     */
     public int getY() {
         return y;
+    }
+
+    /**
+     * Asettaa x- ja y- koordinaatit
+     *
+     * @param x koordinaatti
+     * @param y koordinaatti
+     */
+    public void setCoordinates(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public boolean getTurned() {
@@ -60,17 +85,18 @@ public class Tile {
         placement = i;
     }
 
-    public void setCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
+    /**
+     * Laittaa laatan parilliseksi
+     */
     public void pair() {
         turned = false;
         paired = true;
         currentImg = turnedPath;
     }
 
+    /**
+     * Kaantaa laatan jos ei ole jo kaannetty tai parillinen
+     */
     public void turn() {
         if (paired || turned) {
             return;
@@ -80,6 +106,9 @@ public class Tile {
         currentImg = turnedPath;
     }
 
+    /**
+     * Piilottaa laatan jos se ei ole parillinen
+     */
     public void unTurn() {
         if (paired) {
             return;
@@ -89,6 +118,9 @@ public class Tile {
         currentImg = blankPath;
     }
 
+    /**
+     * Korostaa laatan jos se ei ole parillinen tai jo kaannetty
+     */
     public void highlight() {
         if (turned || paired) {
             return;
@@ -96,6 +128,9 @@ public class Tile {
         highlight = true;
     }
 
+    /**
+     * Poistaa korostuksen laatasta jos se ei ole parillinen tai jo kaannetty
+     */
     public void unHighlight() {
         if (turned || paired) {
             return;
@@ -111,7 +146,7 @@ public class Tile {
         return paired;
     }
 
-    public String getHighlightImage() {
+    public String getHighlightBorder() {
         return highlightPath;
     }
 }

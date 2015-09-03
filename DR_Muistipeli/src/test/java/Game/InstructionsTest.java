@@ -2,6 +2,6 @@ package Game;
 
 public class InstructionsTest {
     
-    //Ei ole olemassa viela, testataan myohemmin
+    //Käskee vain gameScreenia rakentamaan paavalikon, hankala testata
     
 }

@@ -22,13 +22,14 @@ public class SinglePlayerGameAttackControllerTest {
         p.setCharacter(new Gus());
         o = new Opponent();
         o.setCharacter(new Gus());
-        c = new SinglePlayerGameAttackController(new SinglePlayerGame(18, new JFrame(), new GameScreen(new JFrame()), p, o));
+        c = new SinglePlayerGameAttackController(new SinglePlayerGame(18, new JFrame(), new GameScreen(new JFrame(), 1000), p, o, 1000));
     }
 
     @Test
     public void canHitOpponent() {
         Assert.assertEquals(15, p.getCharacter().getEnergy());
         Assert.assertEquals(30, o.getCharacter().getHp());
+        p.addHit();
         c.hitOpponent();
         Assert.assertEquals(14, p.getCharacter().getEnergy());
         Assert.assertEquals(29, o.getCharacter().getHp());
@@ -38,6 +39,7 @@ public class SinglePlayerGameAttackControllerTest {
     public void canHitPlayer() {
         Assert.assertEquals(15, o.getCharacter().getEnergy());
         Assert.assertEquals(30, p.getCharacter().getHp());
+        o.addHit();
         c.hitPlayer();
         Assert.assertEquals(14, o.getCharacter().getEnergy());
         Assert.assertEquals(29, p.getCharacter().getHp());

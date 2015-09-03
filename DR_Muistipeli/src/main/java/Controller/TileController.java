@@ -18,22 +18,37 @@ public class TileController {
         "watch2x1damage.png", "watch2x1health.png", "watch2xskull.png", "watch2x2turn.png",
         "watch2x2energy.png", "watch2x2damage.png", "watch2x2health.png"};
 
+    /**
+     * Konstruktori, luo laatat
+     *
+     * @param pairs Kuinka monta paria luodaan
+     */
     public TileController(int pairs) {
         this.pairs = pairs;
         this.tiles = new ArrayList<>();
         newTiles();
     }
 
+    /**
+     * Palauttaa laattojen efektit listana
+     *
+     * @return Efektit
+     */
     public String[] getEffects() {
         return tileEffects;
     }
 
+    /**
+     * Palauttaa listan kaikista laatoista
+     *
+     * @return Laatat
+     */
     public ArrayList<Tile> getTiles() {
         return tiles;
     }
 
     /**
-     * Sekoittaa laatat
+     * Sekoittaa laatat, ja lopuksi asettaa niille uudet koordinaatit
      */
     public void shuffleTiles() {
         Collections.shuffle(tiles);
@@ -78,18 +93,27 @@ public class TileController {
         return tilesTurned;
     }
 
+    /**
+     * Asettaa kaikki laatat korostamattomiksi
+     */
     public void unHighlightAll() {
         for (Tile tile : tiles) {
             tile.unHighlight();
         }
     }
 
+    /**
+     * Piilottaa kaikki laatat
+     */
     public void unTurnTiles() {
         for (Tile tile : tiles) {
             tile.unTurn();
         }
     }
 
+    /**
+     * Piilottaa kaikki laatat joilla ei ole paria
+     */
     public void unTurnUnpairedTiles() {
         for (Tile tile : tiles) {
             if (!tile.getPaired()) {
@@ -98,6 +122,11 @@ public class TileController {
         }
     }
 
+    /**
+     * Palauttaa lukumaaran laatoista joille on loytynyt pari
+     *
+     * @return Parilaatat
+     */
     public int getTilesPaired() {
         int pt = 0;
         for (Tile tile : tiles) {
@@ -160,7 +189,7 @@ public class TileController {
      * Tarkastaa kaikki käännetyt laatat ja jos löytyy pareja muodostaa niistä
      * parin ja lisää sen pelaajalle
      *
-     * @param game
+     * @param game Peli jota kasitellaan
      * @return Jos löytyy pari palautetaan true, jos ei löydy palautetaan false
      */
     public boolean checkPairsForPlayer(SinglePlayerGame game) {
@@ -174,10 +203,9 @@ public class TileController {
                         && !tile2.getPaired()) {
                     tile1.pair();
                     tile2.pair();
-                    game.getPlayer().addScoredPair(tile1);
                     gotPair = true;
                     doTileEffectForPlayer(game, tile1);
-                    game.setFaces(tile1.getEffect());
+                    game.setCharacterPictures(tile1.getEffect());
                 }
             }
         }
@@ -188,7 +216,7 @@ public class TileController {
      * Tarkastaa kaikki käännetyt laatat ja jos löytyy pareja muodostaa niistä
      * parin ja lisää sen pelaajalle
      *
-     * @param game
+     * @param game Peli jota kasitellaan
      * @return Jos löytyy pari palautetaan true, jos ei löydy palautetaan false
      */
     public boolean checkPairsForOpponent(SinglePlayerGame game) {
@@ -202,10 +230,9 @@ public class TileController {
                         && !tile2.getPaired()) {
                     tile1.pair();
                     tile2.pair();
-                    game.getOpponent().addScoredPair(tile1);
                     gotPair = true;
                     doTileEffectForOpponent(game, tile1);
-                    game.setFaces(tile1.getEffect());
+                    game.setCharacterPictures(tile1.getEffect());
                 }
             }
         }
@@ -223,10 +250,16 @@ public class TileController {
         }
     }
 
-    //"turn+1", "energy+1", "hit+1", "health+1", "skull", "turn+2", "energy+2", "hit+2", "health+2"
+    /**
+     * Tekee tietyn laatan efektin
+     *
+     * @param game Peli jota kasitellaan
+     * @param tile Laatta jonka efekti halutaan suorittaa
+     */
     public void doTileEffectForPlayer(SinglePlayerGame game, Tile tile) {
         if (tile.getEffect().equals(tileEffects[0])) {
-            game.getPlayer().addTurn();
+            game.getPlayer().addHit();
+            game.getPlayer().addMove();
         } else if (tile.getEffect().equals(tileEffects[1])) {
             game.getPlayer().getCharacter().setEnergy(game.getPlayer().getCharacter().getEnergy() + 1);
         } else if (tile.getEffect().equals(tileEffects[2])) {
@@ -236,8 +269,10 @@ public class TileController {
         } else if (tile.getEffect().equals(tileEffects[4])) {
             game.getPlayer().getCharacter().setHp(game.getPlayer().getCharacter().getHp() - 3);
         } else if (tile.getEffect().equals(tileEffects[5])) {
-            game.getPlayer().addTurn();
-            game.getPlayer().addTurn();
+            game.getPlayer().addMove();
+            game.getPlayer().addMove();
+            game.getPlayer().addHit();
+            game.getPlayer().addHit();
         } else if (tile.getEffect().equals(tileEffects[6])) {
             game.getPlayer().getCharacter().setEnergy(game.getPlayer().getCharacter().getEnergy() + 2);
         } else if (tile.getEffect().equals(tileEffects[7])) {
@@ -247,9 +282,16 @@ public class TileController {
         }
     }
 
+    /**
+     * Tekee tietyn laatan efektin
+     *
+     * @param game Peli jota kasitellaan
+     * @param tile Laatta jonka efekti halutaan suorittaa
+     */
     public void doTileEffectForOpponent(SinglePlayerGame game, Tile tile) {
         if (tile.getEffect().equals(tileEffects[0])) {
-            game.getOpponent().addTurn();
+            game.getOpponent().addMove();
+            game.getOpponent().addHit();
         } else if (tile.getEffect().equals(tileEffects[1])) {
             game.getOpponent().getCharacter().setEnergy(game.getOpponent().getCharacter().getEnergy() + 1);
         } else if (tile.getEffect().equals(tileEffects[2])) {
@@ -259,8 +301,10 @@ public class TileController {
         } else if (tile.getEffect().equals(tileEffects[4])) {
             game.getOpponent().getCharacter().setHp(game.getOpponent().getCharacter().getHp() - 3);
         } else if (tile.getEffect().equals(tileEffects[5])) {
-            game.getOpponent().addTurn();
-            game.getOpponent().addTurn();
+            game.getOpponent().addMove();
+            game.getOpponent().addMove();
+            game.getOpponent().addHit();
+            game.getOpponent().addHit();
         } else if (tile.getEffect().equals(tileEffects[6])) {
             game.getOpponent().getCharacter().setEnergy(game.getOpponent().getCharacter().getEnergy() + 2);
         } else if (tile.getEffect().equals(tileEffects[7])) {
@@ -270,6 +314,12 @@ public class TileController {
         }
     }
 
+    /**
+     * Tarkastaa onko edes yksi laattaa kaannetty, muttei laske mukaan
+     * parillisia laattoja
+     *
+     * @return Onko laattaa kaannettyna
+     */
     public boolean tileIsTurned() {
         for (Tile tile : tiles) {
             if (tile.getTurned()) {

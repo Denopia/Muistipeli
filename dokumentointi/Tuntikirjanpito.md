@@ -21,3 +21,8 @@
 27.8.2015|5h|Testejä, dokumentointia, javadocia
 28.8.2015|2h|Pientä korjailua ja grafiikkoja
 29.8.2015|6h|Laatoille annettiin toimivuuta
+30.8.2015|4h|Ohjeluokka valmiiksi
+31.8.2015|5h|Korjailtiin luokkia ja niiden tehtäviä
+1.9.2015|3h|Kuvien viimeistelyä ja muuta pientä koodin paratelua
+2.9.2015|6h|Testejä ja javadocia
+3.9.2015|8h|Loput deadline 6 hommat

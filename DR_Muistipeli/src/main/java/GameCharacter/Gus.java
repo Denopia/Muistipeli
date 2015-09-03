@@ -2,12 +2,10 @@ package GameCharacter;
 
 import Game.GameModes.SinglePlayerGame;
 import Tile.Tile;
-import java.awt.Image;
 import java.util.ArrayList;
 
 /**
  * Pelihahmo. Pitää sisällään juuri tämän hahmon tiedot.
- *
  */
 public class Gus implements GameCharacter {
 
@@ -21,11 +19,15 @@ public class Gus implements GameCharacter {
     private String giveDamage;
     private String takeDamage;
 
+    /**
+     * Konstruktori
+     */
     public Gus() {
         setDefault();
     }
 
-    private void setDefault() {
+    @Override
+    public void setDefault() {
         setHp(30);
         setEnergy(15);
     }
@@ -105,8 +107,8 @@ public class Gus implements GameCharacter {
 
     @Override
     public boolean useSkill(SinglePlayerGame game) {
-        if (energy >= 5 && game.getHController().getHorRow() != -1) {
-            energy -= 5;
+        if (energy >= 4 && game.getHController().getHorRow() != -1) {
+            energy -= 4;
             ArrayList<Tile> tilesToBeTurned = new ArrayList<>();
             int r = (game.getHController().getHorRow() - 1) * 6;
             for (int i = 0; i < 6; i++) {

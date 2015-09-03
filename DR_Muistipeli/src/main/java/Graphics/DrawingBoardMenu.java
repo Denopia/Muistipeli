@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 /**
  * Piirtää valikkoruudun
- *
  */
 public class DrawingBoardMenu extends JPanel {
 
@@ -20,6 +19,11 @@ public class DrawingBoardMenu extends JPanel {
         "mainmenu/instructions_button_highlight.png", "mainmenu/instructions_button.png",
         "mainmenu/exit_button_highlight.png", "mainmenu/exit_button.png"};
 
+    /**
+     * Konstruktori
+     *
+     * @param menu MainMenu olio jolta haetaan tietoja
+     */
     public DrawingBoardMenu(MainMenu menu) {
         this.menu = menu;
         setOpaque(false);
@@ -32,12 +36,12 @@ public class DrawingBoardMenu extends JPanel {
         paintBackground(g2d);
         paintButtons(g2d);
     }
-    
-    public void paintBackground(Graphics g2d){
+
+    private void paintBackground(Graphics g2d) {
         g2d.drawImage(makeImage(pictures[0]), 0, 0, null);
     }
 
-    public void paintButtons(Graphics g2d) {
+    private void paintButtons(Graphics g2d) {
         if (menu.getHController().getSPG()) {
             g2d.drawImage(makeImage(pictures[1]), 406, 234, null);
         } else {
@@ -55,7 +59,7 @@ public class DrawingBoardMenu extends JPanel {
         }
     }
 
-    public Image makeImage(String path) {
+    private Image makeImage(String path) {
         ImageIcon icon = null;
         java.net.URL imgURL = getClass().getClassLoader().getResource(path);
         if (imgURL != null) {

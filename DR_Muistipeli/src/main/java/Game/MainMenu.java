@@ -3,13 +3,13 @@ package Game;
 import Graphics.DrawingBoardMenu;
 import Controller.MainMenuHighlightController;
 import UserInterface.MouseListener.MouseListenerMainMenu;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 /**
- * Pelin päävalikko. Tietää missä hiiri sijaitsee ja käynnistää pelin
- * valmistelun kun haluttua pelimoodia klikataan. Antaa myös mahdollisuuden
- * katsoa ohjeet. Rakentaa näkymät GameScreenin kautta.
- *
+ * Pelin paavalikko. Kaskee GameScreenia luomaan eri nakymia
  */
 public class MainMenu {
 
@@ -18,21 +18,49 @@ public class MainMenu {
     private GameScreen gameScreen;
     private MouseListenerMainMenu mouseListener;
     private MainMenuHighlightController hController;
+    private final int refreshRate;
 
-    public MainMenu(JFrame frame, GameScreen gs) {
+    /**
+     * Konstruktori
+     *
+     * @param frame frame johon valikko laitetaan
+     * @param gs GameScreen olio
+     * @param refreshRate kuinka kauan yksi kuva nakyy ruudulla ennen kuin
+     * piirretaan uusi
+     */
+    public MainMenu(JFrame frame, GameScreen gs, int refreshRate) {
         this.frame = frame;
         this.dbm = new DrawingBoardMenu(this);
         this.gameScreen = gs;
         this.mouseListener = new MouseListenerMainMenu(this);
         this.hController = new MainMenuHighlightController();
-
-        this.frame.addMouseListener(this.mouseListener);
-        this.frame.addMouseMotionListener(this.mouseListener);
+        this.refreshRate = refreshRate;
+        this.dbm.addMouseListener(mouseListener);
+        this.dbm.addMouseMotionListener(mouseListener);
         this.frame.add(dbm);
+        Timer t = repainter(dbm, refreshRate);
+        t.setRepeats(true);
+        t.start();
     }
-    
-    public MainMenuHighlightController getHController(){
+
+    /**
+     * Palauttaa korostus-kontrollerin
+     *
+     * @return kontroller
+     */
+    public MainMenuHighlightController getHController() {
         return hController;
+    }
+
+    private final Timer repainter(final DrawingBoardMenu d, int refreshRate) {
+        Timer timer = new Timer(refreshRate, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                d.repaint();
+            }
+
+        });
+        return timer;
     }
 
     /**
@@ -56,13 +84,6 @@ public class MainMenu {
      */
     public void closeGame() {
         gameScreen.closeScreen();
-    }
-
-    /**
-     * Kaskee piirtoalustaa paivittamaan itsensa
-     */
-    public void refresh() {
-        dbm.repaint();
     }
 
 }

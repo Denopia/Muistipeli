@@ -15,6 +15,11 @@ public class DrawingBoardPreparation extends JPanel {
 
     private GamePreparation preparation;
 
+    /**
+     * Konstruktori
+     *
+     * @param gp GamePreparation olio mista haetaan tietoja
+     */
     public DrawingBoardPreparation(GamePreparation gp) {
         setOpaque(false);
         this.preparation = gp;
@@ -34,11 +39,11 @@ public class DrawingBoardPreparation extends JPanel {
         paintStartButton(g2d);
     }
 
-    public void paintBackground(Graphics2D g2d) {
+    private void paintBackground(Graphics2D g2d) {
         g2d.drawImage(makeImage("game_prep_screen.png"), 0, 0, null);
     }
 
-    public void paintDifficulty(Graphics2D g2d) {
+    private void paintDifficulty(Graphics2D g2d) {
         g2d.drawImage(makeImage("difficulty_block.png"), 262, 605, null);
         if (preparation.getDifficulty() == 1) {
             g2d.drawImage(makeImage("difficulty_0_selected.png"), 262, 642, null);
@@ -70,7 +75,7 @@ public class DrawingBoardPreparation extends JPanel {
         }
     }
 
-    public void paintMenuButton(Graphics2D g2d) {
+    private void paintMenuButton(Graphics2D g2d) {
         if (preparation.getHController().getMenu() == true) {
             g2d.drawImage(makeImage("menu_arrow_highlight.png"), 35, 618, null);
         } else {
@@ -78,7 +83,7 @@ public class DrawingBoardPreparation extends JPanel {
         }
     }
 
-    public void paintStartButton(Graphics2D g2d) {
+    private void paintStartButton(Graphics2D g2d) {
         if (preparation.getHController().getStart() == true) {
             g2d.drawImage(makeImage("start_arrow_highlight.png"), 795, 618, null);
         } else {
@@ -86,12 +91,12 @@ public class DrawingBoardPreparation extends JPanel {
         }
     }
 
-    public void paintCharacterFrames(Graphics2D g2d) {
+    private void paintCharacterFrames(Graphics2D g2d) {
         g2d.drawImage(makeImage("character_frame.png"), 639, 156, null);
         g2d.drawImage(makeImage("character_frame.png"), 155, 156, null);
     }
 
-    public void paintPlayer(Graphics2D g2d) {
+    private void paintPlayer(Graphics2D g2d) {
         if (preparation.getPlayerCharacter() == 1) {
             g2d.drawImage(makeImage("character/gus/gus_neutral.png"), 161, 162, null);
         } else if (preparation.getPlayerCharacter() == 2) {
@@ -99,7 +104,7 @@ public class DrawingBoardPreparation extends JPanel {
         }
     }
 
-    public void paintOpponent(Graphics2D g2d) {
+    private void paintOpponent(Graphics2D g2d) {
         if (preparation.getOpponentCharacter() == 1) {
             g2d.drawImage(makeImage("character/gus/gus_neutral.png"), 645 + 200, 162, -200, 300, null);
         } else if (preparation.getOpponentCharacter() == 2) {
@@ -107,7 +112,7 @@ public class DrawingBoardPreparation extends JPanel {
         }
     }
 
-    public void paintArrows(Graphics2D g2d) {
+    private void paintArrows(Graphics2D g2d) {
         if (preparation.getHController().getA1() == true) {
             g2d.drawImage(makeImage("arrow_highlight.png"), 119 + 26, 287, -26, 50, null);
         } else {
@@ -130,7 +135,7 @@ public class DrawingBoardPreparation extends JPanel {
         }
     }
 
-    public Image makeImage(String path) {
+    private Image makeImage(String path) {
         ImageIcon icon = null;
         java.net.URL imgURL = getClass().getClassLoader().getResource(path);
         if (imgURL != null) {

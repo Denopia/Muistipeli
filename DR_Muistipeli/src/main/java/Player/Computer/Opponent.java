@@ -2,140 +2,147 @@ package Player.Computer;
 
 import Game.GameModes.SinglePlayerGame;
 import GameCharacter.GameCharacter;
-import Tile.Tile;
-import java.awt.Image;
 
 /**
- * Yksinpelin vastustaja. PitÃ¤Ã¤ sisÃ¤llÃ¤Ã¤n tietokonevastuksen tiedot ja
- * suorittaa vastuksen vuoron.
- *
- * Vastustajalle olisi hyvä lisätä oma luokka laattojen käsittelyyn
+ * Yksinpelin vastustaja. Hallinoi vastustajan vuoroja ja tuntemia laattoja
+ * erillisten olioiden kautta.
  */
 public class Opponent {
 
     private SinglePlayerGame game;
     private OpponentTileController tiles;
     private OpponentTurnController turn;
+    private boolean neutralState;
     private GameCharacter gc;
     private int difficulty;
-    private boolean hitThisTurn;
-    private int turnsLeft;
+    private int movesLeft;
+    private int hitsLeft;
 
+    /**
+     * Konstruktori
+     */
     public Opponent() {
-        turnsLeft = 0;
+        setNeutralStateTrue();
+        movesLeft = 0;
+        hitsLeft = 0;
         tiles = new OpponentTileController();
         turn = new OpponentTurnController(this);
-        hitThisTurn = false;
-    }
-    
-    public void addTurn(){
-        turnsLeft++;
-    }
-    
-    public void removeTurn(){
-        turnsLeft--;
-    }
-    
-    public int getTurns(){
-        return turnsLeft;
     }
 
+    /**
+     * Lisaa vuoron
+     */
+    public void addMove() {
+        movesLeft++;
+    }
+
+    /**
+     * Poistaa vuoron
+     */
+    public void removeMove() {
+        movesLeft--;
+    }
+
+    /**
+     * Palauttaa vuorot
+     *
+     * @return vuorot
+     */
+    public int getMoves() {
+        return movesLeft;
+    }
+
+    /**
+     * Poistaa lyonnin
+     */
+    public void removeHit() {
+        hitsLeft--;
+    }
+
+    /**
+     * Lisaa lyonnin
+     */
+    public void addHit() {
+        hitsLeft++;
+    }
+
+    /**
+     * Asettaa lyonnit yhteen
+     */
+    public void setHitsToOne() {
+        hitsLeft = 1;
+    }
+
+    /**
+     * Palauttaa lyonnit
+     *
+     * @return lyonnit
+     */
+    public int getHitsLeft() {
+        return hitsLeft;
+    }
+
+    /**
+     * Palauttaa vastustajan laattakontrollerin
+     *
+     * @return kontrolleri
+     */
     public OpponentTileController getTileController() {
         return tiles;
     }
 
+    /**
+     * Asettaa vastustajalle pelin
+     *
+     * @param game peli
+     */
     public void setGame(SinglePlayerGame game) {
         this.game = game;
     }
 
+    /**
+     * Palauttaa pelin jossa vastustaja on osana
+     *
+     * @return peli
+     */
     public SinglePlayerGame getGame() {
         return game;
     }
 
+    /**
+     * Asettaa vaikeustason
+     *
+     * @param i vaikeustaso
+     */
     public void setDifficulty(int i) {
         difficulty = i;
     }
 
+    /**
+     * Palauttaa vaikeustason
+     *
+     * @return vaikeustaso
+     */
     public int getDifficulty() {
         return difficulty;
     }
 
+    /**
+     * Asettaa vastustajalle hahmon
+     *
+     * @param gc hahmo
+     */
     public void setCharacter(GameCharacter gc) {
         this.gc = gc;
     }
 
+    /**
+     * Palauttaa vastustajan hahmon
+     *
+     * @return hahmo
+     */
     public GameCharacter getCharacter() {
         return gc;
-    }
-
-    public void setHitThisTurnTrue() {
-        hitThisTurn = true;
-    }
-
-    public void setHitThisTurnFalse() {
-        hitThisTurn = false;
-    }
-
-    public boolean getHitThisTurn() {
-        return hitThisTurn;
-    }
-
-    /**
-     * Lisaa laatan vastustajan muodostamiin pareihin
-     *
-     * @param tile Laattaa joka kuuluu pariin
-     */
-    public void addScoredPair(Tile tile) {
-        tiles.getScoredTiles().add(tile);
-    }
-
-    /**
-     * Lisaa laatan vastustajan nakemiin laattoihin
-     *
-     * @param tile Laattaa joka on nahty
-     */
-    public void addSeenTile(Tile tile) {
-        tiles.addKnownTile(tile);
-    }
-
-    /**
-     * Poistaa laatan vastustajan nakemista laatoista
-     *
-     * @param tile Laattaa joka poistetaan
-     */
-    public void removeSeenTile(Tile tile) {
-        tiles.getKnownTiles().remove(tile);
-    }
-
-    public String getPortrait() {
-        return gc.getCurrentImage();
-    }
-
-    public void setHappy() {
-        gc.setHappy();
-    }
-
-    public void setUnhappy() {
-        gc.setUnhappy();
-    }
-
-    public void setNeutral() {
-        gc.setNeutral();
-    }
-
-    public void setTakeDamage() {
-        gc.setTakeDamage();
-    }
-
-    public void setGiveDamage() {
-        gc.setGiveDamage();
-    }
-
-    /**
-     * Siistii nahtyjen laattojen listan
-     */
-    public void cleanSeenTiles() {
-        tiles.cleanKnownTiles(game);
     }
 
     /**
@@ -145,4 +152,33 @@ public class Opponent {
         turn.spendTurn();
     }
 
+    /**
+     * Aasettaa vuorot yhteen
+     */
+    public void setMovesToOne() {
+        movesLeft = 1;
+    }
+
+    /**
+     * Asettaa vastustajan neutraliin tilaan
+     */
+    public final void setNeutralStateTrue() {
+        neutralState = true;
+    }
+
+    /**
+     * Poistaa vastustajan neutraalista tilasta
+     */
+    public void setNeutralStateFalse() {
+        neutralState = false;
+    }
+
+    /**
+     * Palauttaa neutraalin tilan totuusarvon
+     *
+     * @return true jos on neutraali, false jos ei
+     */
+    public boolean getNeutralState() {
+        return neutralState;
+    }
 }
