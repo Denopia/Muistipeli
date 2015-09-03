@@ -1,2 +1,2 @@
 ﻿####Ohjeet:
-Peliä ohjataan hiirellä. Pelin ohjeet voi lukea käynnistämällä pelin ja napsauttamalla ohjeet-nappia. Peli kuutelee vain hiiren left-clickejä. Tosin, jos itse yksinpelissä on taito valittuna, sen voi ottaa pois valitusta tilasta right-clickillä missä tahansa kohtaa ruutua.
+Peliä ohjataan hiirellä. Pelin ohjeet voi lukea käynnistämällä pelin ja napsauttamalla ohjeet-nappia. Peli kuutelee vain hiiren left-clickejä. Tosin, jos itse yksinpelissä on taito valittuna, sen voi ottaa pois valitusta tilasta right-clickillä missä tahansa kohtaa ruutua. Lisäksi on niin että jos pelissä käännät yhden laatan et voi enää lyödä tai käyttää taitoa ennen kuin käännät toisen laatan.
